@@ -1,5 +1,17 @@
+#Java class files
 *.class
+
+#Vim swap files
+*.swp
+
+#OS Specific Files
 .DS_Store*
 ehthumbs.db
 Icon?
 Thumbs.db
+
+
+#Eclipse stuff
+.classpath
+.project
+/bin

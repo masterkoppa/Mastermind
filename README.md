@@ -13,16 +13,20 @@ Getting Familiar with the Repository
 
 The repository has the following structure:
 
-/             
-/README.md    
-/.gitignore   
-/src/         
+./             
+./README.md    
+./.gitignore   
+./src/         
 
 This src folder is where everything will be shared, please try not to add any other
 folders or files unless strictly necessary. 
 
 Downloading the Repository
 ---------------------------
+
+Go to the folder were you want to setup your project. And follow the following instructions.
+
+### Command line way
 
 If you are using a command line git interface you need to run the following command:  
 
@@ -31,7 +35,21 @@ If you are using a command line git interface you need to run the following comm
 Please double check that the address `git@github.com:masterkoppa/Mastermind.git` is the 
 same that appears in in your view of the repository above.
 
+### GUI Tool
 
+If you are using a GUI Tool, use [TortoiseGIT](http://code.google.com/p/tortoisegit/) and clone the repository using
+the address in this page.
+
+Creating the project
+--------------------
+
+Open eclipse up and go to File->New->Java Project. On the wizard for a new Java Project look for
+location. Unmark "Use defaul location" and select the location where the repository was downloaded.
+Then press finish.
+
+Now you should have the latest copy of the project on that computer. Your eclipse 
+specific settings will already be ignored so feel free to modify them as long as you
+don't break anything for anyone else.
 
 Add the log4j library
 ----------------------
