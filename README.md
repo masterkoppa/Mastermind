@@ -6,8 +6,7 @@ The lastest version of the UML Design is located [here](http://www.lucidchart.co
 Setup Instructions:
 -------------------
 
-Getting Familiar with the Repository:
-------------------------------------
+### Getting Familiar with the Repository:
 
 The repository has the following structure:
 
@@ -19,8 +18,7 @@ The repository has the following structure:
 This src folder is where everything will be shared, please try not to add any other
 folders or files unless strictly necessary. 
 
-Downloading the Repository:
----------------------------
+### Downloading the Repository:
 If you are using a command line git interface you need to run the following command:
     git clone git@github.com:masterkoppa/Mastermind.git
 
@@ -29,8 +27,7 @@ same that appears in in your view of the repository above.
 
 
 
-Add the log4j library:
----------------------
+### Add the log4j library:
 
 For logging we will be using the [log4j](http://logging.apache.org/log4j/1.2/) library.
 
