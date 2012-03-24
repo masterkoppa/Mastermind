@@ -24,7 +24,7 @@ folders or files unless strictly necessary.
 Downloading the Repository:
 ---------------------------
 
-If you are using a command line git interface you need to run the following command:
+If you are using a command line git interface you need to run the following command:  
     git clone git@github.com:masterkoppa/Mastermind.git
 
 Please double check that the address git@github.com:masterkoppa/Mastermind.git is the 
