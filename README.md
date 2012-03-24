@@ -6,17 +6,10 @@ The lastest version of the UML Design is located [here](http://www.lucidchart.co
 Setup Instructions:
 -------------------
 
-Create Project:
----------------
+Getting Familiar with the Repository:
+------------------------------------
 
-To set up your enviorment for this project you must first create an empty 
-project and place the contents wherever you wish. Exit eclipse and go to 
-the folder where you created you project. 
-
-
-Then you must install a git client and clone the repository 
-into the root folder. The repository has the following
-structure:
+The repository has the following structure:
 
 /           --root
 /README.md  --this file
@@ -24,8 +17,17 @@ structure:
 /src/       --the src dir
 
 This src folder is where everything will be shared, please try not to add any other
-folders or files unless strictly necessary. Git will not complain about other folders
-there, they will just not be tracked.
+folders or files unless strictly necessary. 
+
+Downloading the Repository:
+---------------------------
+If you are using a command line git interface you need to run the following command:
+    git clone git@github.com:masterkoppa/Mastermind.git
+
+Please double check that the address git@github.com:masterkoppa/Mastermind.git is the 
+same that appears in in your view of the repository above.
+
+
 
 Add the log4j library:
 ---------------------
