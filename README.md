@@ -13,10 +13,10 @@ Getting Familiar with the Repository:
 
 The repository has the following structure:
 
-/           --root  
-/README.md  --this file  
-/.gitignore --git file to ignore binary files  
-/src/       --the src dir  
+/             
+/README.md    
+/.gitignore   
+/src/         
 
 This src folder is where everything will be shared, please try not to add any other
 folders or files unless strictly necessary. 
@@ -28,7 +28,7 @@ If you are using a command line git interface you need to run the following comm
 
      git clone git@github.com:masterkoppa/Mastermind.git
 
-Please double check that the address git@github.com:masterkoppa/Mastermind.git is the 
+Please double check that the address `git@github.com:masterkoppa/Mastermind.git` is the 
 same that appears in in your view of the repository above.
 
 
