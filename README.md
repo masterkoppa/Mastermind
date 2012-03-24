@@ -13,10 +13,10 @@ Getting Familiar with the Repository:
 
 The repository has the following structure:
 
-/           --root
-/README.md  --this file
-/.gitignore --git file to ignore binary files
-/src/       --the src dir
+/           --root  
+/README.md  --this file  
+/.gitignore --git file to ignore binary files  
+/src/       --the src dir  
 
 This src folder is where everything will be shared, please try not to add any other
 folders or files unless strictly necessary. 
