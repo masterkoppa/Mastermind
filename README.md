@@ -71,4 +71,5 @@ Resources
 * [UML Collaboration](https://www.lucidchart.com)
 * [Design Documents](https://docs.google.com/)
 * [Design Specifications (SE Dept) ](http://www.se.rit.edu/~se362/UnitActivities/Unit2.htm)
+* [Git, the simple guide. No deep shit!](http://rogerdudler.github.com/git-guide/)
 
