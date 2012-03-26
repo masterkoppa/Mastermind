@@ -73,3 +73,4 @@ Resources
 * [Design Specifications (SE Dept) ](http://www.se.rit.edu/~se362/UnitActivities/Unit2.htm)
 * [Git, the simple guide. No deep shit!](http://rogerdudler.github.com/git-guide/)
 
+Modified by Matt
