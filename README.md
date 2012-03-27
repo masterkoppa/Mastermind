@@ -21,6 +21,16 @@ The repository has the following structure:
 This src folder is where everything will be shared, please try not to add any other
 folders or files unless strictly necessary. 
 
+Project Packages
+-----------------
+
+The project will be divided into the following packages to allow for better handling:
+
+mastermind.gui - For any view and GUI related code
+mastermind.core - All the data models and any core functionality
+mastermind.test - All JUnit Tests should be used here (JUnit4)
+mastermind.helper - Any helper classes that don't belong anywhere else.
+
 Downloading the Repository
 ---------------------------
 
@@ -73,4 +83,3 @@ Resources
 * [Design Specifications (SE Dept) ](http://www.se.rit.edu/~se362/UnitActivities/Unit2.htm)
 * [Git, the simple guide. No deep shit!](http://rogerdudler.github.com/git-guide/)
 
-Modified by Matt

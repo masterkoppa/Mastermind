@@ -4,6 +4,9 @@
 #Vim swap files
 *.swp
 
+#Kate specific tmp files
+*.kate-swp
+
 #OS Specific Files
 .DS_Store*
 ehthumbs.db
