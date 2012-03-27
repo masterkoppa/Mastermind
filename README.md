@@ -26,10 +26,10 @@ Project Packages
 
 The project will be divided into the following packages to allow for better handling:
 
-mastermind.gui - For any view and GUI related code
-mastermind.core - All the data models and any core functionality
-mastermind.test - All JUnit Tests should be used here (JUnit4)
-mastermind.helper - Any helper classes that don't belong anywhere else.
+mastermind.gui - For any view and GUI related code  
+mastermind.core - All the data models and any core functionality  
+mastermind.test - All JUnit Tests should be used here (JUnit4)  
+mastermind.helper - Any helper classes that don't belong anywhere else  
 
 Downloading the Repository
 ---------------------------
