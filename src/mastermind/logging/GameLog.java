@@ -6,11 +6,6 @@ public class GameLog
 {
 	private static Logger theLog;
 	
-	GameLog()
-	{
-		
-	}
-	
 	public static synchronized Logger getInstance()
 	{
 		if(null == theLog)
