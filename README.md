@@ -74,6 +74,14 @@ See [this](http://wiki.eclipse.org/FAQ_How_do_I_add_an_extra_library_to_my_proje
 to your project class path.
 
 
+Coding Conventions
+==================
+
+Interface Names Start with an I
+
+Ex: ICommand - instead of Command
+
+
 Resources
 =========
 
