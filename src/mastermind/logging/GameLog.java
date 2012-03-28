@@ -1,5 +1,7 @@
 package mastermind.logging;
 
+import org.apache.log4j.*;
+
 public class GameLog 
 {
 	private static Logger theLog;
@@ -17,8 +19,10 @@ public class GameLog
 		return theLog;
 	}
 	
-	private static ConfigureNewGameLogger()
+	private static Logger ConfigureNewGameLogger()
 	{
+		return null;
+		
 		//TODO: Configure Log4J
 	}
 }
