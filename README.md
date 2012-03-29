@@ -81,6 +81,8 @@ Interface Names Start with an I
 
 Ex: ICommand - instead of Command
 
+TODO: Add more specific coding conventions we want to enforce here
+
 
 Resources
 =========
