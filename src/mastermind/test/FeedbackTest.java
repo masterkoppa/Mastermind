@@ -30,7 +30,6 @@ public class FeedbackTest {
 		
 		assertTrue(f.isGameOver());
 		assertEquals("Wrong Black Count", f.getBlackCount(), 4);
-		System.out.println(f);
 	}
 	
 	@Test
@@ -46,7 +45,6 @@ public class FeedbackTest {
 		assertFalse(f.isGameOver());
 		assertEquals("Wrong Black Count", f.getBlackCount(), 0);
 		assertEquals("Wrong White Count", f.getWhiteCount(), 4);
-		System.out.println(f);
 	}
 	
 	@Test
@@ -63,7 +61,6 @@ public class FeedbackTest {
 		assertEquals("Wrong White Count", f.getWhiteCount(), 2);
 		assertEquals("Wrong Black Count", f.getBlackCount(), 2);
 		assertFalse(f.isGameOver());
-		System.out.println(f);
 	}
 	
 	@Test
@@ -80,7 +77,6 @@ public class FeedbackTest {
 		assertEquals("The first peg's feedback is wrong", f.getRawFeedback()[0], FeedbackPeg.BLACK);
 		assertEquals("The last peg's feedback is wrong", f.getRawFeedback()[3], FeedbackPeg.WHITE); //The duplicate
 		assertFalse(f.isGameOver());
-		System.out.println(f);
 	}
 
 }
