@@ -1,8 +1,9 @@
-package mastermind.core;
+package mastermind.test;
 
 import static org.junit.Assert.*;
 
 import mastermind.core.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
