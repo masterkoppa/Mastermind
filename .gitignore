@@ -7,6 +7,9 @@
 #Kate specific tmp files
 *.kate-swp
 
+#More tmp file extensions
+*~
+
 #OS Specific Files
 .DS_Store*
 ehthumbs.db
