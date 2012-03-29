@@ -71,6 +71,11 @@ public class Feedback {
 		return true;
 	}
 	
+	/**
+	 * Count the number of white pegs, useful for testing and
+	 * to randomize the showing of the positions of the pegs.
+	 * @return The count of white pegs in this feedback
+	 */
 	public int getWhiteCount(){
 		int count = 0;
 		for(int i = 0; i < Code.NUM_OF_PEGS; i++){
@@ -80,6 +85,11 @@ public class Feedback {
 		return count;
 	}
 	
+	/**
+	 * Count the number of black pegs, useful for testing and
+	 * to randomize the showing of the positions of the pegs.
+	 * @return The count of black pegs in this feedback
+	 */
 	public int getBlackCount(){
 		int count = 0;
 		for(int i = 0; i < Code.NUM_OF_PEGS; i++){
@@ -93,6 +103,9 @@ public class Feedback {
 		return this.feedback;
 	}
 	
+	/**
+	 * Prints out the peg representation
+	 */
 	public String toString(){
 		String ret = "";
 		
