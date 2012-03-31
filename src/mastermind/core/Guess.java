@@ -18,6 +18,10 @@ public class Guess {
 		return feedback;
 	}
 	
+	public void setCode(Code code){
+		this.codeGuess = code;
+	}
+	
 	public void setFeedback(Feedback feedback){
 		this.feedback = feedback;
 	}
