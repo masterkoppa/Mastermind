@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import mastermind.gui.RoundButton;
@@ -12,6 +13,7 @@ import mastermind.gui.RoundButton;
 public class StartGUI extends JFrame {
 	private ArrayList<RoundButton> secretCode = new ArrayList<RoundButton>();
 	private JButton start = new JButton("Start Game");
+	private JLabel directions = new JLabel("Please enter the secret code");
 	
 	public StartGUI(){
 		super();
@@ -23,8 +25,9 @@ public class StartGUI extends JFrame {
 			codePanel.add(sTemp);
 			secretCode.add(sTemp);
 		}
-		
-		setLayout(new GridLayout(2,1));
+		//TODO: set the label to the center of the GUI
+		setLayout(new GridLayout(3,1));
+		add(directions);
 		add(codePanel);
 		add(start);
 		
