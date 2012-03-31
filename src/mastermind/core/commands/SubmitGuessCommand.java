@@ -15,11 +15,7 @@ public class SubmitGuessCommand implements ICommand {
 	public void execute() 
 	{
 		Code newGuess = new Code(this.colors);
-		
-		// TODO add code to guesses
-		
-		guesses.addNewCode(newGuess);
-
+		this.guesses.addNewCode(newGuess);
 	}
 	
 	public void undo()
