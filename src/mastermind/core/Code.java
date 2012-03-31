@@ -20,6 +20,14 @@ public class Code {
 		Pegs = new ColorPeg[NUM_OF_PEGS];
 	}
 	
+	public Code(ColorPeg[] colors)
+	{
+		if(colors.length > NUM_OF_PEGS)
+			throw new IllegalArgumentException("Too many colors");
+		
+		this.Pegs = colors;
+	}
+	
 	/**
 	 * Returns an array of pegs that make up this code.
 	 * For empty spaces the array will have null in that spot.
