@@ -6,7 +6,7 @@ public class Code {
 	 * Global variable that states the number of pegs available per code.
 	 * Stated here in case this needs to be changed in the future.
 	 */
-	public static final int NUM_OF_PEGS = 5;
+	public static final int NUM_OF_PEGS = 4;
 	
 	/**
 	 * Array that holds all the pegs that make this code

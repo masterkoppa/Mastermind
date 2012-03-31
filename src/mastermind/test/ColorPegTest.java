@@ -1,7 +1,5 @@
 package mastermind.test;
 
-import static org.junit.Assert.*;
-
 import java.awt.Color;
 
 import mastermind.core.ColorPeg;
