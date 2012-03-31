@@ -5,4 +5,6 @@ public interface IMacroCommand {
 	void Add(ICommand command);
 	
 	void Remove();
+	
+	void execute();
 }
