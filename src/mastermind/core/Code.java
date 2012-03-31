@@ -23,7 +23,9 @@ public class Code {
 	public Code(ColorPeg[] colors)
 	{
 		if(colors.length > NUM_OF_PEGS)
-			throw new IllegalArgumentException("Too many colors");
+			throw new IllegalArgumentException("Too many colors!");
+		else if(colors.length < NUM_OF_PEGS)
+			throw new IllegalArgumentException("Too few colors!");
 		
 		this.Pegs = colors;
 	}
