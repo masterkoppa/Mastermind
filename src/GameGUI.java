@@ -6,16 +6,19 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import mastermind.gui.RoundButton;
 
-public class GUI extends JFrame {
+
+public class GameGUI extends JFrame {
 	private ArrayList<ArrayList<JButton>> feedBack = new ArrayList<ArrayList<JButton>>();
-	private ArrayList<ArrayList<JButton>> guess = new ArrayList<ArrayList<JButton>>();
+	private ArrayList<ArrayList<RoundButton>> guess = new ArrayList<ArrayList<RoundButton>>();
 	private JButton submit = new JButton("Submit");
+	private JButton undo = new JButton("Undo");
 	private JCheckBox computer = new JCheckBox("Computer Code Breaker");
 	private JCheckBox logging = new JCheckBox("logging");
 	
 	
-	public GUI(){
+	public GameGUI(){
 		super();
 		JPanel guessPanel = new JPanel();
 		JPanel checkPanel = new JPanel();
@@ -26,17 +29,18 @@ public class GUI extends JFrame {
 		checkPanel.add(computer);
 		checkPanel.add(logging);
 		checkPanel.add(submit);
+		checkPanel.add(undo);
 		
 		for (int i = 0; i < 10; i++){
 			JPanel feedBackPanel = new JPanel();
 			feedBackPanel.setLayout(new GridLayout(2, 2));
 			ArrayList<JButton> feedBackRow = new ArrayList<JButton>();
-			ArrayList<JButton> guessRow = new ArrayList<JButton>();
+			ArrayList<RoundButton> guessRow = new ArrayList<RoundButton>();
 			
 			guessPanel.add(feedBackPanel);
 			for (int n = 0; n < 4; n++){
 				JButton temp = new JButton("f");
-				JButton temp2 = new JButton("g");
+				RoundButton temp2 = new RoundButton("g");
 				temp.setEnabled(false);
 				temp.setVisible(false);
 				temp2.setVisible(false);
@@ -71,7 +75,7 @@ public class GUI extends JFrame {
 	}
 	
 	public static void main(String[] args){
-		GUI gui = new GUI();
+		GameGUI gui = new GameGUI();
 		gui.setVisible(true);
 	}
 }
