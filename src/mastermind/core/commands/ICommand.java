@@ -1,5 +1,7 @@
-package mastermind.interfaces;
+package mastermind.core.commands;
 
 public interface ICommand {
+	
 	public void execute();
+
 }
