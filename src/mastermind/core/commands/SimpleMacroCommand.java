@@ -11,12 +11,12 @@ public class SimpleMacroCommand implements IMacroCommand {
 	}
 	
 	@Override
-	public void Add(ICommand command) {
+	public void add(ICommand command) {
 		commands.add(command);
 	}
 
 	@Override
-	public void Remove() {
+	public void remove() {
 		commands.remove(commands.size()-1);
 	}
 
@@ -25,6 +25,15 @@ public class SimpleMacroCommand implements IMacroCommand {
 		for(ICommand i : commands){
 			i.execute();
 		}
+	}
+
+	@Override
+	public void undo() {
+		
+		for(ICommand i : commands){
+			i.undo();
+		}
+		
 	}
 
 }
