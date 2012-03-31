@@ -22,6 +22,7 @@ public class GameGUI extends JFrame {
 	
 	public GameGUI(){
 		super();
+		//setLookAndFeel();
 		JPanel guessPanel = new JPanel();
 		JPanel checkPanel = new JPanel();
 		checkPanel.setLayout(new GridLayout(3, 1));
@@ -79,7 +80,7 @@ public class GameGUI extends JFrame {
 	public static void main(String[] args){
 		GameGUI gui = new GameGUI();
 		gui.setVisible(true);
-		gui.setLookAndFeel();
+		
 	}
 	
 	private void setLookAndFeel() {
