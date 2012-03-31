@@ -25,7 +25,7 @@ public class GameGUI extends JFrame {
 		//setLookAndFeel();
 		JPanel guessPanel = new JPanel();
 		JPanel checkPanel = new JPanel();
-		checkPanel.setLayout(new GridLayout(3, 1));
+		checkPanel.setLayout(new GridLayout(4, 1));
 		GridLayout guessLayout = new GridLayout(10, 5);
 		guessLayout.setVgap(5);
 		guessPanel.setLayout(guessLayout);
