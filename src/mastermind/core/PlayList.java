@@ -52,8 +52,26 @@ public class PlayList {
 	}
 	
 	public void addFeedbackToLastGuess(Feedback feedback){
-		int index =this.getLastPlayIndex();
+		int index = this.getLastPlayIndex();
 		
 		this.guessList[index].setFeedback(feedback);
 	}
+	
+	public void deleteNewCode(){
+		int index = this.getLastPlayIndex();
+		this.guessList[index].setCode(null);
+	}
+	
+	public void deleteLastFeedback(){
+		int index = this.getLastPlayIndex();
+		
+		if(this.guessList[index].getCode() == null){
+			this.guessList[index] = null;
+		} else{
+			this.guessList[index].setFeedback(null);
+		}
+	}
+	
+	
+	
 }
