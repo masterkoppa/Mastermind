@@ -4,13 +4,11 @@ public class PlayCommand implements ICommand, IMacroCommand {
 	
 	//ICommand
 	public void execute() {
-		// TODO Implement the Execute Command
 
 	}
 
 	//ICommand
 	public void undo() {
-		// TODO Implement Undo
 
 	}
 	
@@ -21,8 +19,14 @@ public class PlayCommand implements ICommand, IMacroCommand {
 	}
 	
 	//IMacroCommand
-	public void Remove()
+	public void remove()
 	{
+		
+	}
+
+	@Override
+	public void add(ICommand command) {
+		// TODO Auto-generated method stub
 		
 	}
 

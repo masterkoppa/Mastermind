@@ -2,7 +2,11 @@ package mastermind.core.commands;
 
 public interface IMacroCommand {
 
-	void Add(ICommand command);
+	void add(ICommand command);
 	
-	void Remove();
+	void remove();
+	
+	void execute();
+	
+	void undo();
 }
