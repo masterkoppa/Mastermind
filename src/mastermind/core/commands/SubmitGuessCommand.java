@@ -23,13 +23,13 @@ public class SubmitGuessCommand implements ICommand {
 	{
 		Code newGuess = new Code(this.colors);
 		this.guesses.addNewCode(newGuess);
-		//GameLog.getInstance().info("Added new Guess");
+		GameLog.getInstance().info("Added new Guess");
 	}
 	
 	public void undo()
 	{
 		this.guesses.deleteNewCode();
-		//GameLog.getInstance().info("Removing last Guess");
+		GameLog.getInstance().info("Removing last Guess");
 	}
 
 }
