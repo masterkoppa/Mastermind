@@ -19,7 +19,7 @@ public class PlayList {
 	/**
 	 * Add a new guess on the next empty space
 	 */
-	public void addGuess(){
+	private void addGuess(){
 		for(int i = 0; i < NUM_OF_ROWS; i++){
 			if(guessList[i] == null){
 				guessList[i] = new Guess();
@@ -34,7 +34,7 @@ public class PlayList {
 	 * 
 	 * @return -1 if no moves, otherwise an index of the moveID
 	 */
-	public int getLastPlayIndex(){
+	private int getLastPlayIndex(){
 		for(int i = 0; i < NUM_OF_ROWS; i++){
 			if(guessList[i] == null){
 				return i-1;
@@ -44,4 +44,16 @@ public class PlayList {
 		return NUM_OF_ROWS-1;
 	}
 	
+	public void addNewCode(Code code){
+		this.addGuess();
+		int index = this.getLastPlayIndex();
+		
+		this.guessList[index].setCode(code);
+	}
+	
+	public void addFeedbackToLastGuess(Feedback feedback){
+		int index =this.getLastPlayIndex();
+		
+		this.guessList[index].setFeedback(feedback);
+	}
 }
