@@ -1,12 +1,24 @@
 package mastermind.core.commands;
+import mastermind.core.*;
 
 public class SubmitGuessCommand implements ICommand {
 
-	public SubmitGuessCommand(GuessList listOfGuesses, Color[])
+	private PlayList guesses;
+	private ColorPeg[] colors;
+	
+	public SubmitGuessCommand(PlayList listOfGuesses, ColorPeg[] colors)
+	{
+		this.guesses = listOfGuesses;
+		this.colors = colors;
+	}
 	
 	public void execute() 
 	{
-		// TODO Auto-generated method stub
+		Code newGuess = new Code(this.colors);
+		
+		// TODO add code to guesses
+		
+		guesses.addNewCode(newGuess);
 
 	}
 	
