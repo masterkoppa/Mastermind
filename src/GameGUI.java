@@ -5,6 +5,8 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 import mastermind.gui.RoundButton;
 
@@ -20,6 +22,7 @@ public class GameGUI extends JFrame {
 	
 	public GameGUI(){
 		super();
+		//setLookAndFeel();
 		JPanel guessPanel = new JPanel();
 		JPanel checkPanel = new JPanel();
 		checkPanel.setLayout(new GridLayout(3, 1));
@@ -77,5 +80,36 @@ public class GameGUI extends JFrame {
 	public static void main(String[] args){
 		GameGUI gui = new GameGUI();
 		gui.setVisible(true);
+		
+	}
+	
+	private void setLookAndFeel() {
+		try {
+			if (UIManager.getSystemLookAndFeelClassName().contains("Aqua")
+					|| UIManager.getSystemLookAndFeelClassName().contains(
+							"Windows")) {
+				// System.out.println("Going to system theme!");
+				throw new Exception("Prefer native look and feel");
+			}
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+				// Prefer system looks over Nimbus to keep consistency
+				// Although it's tempting to get XP out of here since
+				// it still looks bad...
+				if ("Nimbus".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (Exception ex) {
+			// Ignore and continue
+			try {
+				UIManager.setLookAndFeel(UIManager
+						.getSystemLookAndFeelClassName());
+				// System.out.println(UIManager.getSystemLookAndFeelClassName());
+			} catch (Exception e) {
+				// e.printStackTrace();
+				// Ignore again... wow what's installed in here o_0?
+			}
+		}
 	}
 }
