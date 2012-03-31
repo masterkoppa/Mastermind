@@ -1,5 +1,7 @@
 package mastermind.logging;
 
+import java.io.IOException;
+
 import org.apache.log4j.*;
 
 public class GameLog 
@@ -16,8 +18,23 @@ public class GameLog
 	
 	private static Logger ConfigureNewGameLogger()
 	{
-		return null;
+		Logger l = Logger.getLogger(GameLog.class);
+		SimpleLayout sl = new SimpleLayout();
+		FileAppender fa = null;
 		
-		//TODO: Configure Log4J
+		try 
+		{
+			fa = new FileAppender(sl, "game_log.txt", false);
+			l.addAppender(fa);
+		} 
+		catch (IOException e) 
+		{
+			ConsoleAppender ca = new ConsoleAppender();
+			l.addAppender(ca);
+		}
+		
+		l.debug("Logger created");
+		
+		return l;
 	}
 }
