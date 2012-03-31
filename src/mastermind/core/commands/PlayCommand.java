@@ -1,11 +1,17 @@
 package mastermind.core.commands;
-
 import java.util.*;
 
+/**
+ * PlayCommand holds a list of various commands that need to be executed.
+ * These commands take care of functions such as Submit guess and request
+ * feedback.
+ */
 public class PlayCommand implements IMacroCommand {
 	
+	/** List of commands to be executed */
 	private ArrayList<ICommand> commands;
 	
+	/** Initializes the container for commands */
 	public PlayCommand()
 	{
 		commands = new ArrayList<ICommand>();
