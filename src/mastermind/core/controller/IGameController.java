@@ -6,4 +6,6 @@ public interface IGameController {
 	
 	public void executeCommand(ICommand command);
 	
+	public void undoCommand();
+	
 }
