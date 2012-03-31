@@ -1,7 +1,5 @@
 package mastermind.core;
 
-import java.util.*;
-
 public class PlayList {
 
 	private Guess[] guessList;
