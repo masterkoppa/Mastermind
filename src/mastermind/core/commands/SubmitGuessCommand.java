@@ -2,21 +2,11 @@ package mastermind.core.commands;
 import mastermind.core.*;
 import mastermind.logging.*;
 
-public class SubmitGuessCommand implements ICommand {
-
-	private PlayList guesses;
-	private ColorPeg[] colors;
+public class SubmitGuessCommand extends PlayListCommand implements ICommand {
 	
 	public SubmitGuessCommand(PlayList listOfGuesses, ColorPeg[] colors)
 	{
-		if(null == listOfGuesses)
-			throw new IllegalArgumentException("PlayList cannot be null");
-		
-		if(null == colors)
-			throw new IllegalArgumentException("Colors cannot be null");
-		
-		this.guesses = listOfGuesses;
-		this.colors = colors;
+		super(listOfGuesses, colors);
 	}
 	
 	public void execute() 
