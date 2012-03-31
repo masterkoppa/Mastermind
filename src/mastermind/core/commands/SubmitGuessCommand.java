@@ -20,7 +20,7 @@ public class SubmitGuessCommand implements ICommand {
 	
 	public void undo()
 	{
-		
+		//TODO : delete the last guess
 	}
 
 }
