@@ -1,16 +1,17 @@
 package mastermind.core.commands;
 
-public interface IMacroCommand {
+/**
+ * IMacroCommand ensures further functionality for a command. It allows
+ * for multiple commands to be linked together via the idea of the Macro
+ * Command Pattern.
+ */
+public interface IMacroCommand extends ICommand {
 
-	//Adds a new command to the bottom of the list of commands
+	/** Adds a new command to the bottom of the list of commands to be
+	 *  executed */
 	void add(ICommand command);
 	
-	//Removes the last command in the stack
+	/** Removes the last command in the stack of commands */
 	void remove();
-	
-	//Iterates through all commands in order and executes each
-	void execute();
-	
-	//Iterates through the stack in reverse order and calls undo on each
-	void undo();
+
 }
