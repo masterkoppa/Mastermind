@@ -1,3 +1,4 @@
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class StartGUI extends JFrame {
 	
 	public static void main(String[] args){
 		StartGUI gui = new StartGUI();
+		gui.setSize(500, 500);
 		gui.setVisible(true);
 	}
 	
