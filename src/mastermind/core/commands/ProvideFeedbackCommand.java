@@ -11,14 +11,13 @@ public class ProvideFeedbackCommand extends PlayListCommand implements ICommand 
 
 	public void execute() 
 	{
-		// TODO Auto-generated method stub
+		// TODO Implemented checking feedback
 
 	}
 
 	public void undo() 
 	{
-		// TODO Auto-generated method stub
-
+		// TODO Undo providing feedback
 	}
 
 }
