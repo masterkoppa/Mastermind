@@ -50,12 +50,14 @@ public class MastermindMain implements Observer{
 		mainWindow.setLayout(new BorderLayout());
 		
 		
-		//Register after initializing everything
-		this.register();
+		
 		board = new MastermindBoard(model);
 		
 		mainWindow.add(board, BorderLayout.CENTER);
 		mainWindow.add(this.generateOptions(), BorderLayout.EAST);
+		
+		//Register after initializing everything
+		this.register();
 	}
 
 	@Override
@@ -65,7 +67,9 @@ public class MastermindMain implements Observer{
 
 	@Override
 	public void notifyChange() {
-		//Do nothing for now
+		//Revalidate the internal board
+		board.invalidate();
+		board.revalidate();
 	}
 	
 	private JPanel generateOptions(){

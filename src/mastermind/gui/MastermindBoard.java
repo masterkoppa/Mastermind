@@ -29,6 +29,7 @@ public class MastermindBoard extends JPanel implements Observer{
 		rows = new ArrayList<Row>();
 		availableColors = new ColorPeg[]{ColorPeg.BLACK , ColorPeg.BLUE, ColorPeg.GREEN, ColorPeg.RED, ColorPeg.WHITE, ColorPeg.YELLOW};
 		notifyChange();
+		this.register();
 	}
 
 	@Override
@@ -39,6 +40,8 @@ public class MastermindBoard extends JPanel implements Observer{
 	@Override
 	public void notifyChange() {
 		this.removeAll(); //Clear the JPanel
+		
+		System.out.println("UPDATING!!");
 		
 		rows.clear();
 		
@@ -63,6 +66,8 @@ public class MastermindBoard extends JPanel implements Observer{
 		for(Row r : rows){
 			this.add(r);
 		}
+		
+		
 	}
 	
 	public ColorPeg[] getLastGuess(){

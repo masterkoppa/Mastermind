@@ -7,9 +7,7 @@ import mastermind.interfaces.Observer;
 
 public class PlayList extends Observable {
 
-	private Guess[] guessList;
-	private ArrayList<Observer> observers;
-	
+	private Guess[] guessList;	
 	public static final int NUM_OF_ROWS = 10;
 	
 	public PlayList(){
