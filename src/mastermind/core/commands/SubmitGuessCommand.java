@@ -4,6 +4,11 @@ import mastermind.logging.*;
 
 public class SubmitGuessCommand extends PlayListCommand implements ICommand {
 	
+	/**
+	 * 
+	 * @param listOfGuesses - The model that contains a list of all the guesses
+	 * @param colors - The code to be submitted
+	 */
 	public SubmitGuessCommand(PlayList listOfGuesses, ColorPeg[] colors)
 	{
 		super(listOfGuesses, colors);
@@ -14,6 +19,7 @@ public class SubmitGuessCommand extends PlayListCommand implements ICommand {
 		Code newGuess = new Code(this.colors);
 		this.guesses.addNewCode(newGuess);
 		GameLog.getInstance().info("Added new Guess");
+		GameLog.getInstance().debug(newGuess.toString());
 	}
 	
 	public void undo()
