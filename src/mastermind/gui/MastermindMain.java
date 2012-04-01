@@ -21,6 +21,7 @@ import mastermind.core.Code;
 import mastermind.core.ColorPeg;
 import mastermind.core.PlayList;
 import mastermind.core.commands.PlayCommand;
+import mastermind.core.commands.ProvideFeedbackCommand;
 import mastermind.core.commands.SubmitGuessCommand;
 import mastermind.core.controller.GameController;
 import mastermind.core.controller.IGameController;
@@ -87,7 +88,9 @@ public class MastermindMain implements Observer{
 			public void actionPerformed(ActionEvent e) {
 				//Input Validation
 				ColorPeg[] code = board.getLastGuess();
-				SubmitGuessCommand play = new SubmitGuessCommand(dataBackend, code);
+				PlayCommand play = new PlayCommand();
+				play.add(new SubmitGuessCommand(dataBackend, code));
+				play.add(new ProvideFeedbackCommand(dataBackend, secretCode));
 				controller.executeCommand(play);
 			}
 			
@@ -180,7 +183,7 @@ public class MastermindMain implements Observer{
 	 * @param args
 	 */
 	public static void main(String[] args){
-		new MastermindMain(new GameController(), new PlayList(), null).startGUI();
+		new MastermindMain(new GameController(), new PlayList(), new Code(new ColorPeg[]{ColorPeg.RED, ColorPeg.RED, ColorPeg.BLUE, ColorPeg.BLUE})).startGUI();
 	}
 
 }

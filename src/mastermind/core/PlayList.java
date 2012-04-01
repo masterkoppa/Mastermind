@@ -31,7 +31,14 @@ public class PlayList extends Observable {
 	 * @return The guess object that was most recently added to the array
 	 */
 	public Guess getLatestMove() {
-		return guessList[guessList.length-1];
+		int index = 0;
+		for(int i = 0; i < NUM_OF_ROWS; i++){
+			if(guessList[i].getFeedback() == null){
+				index = i;
+				break;
+			}
+		}
+		return guessList[index];
 	}
 	
 	/**
