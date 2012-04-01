@@ -9,18 +9,15 @@ public class ProvideFeedbackCommand extends PlayListCommand implements ICommand 
 		super(listOfGuesses, colors);
 	}
 
-	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
+	public void execute() 
+	{
+		// TODO Implemented checking feedback
+
 	}
 
-	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
-		
+	public void undo() 
+	{
+		// TODO Undo providing feedback
 	}
-
-
 
 }
