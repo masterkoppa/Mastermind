@@ -19,6 +19,8 @@ public class GameLog
 	private static Logger ConfigureNewGameLogger()
 	{
 		Logger l = Logger.getLogger(GameLog.class);
+		l.setLevel((Level) Level.DEBUG);
+		
 		SimpleLayout sl = new SimpleLayout();
 		FileAppender fa = null;
 		
@@ -31,6 +33,8 @@ public class GameLog
 		{
 			ConsoleAppender ca = new ConsoleAppender();
 			l.addAppender(ca);
+			l.debug("Failed opening file with exception: "+e.toString());
+			l.debug("Switching to Console Appender");
 		}
 		
 		l.debug("Logger created");
