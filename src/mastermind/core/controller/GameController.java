@@ -19,7 +19,12 @@ public class GameController implements IGameController {
 	}
 	
 	public void undoCommand() {
-		
+		if (nextUndo <= 0) {
+			return;
+		}
+		ICommand command = history.get(nextUndo);
+		command.undo();
+		nextUndo--;
 	}
 	
 }
