@@ -29,6 +29,14 @@ public class PlayList extends Observable {
 	}
 	
 	/**
+	 * 
+	 * @return The guess object that was most recently added to the array
+	 */
+	public Guess getLatestMove() {
+		return guessList[guessList.length-1];
+	}
+	
+	/**
 	 * Add a new guess on the next empty space.
 	 * Make sure you notify all the observers after calling
 	 * this method.

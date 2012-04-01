@@ -1,23 +1,42 @@
 package mastermind.core.commands;
-import mastermind.core.ColorPeg;
-import mastermind.core.PlayList;
+import mastermind.core.*;
 
-public class ProvideFeedbackCommand extends PlayListCommand implements ICommand {
+public class ProvideFeedbackCommand implements ICommand {
 	
-	public ProvideFeedbackCommand(PlayList listOfGuesses, ColorPeg[] colors)
+	private Guess latestGuess;
+	private Code theSecretCode;
+	
+	/**
+	 * 
+	 * @param listOfGuesses The list of guesses for the current game
+	 * @param secretCode The secret code for the current game
+	 */
+	public ProvideFeedbackCommand(PlayList listOfGuesses, Code secretCode)
 	{
-		super(listOfGuesses, colors);
+		if(null == listOfGuesses)
+			throw new IllegalArgumentException("Must supply a valid list of guesses");
+		
+		if(null == secretCode)
+			throw new IllegalArgumentException("Must supply a valid secret code");
+		
+		this.latestGuess = listOfGuesses.getLatestMove();
+		this.theSecretCode = secretCode;
 	}
 
+	/**
+	 * Executes the command to provide feedback
+	 */
 	public void execute() 
-	{
-		// TODO Implemented checking feedback
-
+	{		
+		this.latestGuess.setFeedback(Feedback.analyze(this.theSecretCode, this.latestGuess.getCode()));
 	}
 
+	/**
+	 * Removes the most recently provided feedback
+	 */
 	public void undo() 
 	{
-		// TODO Undo providing feedback
+		this.latestGuess.setFeedback(null);
 	}
 
 }
