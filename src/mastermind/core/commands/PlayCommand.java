@@ -17,7 +17,9 @@ public class PlayCommand implements IMacroCommand {
 		commands = new ArrayList<ICommand>();
 	}
 	
-	//IMacroCommand
+	/**
+	 * Adds a new command to the stack
+	 */
 	public void add(ICommand command)
 	{
 		if(null == command)
@@ -26,14 +28,18 @@ public class PlayCommand implements IMacroCommand {
 		this.commands.add(command);
 	}
 	
-	//IMacroCommand
+	/**
+	 * Removes the most recently added command from the stack
+	 */
 	public void remove()
 	{
 		if(this.commands.size() > 0)
 			this.commands.remove(this.commands.size()-1);
 	}
 	
-	//IMacroCommand
+	/**
+	 * Executes all the commands in the stack, in the order that they were added (First In, First Executed)
+	 */
 	public void execute() 
 	{	
 		for(ICommand c : this.commands)
@@ -42,7 +48,9 @@ public class PlayCommand implements IMacroCommand {
 		}
 	}
 
-	//IMacroCommand
+	/**
+	 * Undoes all the commands in the stack, in the reverse order that they were added (Last In, First Undone)
+	 */
 	public void undo() 
 	{
 		for(int count = this.commands.size() - 1; count >= 0; count--)
