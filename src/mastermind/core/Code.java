@@ -54,5 +54,16 @@ public class Code {
 		
 	}
 	
+	@Override
+	public String toString(){
+		String ret = "";
+		
+		for(ColorPeg i : Pegs){
+			ret += i.getName() + " ";
+		}
+		
+		return ret;
+	}
+	
 
 }

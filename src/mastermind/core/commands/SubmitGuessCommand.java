@@ -19,6 +19,7 @@ public class SubmitGuessCommand extends PlayListCommand implements ICommand {
 		Code newGuess = new Code(this.colors);
 		this.guesses.addNewCode(newGuess);
 		GameLog.getInstance().info("Added new Guess");
+		GameLog.getInstance().debug(newGuess.toString());
 	}
 	
 	public void undo()
