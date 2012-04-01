@@ -3,13 +3,10 @@ package mastermind.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -21,7 +18,6 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import mastermind.core.Code;
 import mastermind.core.PlayList;
 import mastermind.core.controller.IGameController;
-import mastermind.interfaces.Observable;
 import mastermind.interfaces.Observer;
 
 public class MastermindMain implements Observer{
@@ -119,7 +115,7 @@ public class MastermindMain implements Observer{
 //				UIManager.put("control", Color.getHSBColor(HSB[0], HSB[1], HSB[2]));
 				
 				//Set the color for progress bar
-				Color windowsGreen =Color.getHSBColor(0.3647343f, 0.96279067f, 0.84313726f);
+				Color windowsGreen = Color.getHSBColor(0.3647343f, 0.96279067f, 0.84313726f);
 				
 				UIManager.put("nimbusOrange", windowsGreen); //Change the color used for the progress bar
 				
