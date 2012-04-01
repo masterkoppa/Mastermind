@@ -58,5 +58,13 @@ public class PlayCommand implements IMacroCommand {
 			this.commands.get(count).undo();
 		}
 	}
+	
+	/**
+	 * Returns the number of commands in the stack
+	 */
+	public int stackSize()
+	{
+		return this.commands.size();
+	}
 
 }
