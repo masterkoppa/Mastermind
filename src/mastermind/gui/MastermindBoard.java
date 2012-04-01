@@ -73,6 +73,9 @@ public class MastermindBoard extends JPanel implements Observer{
 	public ColorPeg[] getLastGuess(){
 		for(int i = 0; i < PlayList.NUM_OF_ROWS; i++){
 			if(!rows.get(i).hasFeedback()){
+				if(i == 0){
+					System.err.print("THIS IS MESSED UP YO");
+				}
 				return rows.get(i).getCode();
 			}
 		}
