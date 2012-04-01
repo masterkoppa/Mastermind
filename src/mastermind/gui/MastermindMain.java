@@ -6,6 +6,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -16,7 +18,11 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import mastermind.core.Code;
+import mastermind.core.ColorPeg;
 import mastermind.core.PlayList;
+import mastermind.core.commands.PlayCommand;
+import mastermind.core.commands.SubmitGuessCommand;
+import mastermind.core.controller.GameController;
 import mastermind.core.controller.IGameController;
 import mastermind.interfaces.Observer;
 
@@ -59,7 +65,7 @@ public class MastermindMain implements Observer{
 
 	@Override
 	public void notifyChange() {
-		
+		//Do nothing for now
 	}
 	
 	private JPanel generateOptions(){
@@ -69,6 +75,20 @@ public class MastermindMain implements Observer{
 		
 		
 		JButton submit = new JButton("Submit");
+		
+		//Action Listener to submit the code
+		submit.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//Input Validation
+				ColorPeg[] code = board.getLastGuess();
+				SubmitGuessCommand play = new SubmitGuessCommand(dataBackend, code);
+				controller.executeCommand(play);
+			}
+			
+		});
+		
 		JButton undo = new JButton("Undo");
 		JCheckBox computer = new JCheckBox("Computer Code Breaker");
 		JCheckBox logging = new JCheckBox("logging");
@@ -97,6 +117,8 @@ public class MastermindMain implements Observer{
 		
 		return options;
 	}
+	
+	
 	
 	/**
 	 * Code to automatically detect the look and feel from the system. If the system
@@ -149,8 +171,12 @@ public class MastermindMain implements Observer{
         });
 	}
 	
+	/**
+	 * Test main
+	 * @param args
+	 */
 	public static void main(String[] args){
-		new MastermindMain(null, new PlayList(), null);
+		new MastermindMain(new GameController(), new PlayList(), null).startGUI();
 	}
 
 }
