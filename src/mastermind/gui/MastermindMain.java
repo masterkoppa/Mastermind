@@ -90,7 +90,7 @@ public class MastermindMain implements Observer{
 				ColorPeg[] code = board.getLastGuess();
 				PlayCommand play = new PlayCommand();
 				play.add(new SubmitGuessCommand(dataBackend, code));
-				play.add(new ProvideFeedbackCommand(dataBackend, secretCode));
+				play.add(new ProvideFeedbackCommand(dataBackend, secretCode.getPegs()));
 				controller.executeCommand(play);
 			}
 			

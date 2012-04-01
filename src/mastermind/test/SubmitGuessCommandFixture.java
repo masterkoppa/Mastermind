@@ -28,6 +28,7 @@ public class SubmitGuessCommandFixture {
 		try
 		{
 			assertTrue(plays.getMove(0) != null);
+			assertTrue(plays.getMove(0).getCode() != null);
 		}
 		catch(IndexOutOfBoundsException e)
 		{
