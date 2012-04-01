@@ -104,7 +104,7 @@ public class PlayCommandFixture {
 		
 		play.undo();
 		
-		assertTrue(this.gamePlays.getLatestMove() == null);
+		assertTrue(this.gamePlays.getLatestMove().getCode() == null);
 	}
 
 }

@@ -8,7 +8,6 @@ import mastermind.core.Guess;
 import mastermind.core.PlayList;
 import mastermind.core.commands.ICommand;
 import mastermind.core.commands.ProvideFeedbackCommand;
-import mastermind.core.commands.SubmitGuessCommand;
 
 import org.junit.Before;
 import org.junit.Test;
