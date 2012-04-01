@@ -20,7 +20,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import mastermind.core.Code;
 import mastermind.core.PlayList;
-import mastermind.core.controller.GameController;
+import mastermind.core.controller.IGameController;
 import mastermind.interfaces.Observable;
 import mastermind.interfaces.Observer;
 
@@ -28,14 +28,14 @@ public class MastermindMain implements Observer{
 	
 	//MODELS AND CONTROLLERS
 	private PlayList dataBackend;
-	private GameController controller;
+	private IGameController controller;
 	private Code secretCode;
 	
 	//GUI VARIABLES
 	private JFrame mainWindow;
 	private MastermindBoard board;
 	
-	public MastermindMain(GameController controller, PlayList model, Code secretCode){
+	public MastermindMain(IGameController controller, PlayList model, Code secretCode){
 		setLookAndFeel();
 		
 		this.dataBackend = model;
@@ -54,10 +54,6 @@ public class MastermindMain implements Observer{
 		
 		mainWindow.add(board, BorderLayout.CENTER);
 		mainWindow.add(this.generateOptions(), BorderLayout.EAST);
-		
-		
-		mainWindow.setSize(800, 600);
-		mainWindow.setVisible(true);
 	}
 
 	@Override
@@ -111,7 +107,7 @@ public class MastermindMain implements Observer{
 	 * doesn't have a native look and feel it tries the Nimbus Look and Feel which looks
 	 * awesome. If none of them work... then default to do nothing.
 	 */
-	private static void setLookAndFeel(){
+	private void setLookAndFeel(){
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				// AWESOMENESS GOING ON HERE!!
