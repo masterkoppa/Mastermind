@@ -17,7 +17,7 @@ public class GameGUI extends JFrame {
 	private JButton submit = new JButton("Submit");
 	private JButton undo = new JButton("Undo");
 	private JCheckBox computer = new JCheckBox("Computer Code Breaker");
-	private JCheckBox logging = new JCheckBox("logging");
+	private JCheckBox logging = new JCheckBox("logging Enabled");
 	
 	
 	public GameGUI(){
