@@ -1,5 +1,7 @@
 package mastermind.test;
 
+import static org.junit.Assert.*;
+
 import java.awt.Color;
 
 import org.junit.Before;
@@ -29,10 +31,10 @@ public class CodeTest {
 	@Test
 	public void testGetPegs(){
 		ColorPeg[] testcolors = test1.getPegs();
-		assert(testcolors[0].getColor() == Color.BLUE);
-		assert(testcolors[1].getColor() == Color.YELLOW);
-		assert(testcolors[2].getColor() == Color.GREEN);
-		assert(testcolors[3].getColor() == Color.RED);
+		assertTrue(testcolors[0].getColor() == Color.BLUE);
+		assertTrue(testcolors[1].getColor() == Color.YELLOW);
+		assertTrue(testcolors[2].getColor() == Color.GREEN);
+		assertTrue(testcolors[3].getColor() == Color.RED);
 	}
 	
 	@Test

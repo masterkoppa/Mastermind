@@ -96,7 +96,7 @@ public class MastermindMain implements Observer{
 		
 		JButton undo = new JButton("Undo");
 		JCheckBox computer = new JCheckBox("Computer Code Breaker");
-		JCheckBox logging = new JCheckBox("logging");
+		JCheckBox logging = new JCheckBox("Logging Enabled");
 		
 		checkPanel.add(computer);
 		checkPanel.add(logging);
