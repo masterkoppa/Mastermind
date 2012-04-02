@@ -32,12 +32,10 @@ public class MastermindBoard extends JPanel implements Observer{
 		this.register();
 	}
 
-	@Override
 	public void register() {
 		data.register(this);
 	}
 
-	@Override
 	public void notifyChange() {
 		this.removeAll(); //Clear the JPanel
 		
@@ -57,14 +55,10 @@ public class MastermindBoard extends JPanel implements Observer{
 			if(g == null){
 				g = new Guess();
 			}
-			Object f = g.getFeedback();
-			if(f == null){
-				rows.add(new Row(null, g.getCode().getPegs()));
-				
-			}else{
-				rows.add(new Row(g.getFeedback().getRawFeedback(), 
-						g.getCode().getPegs()));
-			}
+			FeedbackPeg[] feedback = g.getFeedbackPegs();
+			ColorPeg[] code = g.getCodePegs();
+			rows.add(new Row(feedback, code));
+			
 		}
 		
 		this.setLayout(new GridLayout(0,1));
@@ -77,7 +71,7 @@ public class MastermindBoard extends JPanel implements Observer{
 	}
 	
 	public ColorPeg[] getLastGuess(){
-		if(data.getLastPlayIndex() == 0 && data.getMove(0) == null){
+		if(data.getLastPlayIndex() == 0){
 			return rows.get(data.getLastPlayIndex()).getCode();
 		}else{
 			return rows.get(data.getLastPlayIndex() + 1).getCode();
@@ -88,16 +82,19 @@ public class MastermindBoard extends JPanel implements Observer{
 
 		private static final long serialVersionUID = 1L;
 		private FeedbackPeg[] feedback;
+		private boolean hasFeedback;
 		private ColorPeg[] code;
 		
 		public Row(FeedbackPeg[] feedback, ColorPeg[] code){
 			//Check if this data even exists, most of the time
 			//it wont exist so we make it empty
-			if(feedback == null){
-				this.feedback = new FeedbackPeg[Code.NUM_OF_PEGS];
+			if(feedback != null){
+				this.feedback = feedback;
+				this.hasFeedback = true;
 			}
 			else{
-				this.feedback = feedback;
+				this.feedback = new FeedbackPeg[Code.NUM_OF_PEGS];
+				this.hasFeedback = false;
 			}
 			
 			if(code != null)
@@ -154,7 +151,6 @@ public class MastermindBoard extends JPanel implements Observer{
 				peg.addActionListener(new ActionListener(){
 					private int index = -1;
 
-					@Override
 					public void actionPerformed(ActionEvent e) {
 						JButton self = (JButton)e.getSource();
 						if(index == -1){
@@ -184,6 +180,10 @@ public class MastermindBoard extends JPanel implements Observer{
 		public ColorPeg[] getCode(){
 			return this.code;
 		}
+		
+	}
+	
+	public static void main(String[] args){
 		
 	}
 
