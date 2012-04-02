@@ -13,5 +13,11 @@ public interface IMacroCommand extends ICommand {
 	
 	/** Removes the last command in the stack of commands */
 	void remove();
+	
+	/**
+	 * 
+	 * @return Returns the number of commands in the stack
+	 */
+	int stackSize();
 
 }

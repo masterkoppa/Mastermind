@@ -7,14 +7,15 @@ import mastermind.interfaces.Observer;
 
 public class PlayList extends Observable {
 
-	private Guess[] guessList;
-	private ArrayList<Observer> observers;
-	
+	private Guess[] guessList;	
 	public static final int NUM_OF_ROWS = 10;
+	
+	private int lastMoveID;
 	
 	public PlayList(){
 		guessList = new Guess[NUM_OF_ROWS];
 		observers = new ArrayList<Observer>();
+		lastMoveID = 0;
 	}
 	
 	/**
@@ -29,6 +30,18 @@ public class PlayList extends Observable {
 	}
 	
 	/**
+	 * 
+	 * @return The guess object that was most recently added to the array
+	 */
+	public Guess getLatestMove() {
+
+		if(guessList.length > 0)
+			return guessList[this.getLastPlayIndex()];
+		else
+			return null;
+	}
+	
+	/**
 	 * Add a new guess on the next empty space.
 	 * Make sure you notify all the observers after calling
 	 * this method.
@@ -37,6 +50,7 @@ public class PlayList extends Observable {
 		for(int i = 0; i < NUM_OF_ROWS; i++){
 			if(guessList[i] == null){
 				guessList[i] = new Guess();
+				lastMoveID = i;
 				return;
 			}
 		}
@@ -47,21 +61,17 @@ public class PlayList extends Observable {
 	/**
 	 * Returns the last move played, since we are suing a array we don't know
 	 * the current size of this array(just the ones initialized)
-	 * @return -1 if no moves, otherwise an index of the moveID
+	 * @return an index of the moveID
 	 */
 	private int getLastPlayIndex(){
-		for(int i = 0; i < NUM_OF_ROWS; i++){
-			if(guessList[i] == null){
-				return i-1;
-			}
-		}
-		
-		return NUM_OF_ROWS-1;
+		return lastMoveID;
 	}
 	
 	public void addNewCode(Code code){
 		this.addGuess();
 		int index = this.getLastPlayIndex();
+		
+		System.out.println(index);
 		
 		this.guessList[index].setCode(code);
 		

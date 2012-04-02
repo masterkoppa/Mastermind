@@ -1,26 +1,36 @@
 package mastermind.core.commands;
-import mastermind.core.ColorPeg;
-import mastermind.core.PlayList;
+import mastermind.core.*;
 
 public class ProvideFeedbackCommand extends PlayListCommand implements ICommand {
-	
-	public ProvideFeedbackCommand(PlayList listOfGuesses, ColorPeg[] colors)
+		
+	/**
+	 * 
+	 * @param listOfGuesses The list of guesses for the current game
+	 * @param secretCode The secret code for the current game
+	 */
+	public ProvideFeedbackCommand(PlayList listOfGuesses, ColorPeg[] secretCode)
 	{
-		super(listOfGuesses, colors);
+		super(listOfGuesses, secretCode);
 	}
 
-	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * Executes the command to provide feedback
+	 */
+	public void execute() 
+	{	
+		Code secret = new Code(this.colors);
+		Guess latestGuess = this.guesses.getLatestMove();
+		Feedback f = Feedback.analyze(secret, latestGuess.getCode());
+		latestGuess.setFeedback(f);
 	}
 
-	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * Removes the most recently provided feedback
+	 */
+	public void undo() 
+	{
+		Guess latestGuess = this.guesses.getLatestMove();
+		latestGuess.setFeedback(null);
 	}
-
-
 
 }

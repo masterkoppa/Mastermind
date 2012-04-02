@@ -42,6 +42,28 @@ public class Guess {
 		this.feedback = feedback;
 	}
 	
+	public String toString(){
+		String ret = "";
+		
+		if(feedback == null){
+			ret += "[ E E E E]";
+		}else{
+			ret += "[";
+			for(FeedbackPeg i : feedback.getRawFeedback()){
+				if(i == null){
+					ret += "E ";
+				}else{
+					ret += i.getName().substring(0,1) + " ";
+				}
+			}
+			ret += "]";
+		}
+		
+		ret += codeGuess.toString();
+		
+		return ret;
+	}
+	
 	
 
 }
