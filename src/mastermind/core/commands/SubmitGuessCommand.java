@@ -1,33 +1,36 @@
 package mastermind.core.commands;
+import java.io.IOException;
+
 import mastermind.core.*;
 import mastermind.logging.*;
 
 public class SubmitGuessCommand extends PlayListCommand implements ICommand {
+	
+	private GameLog gameLogger;
 	
 	/**
 	 * 
 	 * @param listOfGuesses - The model that contains a list of all the guesses
 	 * @param colors - The code to be submitted
 	 */
-	public SubmitGuessCommand(PlayList listOfGuesses, ColorPeg[] colors)
+	public SubmitGuessCommand(PlayList listOfGuesses, ColorPeg[] colors) throws IOException
 	{
 		super(listOfGuesses, colors);
+		gameLogger = GameLog.getInstance();
 	}
 	
-	@Override
 	public void execute() 
 	{
 		Code newGuess = new Code(this.colors);
 		this.guesses.addNewCode(newGuess);
-		GameLog.getInstance().info("Added new Guess");
-		GameLog.getInstance().debug(newGuess.toString());
+		this.gameLogger.write("Added new Guess");
+		this.gameLogger.write(newGuess.toString());
 	}
 	
-	@Override
 	public void undo()
 	{
 		this.guesses.deleteNewCode();
-		GameLog.getInstance().info("Removing last Guess");
+		this.gameLogger.write("Removing last Guess");
 	}
 
 }

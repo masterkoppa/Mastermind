@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -59,12 +60,10 @@ public class MastermindMain implements Observer{
 		this.register();
 	}
 
-	@Override
 	public void register() {
 		dataBackend.register(this);
 	}
 
-	@Override
 	public void notifyChange() {
 		//Revalidate the internal board
 		board.invalidate();
@@ -82,23 +81,20 @@ public class MastermindMain implements Observer{
 		//Action Listener to submit the code
 		submit.addActionListener(new ActionListener(){
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				//Input Validation
 				ColorPeg[] code = board.getLastGuess();
 				PlayCommand play = new PlayCommand();
-				play.add(new SubmitGuessCommand(dataBackend, code));
+				try{play.add(new SubmitGuessCommand(dataBackend, code));}catch(Exception ie){}
 				play.add(new ProvideFeedbackCommand(dataBackend, secretCode.getPegs()));
 				play.execute();
-				
-				//System.out.println("Move Generated: " + dataBackend.getLatestMove());
 			}
 			
 		});
 		
 		JButton undo = new JButton("Undo");
 		JCheckBox computer = new JCheckBox("Computer Code Breaker");
-		JCheckBox logging = new JCheckBox("logging");
+		JCheckBox logging = new JCheckBox("Logging Enabled");
 		
 		checkPanel.add(computer);
 		checkPanel.add(logging);
