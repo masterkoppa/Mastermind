@@ -1,5 +1,6 @@
 package mastermind.core.commands;
 import mastermind.core.*;
+import mastermind.logging.GameLog;
 
 public class ProvideFeedbackCommand extends PlayListCommand implements ICommand {
 		
@@ -22,6 +23,7 @@ public class ProvideFeedbackCommand extends PlayListCommand implements ICommand 
 		Guess latestGuess = this.guesses.getLatestMove();
 		Feedback f = Feedback.analyze(secret, latestGuess.getCode());
 		latestGuess.setFeedback(f);
+		GameLog.getInstance().info("Feedback provided");
 	}
 
 	/**
@@ -31,6 +33,7 @@ public class ProvideFeedbackCommand extends PlayListCommand implements ICommand 
 	{
 		Guess latestGuess = this.guesses.getLatestMove();
 		latestGuess.setFeedback(null);
+		GameLog.getInstance().info("Feedback undone");
 	}
 
 }
