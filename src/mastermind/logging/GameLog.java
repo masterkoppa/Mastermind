@@ -98,23 +98,8 @@ public class GameLog
 		SimpleLayout sl = new SimpleLayout();
 		FileAppender fa = null;
 		
-<<<<<<< HEAD
-		try 
-		{
-			fa = new FileAppender(sl, "game_log.txt", false);
-			l.addAppender(fa);
-		}
-		catch (IOException e) 
-		{
-			ConsoleAppender ca = new ConsoleAppender();
-			l.addAppender(ca);
-			l.debug("Failed opening file with exception: "+e.toString());
-			l.debug("Switching to Console Appender");
-		}
-=======
 		fa = new FileAppender(sl, file, false);
 		l.addAppender(fa);
->>>>>>> 47d80f8fa68a696a9374570bdf06d49cb3fca686
 		
 		l.debug("Logger created");
 		
