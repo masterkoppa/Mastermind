@@ -59,7 +59,11 @@ public class Code {
 		String ret = "";
 		
 		for(ColorPeg i : Pegs){
-			ret += i.getName() + " ";
+			if(i == null){
+				ret += "E ";
+			}else{
+				ret += i.getName() + " ";
+			}
 		}
 		
 		return ret;

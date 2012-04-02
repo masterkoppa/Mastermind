@@ -50,8 +50,6 @@ public class MastermindMain implements Observer{
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.setLayout(new BorderLayout());
 		
-		
-		
 		board = new MastermindBoard(model);
 		
 		mainWindow.add(board, BorderLayout.CENTER);

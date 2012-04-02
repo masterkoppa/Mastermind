@@ -10,9 +10,12 @@ public class PlayList extends Observable {
 	private Guess[] guessList;	
 	public static final int NUM_OF_ROWS = 10;
 	
+	private int lastMoveID;
+	
 	public PlayList(){
 		guessList = new Guess[NUM_OF_ROWS];
 		observers = new ArrayList<Observer>();
+		lastMoveID = 0;
 	}
 	
 	/**
@@ -47,6 +50,7 @@ public class PlayList extends Observable {
 		for(int i = 0; i < NUM_OF_ROWS; i++){
 			if(guessList[i] == null){
 				guessList[i] = new Guess();
+				lastMoveID = i;
 				return;
 			}
 		}
@@ -57,24 +61,17 @@ public class PlayList extends Observable {
 	/**
 	 * Returns the last move played, since we are suing a array we don't know
 	 * the current size of this array(just the ones initialized)
-	 * @return -1 if no moves, otherwise an index of the moveID
+	 * @return an index of the moveID
 	 */
 	private int getLastPlayIndex(){
-		for(int i = 0; i < NUM_OF_ROWS; i++){
-			if(guessList[i] == null){
-				if(i == 0)
-					return i;
-				else
-					return i-1;
-			}
-		}
-		
-		return NUM_OF_ROWS-1;
+		return lastMoveID;
 	}
 	
 	public void addNewCode(Code code){
 		this.addGuess();
 		int index = this.getLastPlayIndex();
+		
+		System.out.println(index);
 		
 		this.guessList[index].setCode(code);
 		
