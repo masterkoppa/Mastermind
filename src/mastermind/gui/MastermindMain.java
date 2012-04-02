@@ -90,8 +90,6 @@ public class MastermindMain implements Observer{
 				play.add(new SubmitGuessCommand(dataBackend, code));
 				play.add(new ProvideFeedbackCommand(dataBackend, secretCode.getPegs()));
 				play.execute();
-				
-				//System.out.println("Move Generated: " + dataBackend.getLatestMove());
 			}
 			
 		});
