@@ -28,7 +28,7 @@ public class GameLog
 		{
 			fa = new FileAppender(sl, "game_log.txt", false);
 			l.addAppender(fa);
-		} 
+		}
 		catch (IOException e) 
 		{
 			ConsoleAppender ca = new ConsoleAppender();
