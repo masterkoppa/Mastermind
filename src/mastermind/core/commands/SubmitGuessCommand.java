@@ -9,6 +9,7 @@ public class SubmitGuessCommand extends PlayListCommand implements ICommand {
 		super(listOfGuesses, colors);
 	}
 	
+	@Override
 	public void execute() 
 	{
 		Code newGuess = new Code(this.colors);
@@ -16,6 +17,7 @@ public class SubmitGuessCommand extends PlayListCommand implements ICommand {
 		GameLog.getInstance().info("Added new Guess");
 	}
 	
+	@Override
 	public void undo()
 	{
 		this.guesses.deleteNewCode();
