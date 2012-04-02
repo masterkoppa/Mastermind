@@ -63,7 +63,7 @@ public class PlayList extends Observable {
 	 * the current size of this array(just the ones initialized)
 	 * @return an index of the moveID
 	 */
-	private int getLastPlayIndex(){
+	public int getLastPlayIndex(){
 		return lastMoveID;
 	}
 	

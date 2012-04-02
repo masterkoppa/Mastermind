@@ -77,16 +77,11 @@ public class MastermindBoard extends JPanel implements Observer{
 	}
 	
 	public ColorPeg[] getLastGuess(){
-		for(int i = 0; i < PlayList.NUM_OF_ROWS; i++){
-			if(!rows.get(i).hasFeedback()){
-				if(i == 0){
-					System.err.print("THIS IS MESSED UP YO");
-				}
-				return rows.get(i).getCode();
-			}
+		if(data.getLastPlayIndex() == 0){
+			return rows.get(data.getLastPlayIndex()).getCode();
+		}else{
+			return rows.get(data.getLastPlayIndex() + 1).getCode();
 		}
-		//If there are now guesses then we have a problem
-		throw new IllegalStateException("The program has already gotten feedback for all it's rows, the game should be over.");
 	}
 	
 	private class Row extends JPanel{
@@ -189,17 +184,13 @@ public class MastermindBoard extends JPanel implements Observer{
 			this.add(codePanel, BorderLayout.CENTER);
 		}
 		
-		/**
-		 * Returns whether this class had feedback when built
-		 * @return
-		 */
-		public boolean hasFeedback(){
-			return this.hasFeedback;
-		}
-		
 		public ColorPeg[] getCode(){
 			return this.code;
 		}
+		
+	}
+	
+	public static void main(String[] args){
 		
 	}
 
