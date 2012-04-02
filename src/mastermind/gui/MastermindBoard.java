@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
+import mastermind.core.Feedback;
 import mastermind.core.FeedbackPeg;
 import mastermind.core.Guess;
 import mastermind.core.PlayList;
@@ -28,7 +29,6 @@ public class MastermindBoard extends JPanel implements Observer{
 		data = model;
 		rows = new ArrayList<Row>();
 		availableColors = new ColorPeg[]{ColorPeg.BLACK , ColorPeg.BLUE, ColorPeg.GREEN, ColorPeg.RED, ColorPeg.WHITE, ColorPeg.YELLOW};
-		notifyChange();
 		this.register();
 	}
 
@@ -43,10 +43,15 @@ public class MastermindBoard extends JPanel implements Observer{
 		
 		System.out.println("UPDATING!!");
 		
-		rows.clear();
+		
+		rows = new ArrayList<Row>();
 		
 		for(int i = 0; i < PlayList.NUM_OF_ROWS; i++){
 			Guess g = data.getMove(i);
+			
+			System.out.print("Row: :" + i);
+			System.out.println(g);
+			
 			//TODO Fix the law of demeter here, major breakage of the law here
 			//     plus its not pretty or readable.
 			if(g == null){
@@ -55,6 +60,7 @@ public class MastermindBoard extends JPanel implements Observer{
 			Object f = g.getFeedback();
 			if(f == null){
 				rows.add(new Row(null, g.getCode().getPegs()));
+				
 			}else{
 				rows.add(new Row(g.getFeedback().getRawFeedback(), 
 						g.getCode().getPegs()));
@@ -71,16 +77,11 @@ public class MastermindBoard extends JPanel implements Observer{
 	}
 	
 	public ColorPeg[] getLastGuess(){
-		for(int i = 0; i < PlayList.NUM_OF_ROWS; i++){
-			if(!rows.get(i).hasFeedback()){
-				if(i == 0){
-					System.err.print("THIS IS MESSED UP YO");
-				}
-				return rows.get(i).getCode();
-			}
+		if(data.getLastPlayIndex() == 0){
+			return rows.get(data.getLastPlayIndex()).getCode();
+		}else{
+			return rows.get(data.getLastPlayIndex() + 1).getCode();
 		}
-		//If there are now guesses then we have a problem
-		throw new IllegalStateException("The program has already gotten feedback for all it's rows, the game should be over.");
 	}
 	
 	private class Row extends JPanel{
@@ -109,7 +110,7 @@ public class MastermindBoard extends JPanel implements Observer{
 			
 			build();
 		}
-		
+
 		private void build(){
 			this.setLayout(new BorderLayout());
 			
@@ -183,17 +184,13 @@ public class MastermindBoard extends JPanel implements Observer{
 			this.add(codePanel, BorderLayout.CENTER);
 		}
 		
-		/**
-		 * Returns whether this class had feedback when built
-		 * @return
-		 */
-		public boolean hasFeedback(){
-			return this.hasFeedback;
-		}
-		
 		public ColorPeg[] getCode(){
 			return this.code;
 		}
+		
+	}
+	
+	public static void main(String[] args){
 		
 	}
 
