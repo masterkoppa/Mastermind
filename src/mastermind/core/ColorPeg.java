@@ -7,7 +7,7 @@ public enum ColorPeg {
 	RED("Red", Color.RED),
 	BLUE("Blue", Color.BLUE),
 	GREEN("Green", Color.GREEN),
-	YELLOW("Yello", Color.YELLOW),
+	YELLOW("Yellow", Color.YELLOW),
 	WHITE("White", Color.WHITE),
 	BLACK("Black", Color.BLACK);
 	
