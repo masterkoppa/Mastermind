@@ -32,12 +32,10 @@ public class MastermindBoard extends JPanel implements Observer{
 		this.register();
 	}
 
-	@Override
 	public void register() {
 		data.register(this);
 	}
 
-	@Override
 	public void notifyChange() {
 		this.removeAll(); //Clear the JPanel
 		
@@ -154,7 +152,6 @@ public class MastermindBoard extends JPanel implements Observer{
 				peg.addActionListener(new ActionListener(){
 					private int index = -1;
 
-					@Override
 					public void actionPerformed(ActionEvent e) {
 						JButton self = (JButton)e.getSource();
 						if(index == -1){
