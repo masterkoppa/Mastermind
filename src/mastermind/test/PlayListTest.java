@@ -66,10 +66,11 @@ public class PlayListTest {
 		
 		p.add(new SubmitGuessCommand(play, testCode1.getPegs()));
 		p.add(new SubmitGuessCommand(play, testCode2.getPegs()));
+		p.add(new SubmitGuessCommand(play, testCode3.getPegs()));
 		
 		p.execute();
 		
-		assertEquals("PlayList is not updating it's index when a new code is added.", play.getLastPlayIndex(), 1);
+		assertEquals("PlayList is not updating it's index when a new code is added.", play.getLastPlayIndex(), 2);
 	}
 	
 	@Test
@@ -82,7 +83,6 @@ public class PlayListTest {
 		
 		assertEquals("PlayList is not updating it's index when a new code is added.", play.getLastPlayIndex(), 0);
 		assertFalse(play.getLatestMove().getFeedback() == null);
-		
 	}
 
 }
