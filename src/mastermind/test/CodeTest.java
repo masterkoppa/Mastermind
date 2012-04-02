@@ -15,7 +15,7 @@ public class CodeTest {
 	private Code test2;
 	
 	@Before 
-	protected void setUp() throws Exception{
+	public void setUp() throws Exception{
 		ColorPeg[] colors = new ColorPeg[4];
 		colors[0] = ColorPeg.BLUE;
 		colors[1] = ColorPeg.YELLOW;
