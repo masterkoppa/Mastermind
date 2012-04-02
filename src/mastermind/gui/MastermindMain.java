@@ -89,7 +89,9 @@ public class MastermindMain implements Observer{
 				PlayCommand play = new PlayCommand();
 				play.add(new SubmitGuessCommand(dataBackend, code));
 				play.add(new ProvideFeedbackCommand(dataBackend, secretCode.getPegs()));
-				controller.executeCommand(play);
+				play.execute();
+				
+				//System.out.println("Move Generated: " + dataBackend.getLatestMove());
 			}
 			
 		});

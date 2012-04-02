@@ -12,7 +12,6 @@ import mastermind.core.commands.PlayCommand;
 import mastermind.core.commands.ProvideFeedbackCommand;
 import mastermind.core.commands.SubmitGuessCommand;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -83,6 +82,9 @@ public class PlayListTest {
 		
 		assertEquals("PlayList is not updating it's index when a new code is added.", play.getLastPlayIndex(), 0);
 		assertFalse(play.getLatestMove().getFeedback() == null);
+		assertFalse(play.getMove(0).getFeedback() == null);
+		
+		System.out.println(play.getMove(0));
 	}
 
 }

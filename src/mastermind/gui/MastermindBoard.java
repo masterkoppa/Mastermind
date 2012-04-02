@@ -88,19 +88,16 @@ public class MastermindBoard extends JPanel implements Observer{
 
 		private static final long serialVersionUID = 1L;
 		private FeedbackPeg[] feedback;
-		private boolean hasFeedback;
 		private ColorPeg[] code;
 		
 		public Row(FeedbackPeg[] feedback, ColorPeg[] code){
 			//Check if this data even exists, most of the time
 			//it wont exist so we make it empty
-			if(feedback != null){
-				this.feedback = feedback;
-				this.hasFeedback = true;
+			if(feedback == null){
+				this.feedback = new FeedbackPeg[Code.NUM_OF_PEGS];
 			}
 			else{
-				this.feedback = new FeedbackPeg[Code.NUM_OF_PEGS];
-				this.hasFeedback = false;
+				this.feedback = feedback;
 			}
 			
 			if(code != null)
@@ -187,10 +184,6 @@ public class MastermindBoard extends JPanel implements Observer{
 		public ColorPeg[] getCode(){
 			return this.code;
 		}
-		
-	}
-	
-	public static void main(String[] args){
 		
 	}
 
