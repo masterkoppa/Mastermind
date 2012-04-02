@@ -19,11 +19,30 @@ public class Guess {
 	}
 	
 	/**
-	 * Returns the feedback for this object. Null if not analyzed yet.
+	 * Returns the code for this guess, by default it is an empty guess
+	 * @return The code object for this guess
+	 */
+	public ColorPeg[] getCodePegs(){
+		return codeGuess.getPegs();
+	}
+	
+	/**
+	 * Returns the feedback for this guess. Null if not analyzed yet.
 	 * @return
 	 */
 	public Feedback getFeedback(){
 		return feedback;
+	}
+	
+	/**
+	 * Returns the feedback pegs for this guess. Null if not analyzed yet.
+	 * @return
+	 */
+	public FeedbackPeg[] getFeedbackPegs(){
+		if (feedback == null){
+			return null;
+		}
+		return feedback.getRawFeedback();
 	}
 	
 	/**
