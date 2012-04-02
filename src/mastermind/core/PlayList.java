@@ -95,6 +95,18 @@ public class PlayList extends Observable {
 	}
 	
 	/**
+	 * Remove feedback from the most recently played guess
+	 */
+	public void removeFeedbackFromLastGuess(){
+		int index = this.getLastPlayIndex();
+		
+		this.guessList[index].setFeedback(null);
+		
+		//Notify all observers
+		super.dataChanged();
+	}
+	
+	/**
 	 * Delete the last code added to this list.
 	 */
 	public void deleteNewCode(){
