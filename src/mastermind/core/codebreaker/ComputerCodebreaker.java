@@ -44,7 +44,7 @@ public class ComputerCodebreaker {
 			public void run() {
 				guessBehavior.guess();
 			}
-		}, delay);
+		}, 0, delay);
 	}
 	
 	/**
