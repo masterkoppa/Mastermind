@@ -65,6 +65,7 @@ public class PlayList extends Observable {
 		for(int i = 0; i < NUM_OF_ROWS; i++){
 			if(guessList[i] == null && i > 0){
 				guessList[i-1] = null;
+				lastMoveID --;
 				return;
 			}
 		}
