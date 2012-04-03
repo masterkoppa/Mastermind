@@ -1,10 +1,8 @@
 package mastermind.core.controller;
 
 import mastermind.core.*;
-import mastermind.core.commands.ICommand;
-import mastermind.core.commands.PlayCommand;
-import mastermind.core.commands.ProvideFeedbackCommand;
-import mastermind.core.commands.SubmitGuessCommand;
+import mastermind.core.codebreaker.*;
+import mastermind.core.commands.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +10,8 @@ import java.util.ArrayList;
 public class GameController implements IGameController {
 	private ArrayList<ICommand> history;
 	private int nextUndo;
+	
+	private ComputerCodebreaker computerCodebreaker;
 	
 	private PlayList dataBackend;
 	private Code secretCode;
@@ -51,17 +51,17 @@ public class GameController implements IGameController {
 	}
 	
 	private void trimHistory() {
-		for( int i = nextUndo; i < history.size(); i++ ) {
+		for(int i = nextUndo; i < history.size(); i++) {
 			history.remove(i);
 		}
 	}
 
 	@Override
 	public void submitGuess(ColorPeg[] code) {
-		PlayCommand play = new PlayCommand();
-		try{
+		IMacroCommand play = new PlayCommand();
+		try {
 			play.add(new SubmitGuessCommand(dataBackend, code));
-		}catch(Exception ie){
+		} catch(Exception ie) {
 			ie.printStackTrace();
 			return;//Cancel this action if there is an error
 		}
@@ -73,19 +73,16 @@ public class GameController implements IGameController {
 		}
 		
 		this.executeCommand(play);
-		
 	}
 
 	@Override
 	public void startAI() {
-		// TODO Auto-generated method stub
-		
+		computerCodebreaker.start();
 	}
 
 	@Override
 	public void stopAI() {
-		// TODO Auto-generated method stub
-		
+		computerCodebreaker.stop();
 	}
 
 	@Override
