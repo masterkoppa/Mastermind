@@ -41,7 +41,6 @@ public class MastermindBoard extends JPanel implements Observer{
 		
 		System.out.println("UPDATING!!");
 		
-		
 		rows = new ArrayList<Row>();
 		
 		for(int i = 0; i < PlayList.NUM_OF_ROWS; i++){
@@ -58,7 +57,6 @@ public class MastermindBoard extends JPanel implements Observer{
 			FeedbackPeg[] feedback = g.getFeedbackPegs();
 			ColorPeg[] code = g.getCodePegs();
 			rows.add(new Row(feedback, code));
-			
 		}
 		
 		this.setLayout(new GridLayout(0,1));

@@ -124,7 +124,7 @@ public class MastermindMain implements Observer{
 		
 		delayLabel = new JLabel("30 s");
 		
-		delaySelector = new JSlider(0, 30, 30);
+		delaySelector = new JSlider(1, 30, 30);
 		
 		delaySelector.addChangeListener(new ChangeListener(){
 
