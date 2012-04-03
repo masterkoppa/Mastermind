@@ -2,25 +2,24 @@ package mastermind.gui;
 
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.JSlider;
 
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
 import mastermind.core.PlayList;
-import mastermind.core.controller.GameController;
 import mastermind.core.controller.IGameController;
 import mastermind.interfaces.Observer;
 
@@ -67,7 +66,7 @@ public class MastermindMain implements Observer{
 	
 	private JPanel generateOptions(){
 		JPanel options = new JPanel(new GridBagLayout());
-		JPanel checkPanel = new JPanel(new FlowLayout());
+		JPanel checkPanel = new JPanel(new GridBagLayout());
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		
 		
@@ -85,18 +84,61 @@ public class MastermindMain implements Observer{
 		});
 		
 		JButton undo = new JButton("Undo");
+		
+		
 		JCheckBox computer = new JCheckBox("Computer Code Breaker");
+		
+		computer.addItemListener(new ItemListener(){
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				int newState = e.getStateChange();
+				
+				if(newState == ItemEvent.DESELECTED){
+					System.out.println("Item Deselected");
+				} else{
+					System.out.println("Item Selected");
+				}
+			}
+			
+		});
+		
 		JCheckBox logging = new JCheckBox("Logging Enabled");
 		
-		checkPanel.add(computer);
-		checkPanel.add(logging);
+		GridBagConstraints c = new GridBagConstraints();
+		
+		c.gridx = 0;
+		c.gridy = 0;
+		
+		checkPanel.add(computer, c);
+		
+		c.gridx = 1;
+		c.insets = new Insets(0,20,0,10);
+		
+		JLabel delayLabel = new JLabel("20 s");
+		
+		checkPanel.add(delayLabel, c);
+		
+		c.gridx = 0;
+		c.gridy = 1;
+		c.gridwidth = 2;
+		c.insets = new Insets(20,0,40,0);
+		
+		checkPanel.add(new JSlider(), c);
+		
+		c.gridy = 2;
+		c.insets = new Insets(0,0,50,0);
+		
+		checkPanel.add(logging, c);
+		
+		
 		buttonPanel.add(submit);
 		buttonPanel.add(undo);
 		
 		
 		//Setup the gridbag layout options
 		
-		GridBagConstraints c = new GridBagConstraints();
+		c = new GridBagConstraints();
 		
 		//Check Panel Settings
 		c.gridx = 0;
