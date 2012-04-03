@@ -59,6 +59,18 @@ public class PlayList extends Observable {
 	}
 	
 	/**
+	 * Removes the last Guess from the stack
+	 */
+	private void removeGuess(){
+		for(int i = 0; i < NUM_OF_ROWS; i++){
+			if(guessList[i] == null && i > 0){
+				guessList[i-1] = null;
+				return;
+			}
+		}
+	}
+	
+	/**
 	 * Returns the last move played, since we are suing a array we don't know
 	 * the current size of this array(just the ones initialized)
 	 * @return an index of the moveID
@@ -67,6 +79,10 @@ public class PlayList extends Observable {
 		return lastMoveID;
 	}
 	
+	/**
+	 * Adds a new code to the stack of guesses
+	 * @param code
+	 */
 	public void addNewCode(Code code){
 		this.addGuess();
 		int index = this.getLastPlayIndex();
@@ -110,8 +126,7 @@ public class PlayList extends Observable {
 	 * Delete the last code added to this list.
 	 */
 	public void deleteNewCode(){
-		int index = this.getLastPlayIndex();
-		this.guessList[index].setCode(null);
+		this.removeGuess();
 		
 		//Notify all observers
 		super.dataChanged();
