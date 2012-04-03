@@ -20,6 +20,12 @@ public class Mastermind {
 	private CodeMakerPanel codemakerView;
 	private Code secret;
 	
+	/**
+	 * Sets up the gui and controller.
+	 * First view opened will populate the secret code for the game.
+	 * Second view will contain the board and computer player and
+	 * logger options.
+	 */
 	public Mastermind(){
 		
 		playListModel = new PlayList();
@@ -36,6 +42,10 @@ public class Mastermind {
 		
 	}
 	
+	/**
+	 * Get secret and set up gui with look and feel specific to
+	 * operating system being used.
+	 */
 	private void initGUI(){
 		setLookAndFeel();
 		codemakerView = new CodeMakerPanel();
@@ -115,6 +125,7 @@ public class Mastermind {
 	}
 
 	/**
+	 * Kicks the program off by creating the Main container for the gui and system.
 	 * @param args
 	 */
 	public static void main(String[] args) {
