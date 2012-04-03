@@ -90,6 +90,11 @@ public class MastermindMain implements Observer{
 		});
 		
 		undo = new JButton("Undo");
+		undo.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				controller.undoCommand();
+			}
+		});
 		
 		
 		JCheckBox computer = new JCheckBox("Computer Code Breaker");
