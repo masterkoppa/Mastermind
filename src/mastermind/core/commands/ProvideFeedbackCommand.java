@@ -4,6 +4,11 @@ import java.io.IOException;
 import mastermind.core.*;
 import mastermind.logging.GameLog;
 
+/**
+ * 
+ * @author Andrew Church
+ *
+ */
 public class ProvideFeedbackCommand extends PlayListCommand implements ICommand {
 		
 	private GameLog theLogger;

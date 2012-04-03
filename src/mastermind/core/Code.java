@@ -54,6 +54,21 @@ public class Code {
 		
 	}
 	
+	/**
+	 * Factory method to randomly generate a code for a guess
+	 * @return
+	 */
+	public static Code Random()
+	{
+		Code c = new Code();
+		c.setPegs(0, ColorPeg.BLACK);
+		c.setPegs(1, ColorPeg.BLUE);
+		c.setPegs(2, ColorPeg.RED);
+		c.setPegs(3, ColorPeg.GREEN);
+		
+		return c;
+	}
+	
 	@Override
 	public String toString(){
 		String ret = "";

@@ -16,21 +16,21 @@ public class SubmitGuessCommand extends PlayListCommand implements ICommand {
 	public SubmitGuessCommand(PlayList listOfGuesses, ColorPeg[] colors) throws IOException
 	{
 		super(listOfGuesses, colors);
-		//gameLogger = GameLog.getInstance();
+		gameLogger = GameLog.getInstance();
 	}
 	
 	public void execute() 
 	{
 		Code newGuess = new Code(this.colors);
 		this.guesses.addNewCode(newGuess);
-		//this.gameLogger.write("Added new Guess");
-		//this.gameLogger.write(newGuess.toString());
+		this.gameLogger.write("Added new Guess");
+		this.gameLogger.write(newGuess.toString());
 	}
 	
 	public void undo()
 	{
 		this.guesses.deleteNewCode();
-		//this.gameLogger.write("Removing last Guess");
+		this.gameLogger.write("Removing last Guess");
 	}
 
 }
