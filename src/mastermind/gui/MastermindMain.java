@@ -17,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
-import mastermind.core.Code;
 import mastermind.core.ColorPeg;
 import mastermind.core.PlayList;
 import mastermind.core.controller.IGameController;
@@ -28,18 +27,17 @@ public class MastermindMain implements Observer{
 	//MODELS AND CONTROLLERS
 	private PlayList dataBackend;
 	private IGameController controller;
-	private Code secretCode;
 	
 	//GUI VARIABLES
 	private JPanel mainWindow;
 	private MastermindBoard board;
+	private JButton submit;
 	
-	public MastermindMain(IGameController controller, PlayList model, Code secretCode){
+	public MastermindMain(IGameController controller, PlayList model){
 		//setLookAndFeel();
 		
 		this.dataBackend = model;
 		this.controller = controller;
-		this.secretCode = secretCode;
 		
 		mainWindow = new JPanel();//Set the JFrame with the window title
 		
@@ -70,7 +68,7 @@ public class MastermindMain implements Observer{
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 		
 		
-		JButton submit = new JButton("Submit");
+		submit = new JButton("Submit");
 		
 		//Action Listener to submit the code
 		submit.addActionListener(new ActionListener(){
@@ -96,8 +94,10 @@ public class MastermindMain implements Observer{
 				
 				if(newState == ItemEvent.DESELECTED){
 					System.out.println("Item Deselected");
+					submit.setEnabled(true);
 				} else{
 					System.out.println("Item Selected");
+					submit.setEnabled(false);
 				}
 			}
 			
