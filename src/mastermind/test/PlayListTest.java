@@ -5,6 +5,8 @@ package mastermind.test;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
 import mastermind.core.PlayList;
@@ -63,9 +65,16 @@ public class PlayListTest {
 	public void commandAddPlayList(){
 		PlayCommand p = new PlayCommand();
 		
-		p.add(new SubmitGuessCommand(play, testCode1.getPegs()));
-		p.add(new SubmitGuessCommand(play, testCode2.getPegs()));
-		p.add(new SubmitGuessCommand(play, testCode3.getPegs()));
+		try
+		{
+			p.add(new SubmitGuessCommand(play, testCode1.getPegs()));
+			p.add(new SubmitGuessCommand(play, testCode2.getPegs()));
+			p.add(new SubmitGuessCommand(play, testCode3.getPegs()));
+		}
+		catch(IOException io)
+		{
+			fail();
+		}
 		
 		p.execute();
 		
@@ -75,8 +84,16 @@ public class PlayListTest {
 	@Test
 	public void commandAddPlayListPlusFeedback(){
 		PlayCommand p = new PlayCommand();
-		p.add(new SubmitGuessCommand(play, testCode1.getPegs()));
-		p.add(new ProvideFeedbackCommand(play, secret.getPegs()));
+		
+		try
+		{
+			p.add(new SubmitGuessCommand(play, testCode1.getPegs()));
+			p.add(new ProvideFeedbackCommand(play, secret.getPegs()));
+		}
+		catch(IOException io)
+		{
+			fail();
+		}
 		
 		p.execute();
 		

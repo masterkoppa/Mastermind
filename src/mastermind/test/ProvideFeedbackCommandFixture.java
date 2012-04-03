@@ -2,6 +2,8 @@ package mastermind.test;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
 import mastermind.core.Guess;
@@ -12,6 +14,11 @@ import mastermind.core.commands.ProvideFeedbackCommand;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 
+ * @author Andrew Church
+ *
+ */
 public class ProvideFeedbackCommandFixture {
 
 	private Code secret;
@@ -41,8 +48,16 @@ public class ProvideFeedbackCommandFixture {
 	@Test
 	public void testExecute() {
 		this.gamePlays.addNewCode(this.guessCode);
+		ICommand feedback = null;
 		
-		ICommand feedback = new ProvideFeedbackCommand(this.gamePlays, this.secret.getPegs());
+		try
+		{
+			feedback = new ProvideFeedbackCommand(this.gamePlays, this.secret.getPegs());
+		}
+		catch(IOException io)
+		{
+			fail();
+		}
 		
 		feedback.execute();
 		
@@ -53,8 +68,16 @@ public class ProvideFeedbackCommandFixture {
 	@Test
 	public void testUndo() {
 		this.gamePlays.addNewCode(this.guessCode);
+		ICommand feedback = null;
 		
-		ICommand feedback = new ProvideFeedbackCommand(this.gamePlays, this.secret.getPegs());
+		try
+		{
+			feedback = new ProvideFeedbackCommand(this.gamePlays, this.secret.getPegs());
+		}
+		catch(IOException io)
+		{
+			fail();
+		}
 		
 		feedback.execute();
 		

@@ -2,6 +2,8 @@ package mastermind.test;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
 import mastermind.core.Guess;
@@ -15,6 +17,11 @@ import mastermind.core.commands.SubmitGuessCommand;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 
+ * @author Andrew Church
+ *
+ */
 public class PlayCommandFixture {
 
 	Code secret;
@@ -44,8 +51,16 @@ public class PlayCommandFixture {
 	@Test
 	public void testAdd() {
 		IMacroCommand play = new PlayCommand();
+		ICommand submitGuess = null;
 		
-		ICommand submitGuess = new SubmitGuessCommand(this.gamePlays, this.guessCode.getPegs());
+		try
+		{
+		 submitGuess = new SubmitGuessCommand(this.gamePlays, this.guessCode.getPegs());
+		}
+		catch(IOException io)
+		{
+			fail();
+		}
 		
 		play.add(submitGuess);
 		
@@ -55,8 +70,16 @@ public class PlayCommandFixture {
 	@Test
 	public void testRemove() {
 		IMacroCommand play = new PlayCommand();
+		ICommand submitGuess = null;
 		
-		ICommand submitGuess = new SubmitGuessCommand(this.gamePlays, this.guessCode.getPegs());
+		try
+		{
+			submitGuess = new SubmitGuessCommand(this.gamePlays, this.guessCode.getPegs());
+		}
+		catch(IOException io)
+		{
+			fail();
+		}
 		
 		play.add(submitGuess);
 		
@@ -70,9 +93,18 @@ public class PlayCommandFixture {
 	@Test
 	public void testExecute() {
 		IMacroCommand play = new PlayCommand();
+		ICommand submitGuess = null;
+		ICommand getFeedback = null;
 		
-		ICommand submitGuess = new SubmitGuessCommand(this.gamePlays, this.guessCode.getPegs());
-		ICommand getFeedback = new ProvideFeedbackCommand(this.gamePlays, this.secret.getPegs());
+		try
+		{
+			submitGuess = new SubmitGuessCommand(this.gamePlays, this.guessCode.getPegs());
+			getFeedback = new ProvideFeedbackCommand(this.gamePlays, this.secret.getPegs());
+		}
+		catch(IOException io)
+		{
+			fail();
+		}
 		
 		play.add(submitGuess);
 		play.add(getFeedback);
@@ -88,9 +120,18 @@ public class PlayCommandFixture {
 	@Test
 	public void testUndo() {
 		IMacroCommand play = new PlayCommand();
+		ICommand submitGuess = null;
+		ICommand getFeedback = null;
 		
-		ICommand submitGuess = new SubmitGuessCommand(this.gamePlays, this.guessCode.getPegs());
-		ICommand getFeedback = new ProvideFeedbackCommand(this.gamePlays, this.secret.getPegs());
+		try
+		{
+			submitGuess = new SubmitGuessCommand(this.gamePlays, this.guessCode.getPegs());
+			getFeedback = new ProvideFeedbackCommand(this.gamePlays, this.secret.getPegs());
+		}
+		catch(IOException io)
+		{
+			fail();
+		}
 		
 		play.add(submitGuess);
 		play.add(getFeedback);
