@@ -96,6 +96,10 @@ public class Code {
 		return false;
 	}
 	
+	/**
+	 * Randomly selects a peg color
+	 * @return
+	 */
 	private static ColorPeg pickRandomPeg()
 	{
 		Random r = new Random();
