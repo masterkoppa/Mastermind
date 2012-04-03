@@ -32,12 +32,10 @@ public class MastermindBoard extends JPanel implements Observer{
 		this.register();
 	}
 
-	@Override
 	public void register() {
 		data.register(this);
 	}
 
-	@Override
 	public void notifyChange() {
 		this.removeAll(); //Clear the JPanel
 		
@@ -57,14 +55,10 @@ public class MastermindBoard extends JPanel implements Observer{
 			if(g == null){
 				g = new Guess();
 			}
-			Object f = g.getFeedback();
-			if(f == null){
-				rows.add(new Row(null, g.getCode().getPegs()));
-				
-			}else{
-				rows.add(new Row(g.getFeedback().getRawFeedback(), 
-						g.getCode().getPegs()));
-			}
+			FeedbackPeg[] feedback = g.getFeedbackPegs();
+			ColorPeg[] code = g.getCodePegs();
+			rows.add(new Row(feedback, code));
+			
 		}
 		
 		this.setLayout(new GridLayout(0,1));
@@ -157,7 +151,6 @@ public class MastermindBoard extends JPanel implements Observer{
 				peg.addActionListener(new ActionListener(){
 					private int index = -1;
 
-					@Override
 					public void actionPerformed(ActionEvent e) {
 						JButton self = (JButton)e.getSource();
 						if(index == -1){
