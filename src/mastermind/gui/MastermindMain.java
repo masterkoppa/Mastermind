@@ -84,10 +84,7 @@ public class MastermindMain implements Observer{
 			public void actionPerformed(ActionEvent e) {
 				//Input Validation
 				ColorPeg[] code = board.getLastGuess();
-				PlayCommand play = new PlayCommand();
-				try{play.add(new SubmitGuessCommand(dataBackend, code));}catch(Exception ie){}
-				play.add(new ProvideFeedbackCommand(dataBackend, secretCode.getPegs()));
-				play.execute();
+				controller.submitGuess(code);
 			}
 			
 		});
@@ -179,7 +176,8 @@ public class MastermindMain implements Observer{
 	 * @param args
 	 */
 	public static void main(String[] args){
-		new MastermindMain(new GameController(), new PlayList(), new Code(new ColorPeg[]{ColorPeg.RED, ColorPeg.RED, ColorPeg.BLUE, ColorPeg.BLUE})).startGUI();
+		PlayList p = new PlayList();
+		new MastermindMain(new GameController(p, new Code(new ColorPeg[]{ColorPeg.RED, ColorPeg.RED, ColorPeg.BLUE, ColorPeg.BLUE})), p, new Code(new ColorPeg[]{ColorPeg.RED, ColorPeg.RED, ColorPeg.BLUE, ColorPeg.BLUE})).startGUI();
 	}
 
 }

@@ -1,15 +1,31 @@
 package mastermind.core.controller;
 
+import mastermind.core.*;
 import mastermind.core.commands.ICommand;
+import mastermind.core.commands.PlayCommand;
+import mastermind.core.commands.ProvideFeedbackCommand;
+import mastermind.core.commands.SubmitGuessCommand;
+
 import java.util.ArrayList;
 
 public class GameController implements IGameController {
 	private ArrayList<ICommand> history;
 	private int nextUndo;
 	
+	private PlayList dataBackend;
+	private Code secretCode;
+	
 	public GameController() {
 		history = new ArrayList<ICommand>();
 		nextUndo = 0;
+	}
+	
+	public GameController(PlayList data, Code secret){
+		this(); //Do this to not break compatibility, not yet
+		this.dataBackend = data;
+		this.secretCode = secret;
+		
+		System.out.println("Controller Init()");
 	}
 
 	public void executeCommand(ICommand command) {
@@ -37,6 +53,39 @@ public class GameController implements IGameController {
 		for( int i = nextUndo; i < history.size(); i++ ) {
 			history.remove(i);
 		}
+	}
+
+	@Override
+	public void submitGuess(ColorPeg[] code) {
+		PlayCommand play = new PlayCommand();
+		try{
+			play.add(new SubmitGuessCommand(dataBackend, code));
+		}catch(Exception ie){
+			ie.printStackTrace();
+			return;//Cancel this action if there is an error
+		}
+		play.add(new ProvideFeedbackCommand(dataBackend, secretCode.getPegs()));
+		
+		this.executeCommand(play);
+		
+	}
+
+	@Override
+	public void startAI() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void stopAI() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void configureLog() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
