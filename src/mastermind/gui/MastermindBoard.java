@@ -185,9 +185,5 @@ public class MastermindBoard extends JPanel implements Observer{
 		}
 		
 	}
-	
-	public static void main(String[] args){
-		
-	}
 
 }
