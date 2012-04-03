@@ -6,6 +6,7 @@ import mastermind.core.commands.PlayCommand;
 import mastermind.core.commands.ProvideFeedbackCommand;
 import mastermind.core.commands.SubmitGuessCommand;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameController implements IGameController {
@@ -64,7 +65,12 @@ public class GameController implements IGameController {
 			ie.printStackTrace();
 			return;//Cancel this action if there is an error
 		}
-		play.add(new ProvideFeedbackCommand(dataBackend, secretCode.getPegs()));
+		try {
+			play.add(new ProvideFeedbackCommand(dataBackend, secretCode.getPegs()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		this.executeCommand(play);
 		

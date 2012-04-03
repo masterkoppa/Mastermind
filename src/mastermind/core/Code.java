@@ -83,6 +83,15 @@ public class Code {
 		
 		return ret;
 	}
+
+	public boolean isEmpty() {
+		for(int i = 0; i < NUM_OF_PEGS; i++){
+			if(Pegs[i] == null){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 
 }

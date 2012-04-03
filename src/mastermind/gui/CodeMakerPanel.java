@@ -19,11 +19,13 @@ public class CodeMakerPanel extends JPanel{
 	private Code secret;
 	private ColorPeg[] code;
 	private ColorPeg[] availableColors;
+	private boolean submitted;
 	
 	public CodeMakerPanel(){
 		secret = new Code();
 		code = new ColorPeg[Code.NUM_OF_PEGS];
 		availableColors = new ColorPeg[]{ColorPeg.BLACK , ColorPeg.BLUE, ColorPeg.GREEN, ColorPeg.RED, ColorPeg.WHITE, ColorPeg.YELLOW};
+		submitted = false;
 		build();
 	}
 	
@@ -55,6 +57,16 @@ public class CodeMakerPanel extends JPanel{
 		this.add(buttonArray, c);
 		
 		JButton Submit = new JButton("Submit Secret Code!");
+		
+		Submit.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//Validate Code Here
+				submitted = true;
+			}
+			
+		});
 		
 		Submit.setSize(Submit.getMinimumSize());
 		
@@ -98,6 +110,13 @@ public class CodeMakerPanel extends JPanel{
 		
 		
 		return gridButton;
+	}
+	
+	public Code getSecret(){
+		if(!submitted)
+			return new Code();
+		secret = new Code(code);
+		return secret;
 	}
 	
 	public static void main(String[] args){

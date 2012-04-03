@@ -8,7 +8,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -21,9 +20,6 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
 import mastermind.core.PlayList;
-import mastermind.core.commands.PlayCommand;
-import mastermind.core.commands.ProvideFeedbackCommand;
-import mastermind.core.commands.SubmitGuessCommand;
 import mastermind.core.controller.GameController;
 import mastermind.core.controller.IGameController;
 import mastermind.interfaces.Observer;
