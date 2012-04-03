@@ -1,5 +1,8 @@
 package mastermind.test;
 import static org.junit.Assert.*;
+
+import java.io.IOException;
+
 import org.junit.*;
 import mastermind.core.*;
 import mastermind.core.commands.*;
@@ -17,8 +20,16 @@ public class SubmitGuessCommandFixture {
 		colors[3] = ColorPeg.WHITE;
 		
 		PlayList plays = new PlayList();
+		ICommand command = null;
 		
-		ICommand command = new SubmitGuessCommand(plays, colors);
+		try
+		{
+			command = new SubmitGuessCommand(plays, colors);
+		}
+		catch(IOException io)
+		{
+			fail();
+		}
 		
 		command.execute();
 		

@@ -16,16 +16,16 @@ public class GameLog
 	
 	private GameLog() throws IOException
 	{
-		this.logInfrastructure = this.ConfigureNewGameLogger(null);
 		this.logMessages = new ArrayList<String>();
+		this.logInfrastructure = this.ConfigureNewGameLogger(null);
 	}
 	
 	private GameLog(String fileName) throws IOException
 	{
-		this.logInfrastructure = this.ConfigureNewGameLogger(fileName);
-		
 		if(this.logMessages == null)
 			this.logMessages = new ArrayList<String>();
+		
+		this.logInfrastructure = this.ConfigureNewGameLogger(fileName);
 	}
 	
 	/**
