@@ -25,7 +25,6 @@ public class GameController implements IGameController {
 		this(); //Do this to not break compatibility, not yet
 		this.dataBackend = data;
 		this.secretCode = secret;
-		computerCodebreaker = new ComputerCodebreaker(5000, new RandomGuess(this));
 		
 		System.out.println("Controller Init()");
 	}
@@ -78,6 +77,7 @@ public class GameController implements IGameController {
 
 	@Override
 	public void startAI() {
+		computerCodebreaker = new ComputerCodebreaker(5000, new RandomGuess(this));
 		computerCodebreaker.start();
 	}
 
