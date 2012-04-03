@@ -1,5 +1,7 @@
 package mastermind.core;
 
+import java.util.Random;
+
 public class Code {
 	
 	/**
@@ -61,10 +63,11 @@ public class Code {
 	public static Code Random()
 	{
 		Code c = new Code();
-		c.setPegs(0, ColorPeg.BLACK);
-		c.setPegs(1, ColorPeg.BLUE);
-		c.setPegs(2, ColorPeg.RED);
-		c.setPegs(3, ColorPeg.GREEN);
+		
+		for(int count = 0; count < 4; count++)
+		{
+			c.setPegs(count, Code.pickRandomPeg());
+		}
 		
 		return c;
 	}
@@ -93,5 +96,20 @@ public class Code {
 		return false;
 	}
 	
-
+	private static ColorPeg pickRandomPeg()
+	{
+		Random r = new Random();
+		int randomNum = r.nextInt(5) + 1;
+		
+		switch(randomNum)
+		{
+			case 1: return ColorPeg.RED;
+			case 2: return ColorPeg.BLUE;
+			case 3: return ColorPeg.GREEN;
+			case 4: return ColorPeg.YELLOW;
+			case 5: return ColorPeg.WHITE;
+			case 6: return ColorPeg.BLACK;
+			default: return ColorPeg.BLACK;
+		}
+	}
 }

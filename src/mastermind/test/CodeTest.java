@@ -49,4 +49,26 @@ public class CodeTest {
 	public void testToString(){
 		assert(test1.toString().equals("Blue Yellow Green Red "));
 	}
+	
+	@Test
+	public void testRandom(){
+		Code r = Code.Random();
+		Code c = Code.Random();
+		
+		ColorPeg[] rPegs = r.getPegs();
+		ColorPeg[] cPegs = c.getPegs();
+		
+		int countEquals = 0;
+		
+		for(int count = 0; count < Code.NUM_OF_PEGS; count++)
+		{
+			ColorPeg rPeg = rPegs[count];
+			ColorPeg cPeg = cPegs[count];
+			
+			if(rPeg.name() == cPeg.name())
+				countEquals++;
+		}
+		
+		assertTrue(countEquals < Code.NUM_OF_PEGS);
+	}
 }
