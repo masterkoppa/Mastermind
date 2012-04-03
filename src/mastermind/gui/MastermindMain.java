@@ -10,12 +10,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.NumberFormat;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import mastermind.core.ColorPeg;
 import mastermind.core.PlayList;
@@ -32,6 +35,9 @@ public class MastermindMain implements Observer{
 	private JPanel mainWindow;
 	private MastermindBoard board;
 	private JButton submit;
+	private JButton undo;
+	private JSlider delaySelector;
+	private JLabel delayLabel;
 	
 	public MastermindMain(IGameController controller, PlayList model){
 		//setLookAndFeel();
@@ -81,7 +87,7 @@ public class MastermindMain implements Observer{
 			
 		});
 		
-		JButton undo = new JButton("Undo");
+		undo = new JButton("Undo");
 		
 		
 		JCheckBox computer = new JCheckBox("Computer Code Breaker");
@@ -93,12 +99,32 @@ public class MastermindMain implements Observer{
 				int newState = e.getStateChange();
 				
 				if(newState == ItemEvent.DESELECTED){
-					System.out.println("Item Deselected");
 					submit.setEnabled(true);
+					undo.setEnabled(true);
+					delaySelector.setEnabled(true);
 				} else{
-					System.out.println("Item Selected");
 					submit.setEnabled(false);
+					undo.setEnabled(false);
+					delaySelector.setEnabled(false);
 				}
+			}
+			
+		});
+		
+		delayLabel = new JLabel("30 s");
+		
+		delaySelector = new JSlider(0, 30, 30);
+		
+		delaySelector.addChangeListener(new ChangeListener(){
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JSlider j = (JSlider) e.getSource();
+				
+				NumberFormat number = NumberFormat.getInstance();
+				number.setMinimumIntegerDigits(2);
+				
+				delayLabel.setText(number.format(j.getValue()) + " s");
 			}
 			
 		});
@@ -115,7 +141,7 @@ public class MastermindMain implements Observer{
 		c.gridx = 1;
 		c.insets = new Insets(0,20,0,10);
 		
-		JLabel delayLabel = new JLabel("20 s");
+		
 		
 		checkPanel.add(delayLabel, c);
 		
@@ -124,7 +150,7 @@ public class MastermindMain implements Observer{
 		c.gridwidth = 2;
 		c.insets = new Insets(20,0,40,0);
 		
-		checkPanel.add(new JSlider(), c);
+		checkPanel.add(delaySelector, c);
 		
 		c.gridy = 2;
 		c.insets = new Insets(0,0,50,0);
