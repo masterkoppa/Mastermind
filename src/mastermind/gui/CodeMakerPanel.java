@@ -6,17 +6,24 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 import mastermind.core.Code;
+import mastermind.core.ColorPeg;
 
 public class CodeMakerPanel extends JPanel{
 	
 	private Code secret;
+	private ColorPeg[] code;
+	private ColorPeg[] availableColors;
 	
 	public CodeMakerPanel(){
 		secret = new Code();
+		code = new ColorPeg[Code.NUM_OF_PEGS];
+		availableColors = new ColorPeg[]{ColorPeg.BLACK , ColorPeg.BLUE, ColorPeg.GREEN, ColorPeg.RED, ColorPeg.WHITE, ColorPeg.YELLOW};
 		build();
 	}
 	
@@ -35,7 +42,7 @@ public class CodeMakerPanel extends JPanel{
 		
 		JPanel buttonArray = new JPanel(new GridLayout(0,Code.NUM_OF_PEGS));
 		for(int i = 0; i < Code.NUM_OF_PEGS; i++){
-			buttonArray.add(this.generateButton());
+			buttonArray.add(this.generateButton(i));
 		}
 		Dimension n = this.getSize();
 		n.setSize(400, 50);
@@ -62,8 +69,35 @@ public class CodeMakerPanel extends JPanel{
 		
 	}
 	
-	private JButton generateButton(){
-		return new JButton();
+	private JButton generateButton(int ID){
+		JButton gridButton = new JButton();
+		
+		gridButton.setName(Integer.toString(ID));
+		
+		gridButton.addActionListener(new ActionListener(){
+			private int index = -1;
+
+			public void actionPerformed(ActionEvent e) {
+				JButton self = (JButton)e.getSource();
+				if(index == -1){
+					index = 0;
+				} else{
+					index = (index + 1)%availableColors.length;
+				}
+				
+				self.setBackground(availableColors[index].getColor());
+				
+				//Some hackish fix :D
+				
+				String number = self.getName();
+				int index = Integer.parseInt(number);
+				code[index] = availableColors[this.index];
+			}
+			
+		});
+		
+		
+		return gridButton;
 	}
 	
 	public static void main(String[] args){
