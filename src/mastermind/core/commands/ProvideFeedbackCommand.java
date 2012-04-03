@@ -7,7 +7,8 @@ import mastermind.logging.GameLog;
 /**
  * 
  * @author Andrew Church
- *
+ * 
+ *Command to provide feedback
  */
 public class ProvideFeedbackCommand extends PlayListCommand implements ICommand {
 		

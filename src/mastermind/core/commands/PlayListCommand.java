@@ -2,6 +2,13 @@ package mastermind.core.commands;
 import mastermind.core.ColorPeg;
 import mastermind.core.PlayList;
 
+/**
+ * 
+ * @author Andrew Church
+ *
+ *Super class for any commands that need to accept a PlayList and a ColorPeg array as arguments for the constructor.
+ *
+ */
 public class PlayListCommand {
 
 	protected PlayList guesses;
