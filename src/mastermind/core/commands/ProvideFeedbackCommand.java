@@ -1,17 +1,23 @@
 package mastermind.core.commands;
+import java.io.IOException;
+
 import mastermind.core.*;
 import mastermind.logging.GameLog;
 
 public class ProvideFeedbackCommand extends PlayListCommand implements ICommand {
 		
+	private GameLog theLogger;
+	
 	/**
 	 * 
 	 * @param listOfGuesses The list of guesses for the current game
 	 * @param secretCode The secret code for the current game
+	 * @throws IOException 
 	 */
-	public ProvideFeedbackCommand(PlayList listOfGuesses, ColorPeg[] secretCode)
+	public ProvideFeedbackCommand(PlayList listOfGuesses, ColorPeg[] secretCode) throws IOException
 	{
 		super(listOfGuesses, secretCode);
+		theLogger = GameLog.getInstance();
 	}
 
 	/**
@@ -23,7 +29,7 @@ public class ProvideFeedbackCommand extends PlayListCommand implements ICommand 
 		Guess latestGuess = this.guesses.getLatestMove();
 		Feedback f = Feedback.analyze(secret, latestGuess.getCode());
 		latestGuess.setFeedback(f);
-		GameLog.getInstance().info("Feedback provided");
+		theLogger.write("Feedback provided");
 	}
 
 	/**
@@ -33,7 +39,7 @@ public class ProvideFeedbackCommand extends PlayListCommand implements ICommand 
 	{
 		Guess latestGuess = this.guesses.getLatestMove();
 		latestGuess.setFeedback(null);
-		GameLog.getInstance().info("Feedback undone");
+		theLogger.write("Feedback undone");
 	}
 
 }
