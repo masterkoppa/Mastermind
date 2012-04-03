@@ -22,8 +22,9 @@ public class ProvideFeedbackCommand extends PlayListCommand implements ICommand 
 		Code secret = new Code(this.colors);
 		Guess latestGuess = this.guesses.getLatestMove();
 		Feedback f = Feedback.analyze(secret, latestGuess.getCode());
-		latestGuess.setFeedback(f);
-		GameLog.getInstance().info("Feedback provided");
+		//latestGuess.setFeedback(f);
+		guesses.addFeedbackToLastGuess(f);
+		//GameLog.getInstance().info("Feedback provided");
 	}
 
 	/**
@@ -33,7 +34,7 @@ public class ProvideFeedbackCommand extends PlayListCommand implements ICommand 
 	{
 		Guess latestGuess = this.guesses.getLatestMove();
 		latestGuess.setFeedback(null);
-		GameLog.getInstance().info("Feedback undone");
+		//GameLog.getInstance().info("Feedback undone");
 	}
 
 }
