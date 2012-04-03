@@ -76,8 +76,8 @@ public class GameController implements IGameController {
 	}
 
 	@Override
-	public void startAI() {
-		computerCodebreaker = new ComputerCodebreaker(5000, new RandomGuess(this));
+	public void startAI(int delaySeconds) {
+		computerCodebreaker = new ComputerCodebreaker(delaySeconds*1000, new RandomGuess(this));
 		computerCodebreaker.start();
 	}
 

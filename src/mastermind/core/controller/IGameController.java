@@ -9,7 +9,7 @@ public interface IGameController {
 	
 	public void submitGuess(ColorPeg[] code);
 	
-	public void startAI();
+	public void startAI(int delaySeconds);
 	
 	public void stopAI();
 	
