@@ -152,6 +152,9 @@ public class MastermindBoard extends JPanel implements Observer{
 					private int index = -1;
 
 					public void actionPerformed(ActionEvent e) {
+						if(hasFeedback == true){
+							return;
+						}
 						JButton self = (JButton)e.getSource();
 						if(index == -1){
 							index = 0;
