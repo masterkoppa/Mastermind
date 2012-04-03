@@ -30,6 +30,7 @@ public class MastermindMain implements Observer{
 	//MODELS AND CONTROLLERS
 	private PlayList dataBackend;
 	private IGameController controller;
+	private int selectedDelay;
 	
 	//GUI VARIABLES
 	private JPanel mainWindow;
@@ -44,6 +45,7 @@ public class MastermindMain implements Observer{
 		
 		this.dataBackend = model;
 		this.controller = controller;
+		this.selectedDelay = 30;
 		
 		mainWindow = new JPanel();//Set the JFrame with the window title
 		
@@ -102,10 +104,13 @@ public class MastermindMain implements Observer{
 					submit.setEnabled(true);
 					undo.setEnabled(true);
 					delaySelector.setEnabled(true);
+					//Stop AI
 				} else{
 					submit.setEnabled(false);
 					undo.setEnabled(false);
 					delaySelector.setEnabled(false);
+					
+					//Start AI with selectedDelay
 				}
 			}
 			
@@ -124,6 +129,7 @@ public class MastermindMain implements Observer{
 				NumberFormat number = NumberFormat.getInstance();
 				number.setMinimumIntegerDigits(2);
 				
+				selectedDelay = j.getValue();
 				delayLabel.setText(number.format(j.getValue()) + " s");
 			}
 			

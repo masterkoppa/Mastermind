@@ -48,7 +48,7 @@ public class Mastermind {
             	//TODO Make this a method calls that creates all the GUI objects here
             	//     inside the GUI thread instead of the main thread.
             	mainWindow.setTitle("Mastermind");
-            	mainWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            	mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             	mainWindow.setSize(800, 600);
         		mainWindow.setVisible(true);
             }
