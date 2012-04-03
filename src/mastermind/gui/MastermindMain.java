@@ -32,19 +32,18 @@ public class MastermindMain implements Observer{
 	private Code secretCode;
 	
 	//GUI VARIABLES
-	private JFrame mainWindow;
+	private JPanel mainWindow;
 	private MastermindBoard board;
 	
 	public MastermindMain(IGameController controller, PlayList model, Code secretCode){
-		setLookAndFeel();
+		//setLookAndFeel();
 		
 		this.dataBackend = model;
 		this.controller = controller;
 		this.secretCode = secretCode;
 		
-		mainWindow = new JFrame("Mastermind");//Set the JFrame with the window title
+		mainWindow = new JPanel();//Set the JFrame with the window title
 		
-		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.setLayout(new BorderLayout());
 		
 		board = new MastermindBoard(model);
@@ -113,67 +112,10 @@ public class MastermindMain implements Observer{
 		
 		return options;
 	}
+
 	
-	
-	
-	/**
-	 * Code to automatically detect the look and feel from the system. If the system
-	 * doesn't have a native look and feel it tries the Nimbus Look and Feel which looks
-	 * awesome. If none of them work... then default to do nothing.
-	 */
-	private void setLookAndFeel(){
-		try {
-			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-				// AWESOMENESS GOING ON HERE!!
-				
-				//FOR TESTING Use this as an example to change the color scheme
-				//see: http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/_nimbusDefaults.html#primary
-//				float[] HSB = Color.RGBtoHSB(192, 194, 196, null);
-//				System.out.println(HSB[0] + " " + HSB[1] + " " + HSB[2]);
-//				UIManager.put("control", Color.getHSBColor(HSB[0], HSB[1], HSB[2]));
-				
-				//Set the color for progress bar
-				Color windowsGreen = Color.getHSBColor(0.3647343f, 0.96279067f, 0.84313726f);
-				
-				UIManager.put("nimbusOrange", windowsGreen); //Change the color used for the progress bar
-				
-				if ("Nimbus".equals(info.getName())) {
-					UIManager.setLookAndFeel(info.getClassName());
-					
-					break;
-				}
-			}
-		} catch (Exception ex) {
-			// Ignore and continue
-			try {
-				UIManager.setLookAndFeel(UIManager
-						.getSystemLookAndFeelClassName());
-				// System.out.println(UIManager.getSystemLookAndFeelClassName());
-			} catch (Exception e) {
-				// e.printStackTrace();
-				// Ignore again... wow what's installed in here o_0?
-			}
-		}
-	}
-	
-	public void startGUI(){
-		SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	//TODO Make this a method calls that creates all the GUI objects here
-            	//     inside the GUI thread instead of the main thread.
-            	mainWindow.setSize(800, 600);
-        		mainWindow.setVisible(true);
-            }
-        });
-	}
-	
-	/**
-	 * Test main
-	 * @param args
-	 */
-	public static void main(String[] args){
-		PlayList p = new PlayList();
-		new MastermindMain(new GameController(p, new Code(new ColorPeg[]{ColorPeg.RED, ColorPeg.RED, ColorPeg.BLUE, ColorPeg.BLUE})), p, new Code(new ColorPeg[]{ColorPeg.RED, ColorPeg.RED, ColorPeg.BLUE, ColorPeg.BLUE})).startGUI();
+	public JPanel getView(){
+		return mainWindow;
 	}
 
 }
