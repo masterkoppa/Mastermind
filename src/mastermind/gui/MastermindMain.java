@@ -104,13 +104,14 @@ public class MastermindMain implements Observer{
 					submit.setEnabled(true);
 					undo.setEnabled(true);
 					delaySelector.setEnabled(true);
-					//Stop AI
+					
+					controller.stopAI();
 				} else{
 					submit.setEnabled(false);
 					undo.setEnabled(false);
 					delaySelector.setEnabled(false);
 					
-					//Start AI with selectedDelay
+					controller.startAI();
 				}
 			}
 			
