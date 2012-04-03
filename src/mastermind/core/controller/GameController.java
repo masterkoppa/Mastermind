@@ -24,6 +24,7 @@ public class GameController implements IGameController {
 		this(); //Do this to not break compatibility, not yet
 		this.dataBackend = data;
 		this.secretCode = secret;
+		computerCodebreaker = new ComputerCodebreaker(5, new RandomGuess(this));
 		
 		System.out.println("Controller Init()");
 	}
