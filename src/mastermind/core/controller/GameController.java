@@ -43,13 +43,7 @@ public class GameController implements IGameController {
 		System.out.println("Controller Init()");
 	}
 
-	/**
-	 * Execute a command created by this controller. This allows
-	 * us to add commands to a history array for easy undo's
-	 * 
-	 * @param ICommand - A command object which takes care of 
-	 * game operations like guess submits and logs.
-	 */
+	@Override
 	public void executeCommand(ICommand command) {
 		trimHistory();
 		command.execute();
@@ -57,11 +51,7 @@ public class GameController implements IGameController {
 		nextUndo++;
 	}
 	
-	/**
-	 * Pull a command off the history and run its undo operation.
-	 * This will just reverse all operations that the command
-	 * completed bringing the state of the game back one move.
-	 */
+	@Override
 	public void undoCommand() {
 		// NOTE: We're using nextUndo - 1 as as index into the history, since
 		// our nextUndo counter is at 1 when one element gets added
@@ -92,11 +82,6 @@ public class GameController implements IGameController {
 		}
 	}
 
-	/**
-	 * Accepts the colors from the view and crafts a play command
-	 * (macro command) which in turn creates the submit guess and provide
-	 * feedback commands. After creation, this will execute the commands.
-	 */
 	@Override
 	public void submitGuess(ColorPeg[] code) {
 		IMacroCommand play = new PlayCommand();
@@ -116,18 +101,12 @@ public class GameController implements IGameController {
 		this.executeCommand(play);
 	}
 
-	/**
-	 * Create the thread for the AI guesses.
-	 */
 	@Override
 	public void startAI(int delaySeconds) {
 		computerCodebreaker = new ComputerCodebreaker(delaySeconds*1000, new RandomGuess(this));
 		computerCodebreaker.start();
 	}
 
-	/**
-	 * Kills the computer codebreaker and its thread.
-	 */
 	@Override
 	public void stopAI() {
 		computerCodebreaker.stop();
