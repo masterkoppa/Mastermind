@@ -42,6 +42,7 @@ public class MastermindMain implements Observer{
 	private IGameController controller;
 	private int selectedDelay;
 	private boolean newGameSelected;
+	private boolean gameIsOver;
 	
 	//GUI VARIABLES
 	private JPanel mainWindow;
@@ -96,7 +97,9 @@ public class MastermindMain implements Observer{
 	}
 	
 	private void showWinningMessage(String winningMessage) {
-		JOptionPane.showMessageDialog(mainWindow, winningMessage);
+		if(gameIsOver != true)
+			JOptionPane.showMessageDialog(mainWindow, winningMessage);
+		gameIsOver = true;
 	}
 
 	private JPanel generateOptions(){
