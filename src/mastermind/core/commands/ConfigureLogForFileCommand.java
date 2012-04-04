@@ -19,7 +19,7 @@ public class ConfigureLogForFileCommand implements IFileCommand {
 	
 	public ConfigureLogForFileCommand(String fileName)
 	{
-		if(null == file || fileName.isEmpty())
+		if(fileName.isEmpty())
 			throw new IllegalArgumentException("Must supply a valid file name");
 		
 		this.file = fileName;

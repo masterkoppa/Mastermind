@@ -236,6 +236,9 @@ public class MastermindMain implements Observer{
 					}else{
 						File f = file.getSelectedFile();
 						
+						JCheckBox l = (JCheckBox) e.getSource();
+						//l.setSelected(true);
+						
 						fileName = f.getPath();
 						System.out.println(fileName);
 					}
@@ -246,14 +249,12 @@ public class MastermindMain implements Observer{
 					try {
 						logger.execute();
 					} catch (FileExistsException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						//TODO Overwrite The File
+						JOptionPane.showMessageDialog(mainWindow, "File Already Exists, Please Pick Another file");
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(mainWindow, "Unknown IO Exception, please try again");
 						e1.printStackTrace();
 					}
-					
-					
 				}
 			}
 			
