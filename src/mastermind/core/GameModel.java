@@ -42,6 +42,33 @@ public class GameModel extends Observable
 			return true;
 	}
 	
+	public Boolean isLoggingEnabled()
+	{
+		return this.loggingEnabled;
+	}
+	
+	/**
+	 * Enables logging and notifies observers
+	 */
+	public void enableLogging()
+	{
+		this.loggingEnabled = true;
+		super.dataChanged();
+	}
+	
+	/**
+	 * Sets the winner of the game and notifies observers
+	 * @param theWinner
+	 */
+	public void declareWinner(GameWinner theWinner)
+	{
+		if(null == theWinner)
+			throw new IllegalArgumentException("You must supply a valid winner to declare");
+		
+		this.winner = theWinner;
+		super.dataChanged();
+	}
+	
 	/**
 	 * Set the object up for a new game
 	 */
