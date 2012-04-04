@@ -13,7 +13,7 @@ public interface IGameController {
 	
 	public void stopAI();
 	
-	public void configureLog();// TBD
+	public void configureLog(String fileName);// TBD
 	
 	public void undoCommand();
 	

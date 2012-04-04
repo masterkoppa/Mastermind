@@ -14,11 +14,13 @@ public class GameModel extends Observable
 {
 	private GameWinner winner;
 	private Boolean loggingEnabled;
+	private Boolean codebreakerIsAI;
 	
 	public GameModel()
 	{
 		this.winner = null;
 		this.loggingEnabled = false;
+		this.codebreakerIsAI = false;
 	}
 	
 	/**
@@ -45,6 +47,11 @@ public class GameModel extends Observable
 	public Boolean isLoggingEnabled()
 	{
 		return this.loggingEnabled;
+	}
+	
+	public Boolean isCodeBreakerAI()
+	{
+		return this.codebreakerIsAI;
 	}
 	
 	/**
@@ -75,6 +82,15 @@ public class GameModel extends Observable
 	public void newGame()
 	{
 		this.winner = null;
+	}
+	
+	/**
+	 * Configures whether AI has been enabled
+	 */
+	public void setCodeBreakerAsAI(Boolean ai)
+	{
+		this.codebreakerIsAI = ai;
+		super.dataChanged();
 	}
 
 	@Override

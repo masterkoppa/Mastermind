@@ -3,16 +3,18 @@ package mastermind.core.controller;
 import mastermind.core.*;
 import mastermind.core.codebreaker.*;
 import mastermind.core.commands.*;
+import mastermind.interfaces.Observer;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class GameController implements IGameController {
+public class GameController implements IGameController, Observer {
 	private ArrayList<ICommand> history;
 	private int nextUndo;
 	
 	private ComputerCodebreaker computerCodebreaker;
 	
+	private GameModel game;
 	private PlayList dataBackend;
 	private Code secretCode;
 	
@@ -21,8 +23,10 @@ public class GameController implements IGameController {
 		nextUndo = 0;
 	}
 	
-	public GameController(PlayList data, Code secret){
+	public GameController(GameModel theGame, PlayList data, Code secret){
 		this(); //Do this to not break compatibility, not yet
+		this.game = theGame;
+		this.game.register(this);
 		this.dataBackend = data;
 		this.secretCode = secret;
 		
@@ -79,15 +83,29 @@ public class GameController implements IGameController {
 	public void startAI(int delaySeconds) {
 		computerCodebreaker = new ComputerCodebreaker(delaySeconds*1000, new RandomGuess(this));
 		computerCodebreaker.start();
+		this.game.setCodeBreakerAsAI(true);
 	}
 
 	@Override
 	public void stopAI() {
 		computerCodebreaker.stop();
+		this.game.setCodeBreakerAsAI(false);
 	}
 
 	@Override
-	public void configureLog() {
+	public void configureLog(String fileName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyChange() {
+		if(this.game.isGameOver() && this.game.isCodeBreakerAI())
+			this.stopAI();
+	}
+
+	@Override
+	public void register() {
 		// TODO Auto-generated method stub
 		
 	}
