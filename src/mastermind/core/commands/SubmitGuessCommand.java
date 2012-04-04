@@ -4,6 +4,13 @@ import java.io.IOException;
 import mastermind.core.*;
 import mastermind.logging.*;
 
+/**
+ * 
+ * @author Andrew Church
+ * 
+ * Command that handles submitting a guess on the model
+ *
+ */
 public class SubmitGuessCommand extends PlayListCommand implements ICommand {
 	
 	private GameLog gameLogger;

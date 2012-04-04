@@ -6,6 +6,13 @@ import org.apache.commons.io.FileExistsException;
 
 import mastermind.logging.GameLog;
 
+/**
+ * 
+ * @author Andrew Church
+ * 
+ * Command to handle configuring the log with a file name
+ *
+ */
 public class ConfigureLogForFileCommand implements IFileCommand {
 
 	private String file;
