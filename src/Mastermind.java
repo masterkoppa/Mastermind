@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Rectangle;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -14,6 +15,7 @@ import mastermind.gui.*;
 public class Mastermind {
 	
 	private JFrame mainWindow;
+	private Rectangle previousBounds;
 	
 	private PlayList playListModel;
 	private GameModel theGame;
@@ -21,6 +23,7 @@ public class Mastermind {
 	private MastermindMain mainView;
 	private CodeMakerPanel codemakerView;
 	private Code secret;
+	
 	
 	/**
 	 * Sets up the gui and controller.
@@ -49,7 +52,11 @@ public class Mastermind {
 				}
 			}
 			
+			previousBounds = mainWindow.getBounds();
+			
 			mainWindow.dispose();
+			
+			theGame.newGame();
 			
 			
 		}
@@ -76,6 +83,11 @@ public class Mastermind {
             	mainWindow.setTitle("Mastermind");
             	mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             	mainWindow.setSize(800, 600);
+            	
+            	if(previousBounds != null){
+            		mainWindow.setBounds(previousBounds);
+            	}
+            	
         		mainWindow.setVisible(true);
             }
         });
