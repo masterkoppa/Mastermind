@@ -8,6 +8,11 @@ import mastermind.interfaces.Observer;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Handles requests made from the gui. Creates command objects
+ * based on these requests and then executes them while maintaining
+ * a history of all commands executed.
+ */
 public class GameController implements IGameController, Observer {
 	private ArrayList<ICommand> history;
 	private int nextUndo;
@@ -96,7 +101,7 @@ public class GameController implements IGameController, Observer {
 			return;//Cancel this action if there is an error
 		}
 		try {
-			play.add(new ProvideFeedbackCommand(dataBackend, secretCode.getPegs()));
+			play.add(new ProvideFeedbackCommand(this.game, dataBackend, secretCode.getPegs()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

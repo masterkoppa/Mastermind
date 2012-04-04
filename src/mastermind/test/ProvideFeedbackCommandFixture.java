@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
+import mastermind.core.GameModel;
 import mastermind.core.Guess;
 import mastermind.core.PlayList;
 import mastermind.core.commands.ICommand;
@@ -25,6 +26,7 @@ public class ProvideFeedbackCommandFixture {
 	private PlayList gamePlays;
 	private Code guessCode;
 	private Guess theGuess;
+	private GameModel theGame;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -43,6 +45,7 @@ public class ProvideFeedbackCommandFixture {
 		this.theGuess = new Guess();
 		this.theGuess.setCode(guessCode);
 		this.gamePlays = new PlayList();
+		this.theGame = new GameModel();
 	}
 
 	@Test
@@ -52,7 +55,7 @@ public class ProvideFeedbackCommandFixture {
 		
 		try
 		{
-			feedback = new ProvideFeedbackCommand(this.gamePlays, this.secret.getPegs());
+			feedback = new ProvideFeedbackCommand(this.theGame, this.gamePlays, this.secret.getPegs());
 		}
 		catch(IOException io)
 		{
@@ -72,7 +75,7 @@ public class ProvideFeedbackCommandFixture {
 		
 		try
 		{
-			feedback = new ProvideFeedbackCommand(this.gamePlays, this.secret.getPegs());
+			feedback = new ProvideFeedbackCommand(this.theGame, this.gamePlays, this.secret.getPegs());
 		}
 		catch(IOException io)
 		{

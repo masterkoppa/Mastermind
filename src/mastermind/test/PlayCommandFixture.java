@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
+import mastermind.core.GameModel;
 import mastermind.core.Guess;
 import mastermind.core.PlayList;
 import mastermind.core.commands.ICommand;
@@ -24,10 +25,12 @@ import org.junit.Test;
  */
 public class PlayCommandFixture {
 
-	Code secret;
-	Guess theGuess;
-	Code guessCode;
-	PlayList gamePlays;
+	private Code secret;
+	private Guess theGuess;
+	private Code guessCode;
+	private PlayList gamePlays;
+	private GameModel theGame;
+	
 	
 	@Before
 	public void setUp() throws Exception {
@@ -46,6 +49,7 @@ public class PlayCommandFixture {
 		this.theGuess = new Guess();
 		this.theGuess.setCode(guessCode);
 		gamePlays = new PlayList();
+		this.theGame = new GameModel();
 	}
 
 	@Test
@@ -99,7 +103,7 @@ public class PlayCommandFixture {
 		try
 		{
 			submitGuess = new SubmitGuessCommand(this.gamePlays, this.guessCode.getPegs());
-			getFeedback = new ProvideFeedbackCommand(this.gamePlays, this.secret.getPegs());
+			getFeedback = new ProvideFeedbackCommand(this.theGame, this.gamePlays, this.secret.getPegs());
 		}
 		catch(IOException io)
 		{
@@ -126,7 +130,7 @@ public class PlayCommandFixture {
 		try
 		{
 			submitGuess = new SubmitGuessCommand(this.gamePlays, this.guessCode.getPegs());
-			getFeedback = new ProvideFeedbackCommand(this.gamePlays, this.secret.getPegs());
+			getFeedback = new ProvideFeedbackCommand(this.theGame, this.gamePlays, this.secret.getPegs());
 		}
 		catch(IOException io)
 		{
@@ -145,7 +149,7 @@ public class PlayCommandFixture {
 		
 		play.undo();
 		
-		assertTrue(this.gamePlays.getLatestMove().getCode() == null);
+		assertTrue(this.gamePlays.getLatestMove() == null);
 	}
 
 }
