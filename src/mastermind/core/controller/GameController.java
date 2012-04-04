@@ -131,8 +131,9 @@ public class GameController implements IGameController, Observer {
 
 	@Override
 	public void notifyChange() {
-		if(this.game.isGameOver() && this.game.isCodeBreakerAI())
+		if(this.game.isGameOver() && this.game.isCodeBreakerAI()){
 			this.stopAI();
+		}
 	}
 
 	@Override

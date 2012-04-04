@@ -10,14 +10,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
 import java.text.NumberFormat;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -170,7 +174,34 @@ public class MastermindMain implements Observer{
 					//Enable Logging
 					System.out.println("Item Selected");
 					
+					//The file name where the user want's the file stored
 					String fileName = "";
+					
+					//Open a File Chooser
+					
+					
+					
+					int result = JFileChooser.ERROR_OPTION;
+					
+					JFileChooser file = new JFileChooser();
+					
+							
+					while(result == JFileChooser.ERROR_OPTION){
+						result = file.showSaveDialog(mainWindow);
+					}
+					
+					if(result == JFileChooser.CANCEL_OPTION){
+						JCheckBox l = (JCheckBox) e.getSource();
+						l.setSelected(false);
+						return;
+					}else{
+						File f = file.getSelectedFile();
+						
+						fileName = f.getPath();
+						System.out.println(fileName);
+					}
+					
+					
 				}
 			}
 			
