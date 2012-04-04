@@ -182,16 +182,19 @@ public class MastermindMain implements Observer{
 		
 		JCheckBox logging = new JCheckBox("Logging Enabled");
 		
-		logging.addItemListener( new ItemListener(){
+		
+		logging.addActionListener(new ActionListener(){
 
 			@Override
-			public void itemStateChanged(ItemEvent e) {
-				int newState = e.getStateChange();
+			public void actionPerformed(ActionEvent e) {
 				
-				if(newState == ItemEvent.DESELECTED){
+				JCheckBox l = (JCheckBox)e.getSource();
+								
+				if(!l.isSelected()){
 					//Disable the logging
 					System.out.println("Item Deselected");
 				} else{
+
 					//Enable Logging
 					System.out.println("Item Selected");
 					
@@ -199,8 +202,6 @@ public class MastermindMain implements Observer{
 					String fileName = "";
 					
 					//Open a File Chooser
-					
-					
 					
 					int result = JFileChooser.ERROR_OPTION;
 					
@@ -225,19 +226,19 @@ public class MastermindMain implements Observer{
 					});
 					
 							
-					while(result == JFileChooser.ERROR_OPTION){
-						result = file.showSaveDialog(mainWindow);
-					}
+					result = file.showSaveDialog(mainWindow);
+					
+					
 					
 					if(result == JFileChooser.CANCEL_OPTION){
-						JCheckBox l = (JCheckBox) e.getSource();
-						l.setSelected(false);
+						l = (JCheckBox) e.getSource();
+						//l.setSelected(false);
 						return;
 					}else{
 						File f = file.getSelectedFile();
 						
-						JCheckBox l = (JCheckBox) e.getSource();
-						//l.setSelected(true);
+						l = (JCheckBox) e.getSource();
+						l.setSelected(true);
 						
 						fileName = f.getPath();
 						System.out.println(fileName);
@@ -251,13 +252,15 @@ public class MastermindMain implements Observer{
 					} catch (FileExistsException e1) {
 						//TODO Overwrite The File
 						JOptionPane.showMessageDialog(mainWindow, "File Already Exists, Please Pick Another file");
+						l.setSelected(false);
 					} catch (IOException e1) {
 						JOptionPane.showMessageDialog(mainWindow, "Unknown IO Exception, please try again");
 						e1.printStackTrace();
+						l.setSelected(false);
 					}
 				}
+				
 			}
-			
 			
 		});
 		
@@ -290,8 +293,6 @@ public class MastermindMain implements Observer{
 		
 		buttonPanel.add(submit);
 		buttonPanel.add(undo);
-		
-		
 		
 		
 		//Setup the gridbag layout options
