@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
+import mastermind.core.GameModel;
 import mastermind.core.PlayList;
 import mastermind.core.commands.PlayCommand;
 import mastermind.core.commands.ProvideFeedbackCommand;
@@ -30,6 +31,7 @@ public class PlayListTest {
 	private Code testCode3;
 	
 	private Code secret;
+	private GameModel theGame;
 
 	/**
 	 * @throws java.lang.Exception
@@ -43,6 +45,7 @@ public class PlayListTest {
 		testCode3 = new Code(new ColorPeg[]{ColorPeg.WHITE, ColorPeg.YELLOW, ColorPeg.BLUE, ColorPeg.WHITE});
 		
 		secret = new Code(new ColorPeg[]{ColorPeg.WHITE, ColorPeg.YELLOW, ColorPeg.BLUE, ColorPeg.WHITE});
+		theGame = new GameModel();
 	}
 
 
@@ -88,7 +91,7 @@ public class PlayListTest {
 		try
 		{
 			p.add(new SubmitGuessCommand(play, testCode1.getPegs()));
-			p.add(new ProvideFeedbackCommand(play, secret.getPegs()));
+			p.add(new ProvideFeedbackCommand(this.theGame, play, secret.getPegs()));
 		}
 		catch(IOException io)
 		{

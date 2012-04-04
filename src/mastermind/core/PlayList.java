@@ -62,13 +62,9 @@ public class PlayList extends Observable {
 	 * Removes the last Guess from the stack
 	 */
 	private void removeGuess(){
-		for(int i = 0; i < NUM_OF_ROWS; i++){
-			if(guessList[i] == null && i > 0){
-				guessList[i-1] = null;
-				lastMoveID --;
-				return;
-			}
-		}
+		guessList[this.getLastPlayIndex()] = null;
+		if(this.getLastPlayIndex() > 0)
+			lastMoveID--;
 	}
 	
 	/**
