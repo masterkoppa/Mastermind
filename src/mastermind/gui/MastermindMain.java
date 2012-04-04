@@ -20,10 +20,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileFilter;
 
 import mastermind.core.ColorPeg;
 import mastermind.core.GameModel;
@@ -38,14 +37,17 @@ public class MastermindMain implements Observer{
 	private GameModel currentGame;
 	private IGameController controller;
 	private int selectedDelay;
+	private boolean newGameSelected;
 	
 	//GUI VARIABLES
 	private JPanel mainWindow;
 	private MastermindBoard board;
 	private JButton submit;
 	private JButton undo;
+	private JButton newGame;
 	private JSlider delaySelector;
 	private JLabel delayLabel;
+	private JCheckBox computer;
 	
 	public MastermindMain(IGameController controller, PlayList model, GameModel theGame){
 		//setLookAndFeel();
@@ -54,6 +56,7 @@ public class MastermindMain implements Observer{
 		this.currentGame = theGame;
 		this.controller = controller;
 		this.selectedDelay = 30;
+		this.newGameSelected = false;
 		
 		mainWindow = new JPanel();//Set the JFrame with the window title
 		
@@ -81,6 +84,9 @@ public class MastermindMain implements Observer{
 		//Check if the game is over
 		if(currentGame.isGameOver()){
 			board.gameIsOver();
+			submit.setEnabled(false);
+			computer.setEnabled(false);
+			undo.setEnabled(false);
 			showWinningMessage(currentGame.getWinningMessage());
 		}
 	}
@@ -115,8 +121,19 @@ public class MastermindMain implements Observer{
 			}
 		});
 		
+		newGame = new JButton("New Game");
+		newGame.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("You called?");
+				newGameSelected = true;
+			}
+			
+		});
 		
-		JCheckBox computer = new JCheckBox("Computer Code Breaker");
+		
+		computer = new JCheckBox("Computer Code Breaker");
 		
 		computer.addItemListener(new ItemListener(){
 
@@ -185,6 +202,24 @@ public class MastermindMain implements Observer{
 					
 					JFileChooser file = new JFileChooser();
 					
+					file.setFileFilter(new FileFilter(){
+
+						@Override
+						public boolean accept(File f) {
+							if(f.getName().endsWith(".txt") || f.isDirectory()){
+								return true;
+							}else{
+								return false;
+							}
+						}
+
+						@Override
+						public String getDescription() {
+							return "Text File (.txt)";
+						}
+						
+					});
+					
 							
 					while(result == JFileChooser.ERROR_OPTION){
 						result = file.showSaveDialog(mainWindow);
@@ -239,6 +274,8 @@ public class MastermindMain implements Observer{
 		buttonPanel.add(undo);
 		
 		
+		
+		
 		//Setup the gridbag layout options
 		
 		c = new GridBagConstraints();
@@ -255,12 +292,20 @@ public class MastermindMain implements Observer{
 		
 		options.add(buttonPanel, c);
 		
+		c.gridy = 2;
+		
+		options.add(newGame, c);
+		
 		return options;
 	}
 
 	
 	public JPanel getView(){
 		return mainWindow;
+	}
+
+	public boolean isDone() {
+		return newGameSelected;
 	}
 
 }

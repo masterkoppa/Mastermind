@@ -30,18 +30,30 @@ public class Mastermind {
 	 */
 	public Mastermind(){
 		
-		playListModel = new PlayList();
+		
 		theGame = new GameModel();
 		
-		initGUI();
+		while(true){
+			initGUI();
+			startGame();
+			
+			//Wait for the game to kill itself
+			while(!mainView.isDone()){
+				try {
+					Thread.sleep(200);
+					if(!mainWindow.isVisible()){
+						break;
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			mainWindow.dispose();
+			
+			
+		}
 		
-		mainController = new GameController(theGame, playListModel, secret);
-		mainView = new MastermindMain(mainController, playListModel, theGame);
-		
-		mainWindow.remove(codemakerView);
-		mainWindow.add(mainView.getView());
-		mainWindow.getContentPane().invalidate();
-		mainWindow.getContentPane().validate();
 		
 	}
 	
@@ -51,6 +63,7 @@ public class Mastermind {
 	 */
 	private void initGUI(){
 		setLookAndFeel();
+		playListModel = new PlayList();
 		codemakerView = new CodeMakerPanel();
 		
 		mainWindow = new JFrame();
@@ -82,6 +95,16 @@ public class Mastermind {
 		
 		System.out.println("Found you!");
 		
+	}
+	
+	private void startGame(){
+		mainController = new GameController(theGame, playListModel, secret);
+		mainView = new MastermindMain(mainController, playListModel, theGame);
+		
+		mainWindow.remove(codemakerView);
+		mainWindow.add(mainView.getView());
+		mainWindow.getContentPane().invalidate();
+		mainWindow.getContentPane().validate();
 	}
 	
 	/**
