@@ -33,7 +33,6 @@ public class Mastermind {
 	 */
 	public Mastermind(){
 		
-		
 		theGame = new GameModel();
 		
 		while(true){

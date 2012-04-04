@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
+import java.io.IOException;
 import java.text.NumberFormat;
 
 import javax.swing.JButton;
@@ -24,9 +25,12 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 
+import org.apache.commons.io.FileExistsException;
+
 import mastermind.core.ColorPeg;
 import mastermind.core.GameModel;
 import mastermind.core.PlayList;
+import mastermind.core.commands.ConfigureLogForFileCommand;
 import mastermind.core.controller.IGameController;
 import mastermind.interfaces.Observer;
 
@@ -234,6 +238,19 @@ public class MastermindMain implements Observer{
 						
 						fileName = f.getPath();
 						System.out.println(fileName);
+					}
+					
+					
+					ConfigureLogForFileCommand logger = new ConfigureLogForFileCommand(fileName);
+					
+					try {
+						logger.execute();
+					} catch (FileExistsException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
 					
 					
