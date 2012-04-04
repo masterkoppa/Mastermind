@@ -7,6 +7,11 @@ import mastermind.core.commands.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Handles requests made from the gui. Creates command objects
+ * based on these requests and then executes them while maintaining
+ * a history of all commands executed.
+ */
 public class GameController implements IGameController {
 	private ArrayList<ICommand> history;
 	private int nextUndo;
