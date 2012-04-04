@@ -124,7 +124,12 @@ public class MastermindMain implements Observer{
 		undo = new JButton("Undo");
 		undo.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				controller.undoCommand();
+				if(board.isBeingEdited()){
+					board.clearLastRow();
+					notifyChange();
+				}else{
+					controller.undoCommand();
+				}
 			}
 		});
 		

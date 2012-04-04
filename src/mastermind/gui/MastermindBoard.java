@@ -25,6 +25,7 @@ public class MastermindBoard extends JPanel implements Observer{
 	private PlayList data;
 	private ArrayList<Row> rows;
 	private final ColorPeg[] availableColors;
+	private boolean isBeingEdited;
 	
 	public MastermindBoard(PlayList model){
 		data = model;
@@ -39,6 +40,7 @@ public class MastermindBoard extends JPanel implements Observer{
 
 	public void notifyChange() {
 		this.removeAll(); //Clear the JPanel
+		isBeingEdited = false;
 		
 		System.out.println("UPDATING!!");
 		
@@ -157,6 +159,7 @@ public class MastermindBoard extends JPanel implements Observer{
 						if(hasFeedback == true){
 							return;
 						}
+						isBeingEdited = true;
 						JButton self = (JButton)e.getSource();
 						if(index == -1){
 							index = 0;
@@ -201,6 +204,14 @@ public class MastermindBoard extends JPanel implements Observer{
 			return this.code;
 		}
 		
+	}
+	
+	public boolean isBeingEdited(){
+		return isBeingEdited;
+	}
+	
+	public void clearLastRow(){
+		this.notifyChange();
 	}
 
 }
