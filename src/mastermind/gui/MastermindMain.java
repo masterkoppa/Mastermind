@@ -15,6 +15,7 @@ import java.text.NumberFormat;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
@@ -72,8 +73,18 @@ public class MastermindMain implements Observer{
 		//Revalidate the internal board
 		board.invalidate();
 		board.revalidate();
+		
+		//Check if the game is over
+		if(currentGame.isGameOver()){
+			board.gameIsOver();
+			showWinningMessage(currentGame.getWinningMessage());
+		}
 	}
 	
+	private void showWinningMessage(String winningMessage) {
+		JOptionPane.showMessageDialog(mainWindow, winningMessage);
+	}
+
 	private JPanel generateOptions(){
 		JPanel options = new JPanel(new GridBagLayout());
 		JPanel checkPanel = new JPanel(new GridBagLayout());
@@ -120,7 +131,7 @@ public class MastermindMain implements Observer{
 					undo.setEnabled(false);
 					delaySelector.setEnabled(false);
 					
-					controller.startAI(delaySelector.getValue());
+					controller.startAI(selectedDelay);
 				}
 			}
 		});

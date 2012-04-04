@@ -102,4 +102,16 @@ public class GameModel extends Observable
 		this.observers.add(object);
 		super.dataChanged();
 	}
+	
+	public String getWinningMessage(){
+		if(winner == null){
+			return "No Winner";
+		}else if(winner == GameWinner.CODEBREAKER){
+			return "The Code has been cracked! Codebreaker Wins!";
+		}else if(winner == GameWinner.CODEMAKER){
+			return "The Code was NOT Cracked, Codemaker Wins!";
+		}else{
+			return "I Don't know who won...";
+		}
+	}
 }
