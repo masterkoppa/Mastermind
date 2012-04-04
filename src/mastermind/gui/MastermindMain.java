@@ -115,11 +115,10 @@ public class MastermindMain implements Observer{
 					submit.setEnabled(false);
 					undo.setEnabled(false);
 					delaySelector.setEnabled(false);
-
+					
 					controller.startAI(delaySelector.getValue());
 				}
 			}
-			
 		});
 		
 		delayLabel = new JLabel("30 s");
@@ -142,6 +141,26 @@ public class MastermindMain implements Observer{
 		});
 		
 		JCheckBox logging = new JCheckBox("Logging Enabled");
+		
+		logging.addItemListener( new ItemListener(){
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				int newState = e.getStateChange();
+				
+				if(newState == ItemEvent.DESELECTED){
+					//Disable the logging
+					System.out.println("Item Deselected");
+				} else{
+					//Enable Logging
+					System.out.println("Item Selected");
+					
+					String fileName = "";
+				}
+			}
+			
+			
+		});
 		
 		GridBagConstraints c = new GridBagConstraints();
 		
