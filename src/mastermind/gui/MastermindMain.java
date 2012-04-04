@@ -64,7 +64,8 @@ public class MastermindMain implements Observer{
 	}
 
 	public void register() {
-		dataBackend.register(this);
+		this.dataBackend.register(this);
+		this.currentGame.register(this);
 	}
 
 	public void notifyChange() {
