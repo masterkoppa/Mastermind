@@ -10,9 +10,12 @@ import mastermind.logging.GameLog;
  * 
  *Command to provide feedback
  */
-public class ProvideFeedbackCommand extends PlayListCommand implements ICommand {
+public class ProvideFeedbackCommand implements ICommand {
 		
 	private GameLog theLogger;
+	private GameModel theGame;
+	private PlayList guesses;
+	private ColorPeg[] colors;
 	
 	/**
 	 * 
@@ -20,9 +23,21 @@ public class ProvideFeedbackCommand extends PlayListCommand implements ICommand 
 	 * @param secretCode The secret code for the current game
 	 * @throws IOException 
 	 */
-	public ProvideFeedbackCommand(PlayList listOfGuesses, ColorPeg[] secretCode) throws IOException
+	public ProvideFeedbackCommand(GameModel currentGame, PlayList listOfGuesses, ColorPeg[] secretCode) throws IOException
 	{
-		super(listOfGuesses, secretCode);
+		if(null == currentGame)
+			throw new IllegalArgumentException("GameModel cannot be null");
+		
+		if(null == listOfGuesses)
+			throw new IllegalArgumentException("PlayList cannot be null");
+		
+		if(null == colors)
+			throw new IllegalArgumentException("Colors cannot be null");
+		
+		this.guesses = listOfGuesses;
+		this.colors = secretCode;
+		this.theGame = currentGame;
+		
 		theLogger = GameLog.getInstance();
 	}
 
@@ -36,6 +51,11 @@ public class ProvideFeedbackCommand extends PlayListCommand implements ICommand 
 		Feedback f = Feedback.analyze(secret, latestGuess.getCode());
 		guesses.addFeedbackToLastGuess(f);
 		theLogger.write("Feedback provided");
+		
+		if(f.isGameOver())
+			this.theGame.declareWinner(GameWinner.CODEBREAKER);
+		else if(this.guesses.getLastPlayIndex() == 9)
+			this.theGame.declareWinner(GameWinner.CODEMAKER);
 	}
 
 	/**
