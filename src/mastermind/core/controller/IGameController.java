@@ -31,7 +31,7 @@ public interface IGameController {
 	 */
 	public void stopAI();
 	
-	public void configureLog();// TBD
+	public void configureLog(String fileName);// TBD
 	
 	/**
 	 * Pull a command off the history and run its undo operation.

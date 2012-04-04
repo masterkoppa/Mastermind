@@ -21,6 +21,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import mastermind.core.ColorPeg;
+import mastermind.core.GameModel;
 import mastermind.core.PlayList;
 import mastermind.core.controller.IGameController;
 import mastermind.interfaces.Observer;
@@ -29,6 +30,7 @@ public class MastermindMain implements Observer{
 	
 	//MODELS AND CONTROLLERS
 	private PlayList dataBackend;
+	private GameModel currentGame;
 	private IGameController controller;
 	private int selectedDelay;
 	
@@ -40,10 +42,11 @@ public class MastermindMain implements Observer{
 	private JSlider delaySelector;
 	private JLabel delayLabel;
 	
-	public MastermindMain(IGameController controller, PlayList model){
+	public MastermindMain(IGameController controller, PlayList model, GameModel theGame){
 		//setLookAndFeel();
 		
 		this.dataBackend = model;
+		this.currentGame = theGame;
 		this.controller = controller;
 		this.selectedDelay = 30;
 		
