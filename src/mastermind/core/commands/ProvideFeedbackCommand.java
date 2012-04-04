@@ -31,7 +31,7 @@ public class ProvideFeedbackCommand implements ICommand {
 		if(null == listOfGuesses)
 			throw new IllegalArgumentException("PlayList cannot be null");
 		
-		if(null == colors)
+		if(null == secretCode)
 			throw new IllegalArgumentException("Colors cannot be null");
 		
 		this.guesses = listOfGuesses;
