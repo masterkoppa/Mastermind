@@ -36,7 +36,7 @@ public class Mastermind {
 		initGUI();
 		
 		mainController = new GameController(theGame, playListModel, secret);
-		mainView = new MastermindMain(mainController, playListModel);
+		mainView = new MastermindMain(mainController, playListModel, theGame);
 		
 		mainWindow.remove(codemakerView);
 		mainWindow.add(mainView.getView());
