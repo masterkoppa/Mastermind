@@ -7,7 +7,8 @@ import mastermind.logging.GameLog;
 /**
  * 
  * @author Andrew Church
- *
+ * 
+ *Command to provide feedback
  */
 public class ProvideFeedbackCommand extends PlayListCommand implements ICommand {
 		
@@ -33,7 +34,6 @@ public class ProvideFeedbackCommand extends PlayListCommand implements ICommand 
 		Code secret = new Code(this.colors);
 		Guess latestGuess = this.guesses.getLatestMove();
 		Feedback f = Feedback.analyze(secret, latestGuess.getCode());
-		//latestGuess.setFeedback(f);
 		guesses.addFeedbackToLastGuess(f);
 		theLogger.write("Feedback provided");
 	}

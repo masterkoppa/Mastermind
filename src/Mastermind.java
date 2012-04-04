@@ -81,9 +81,6 @@ public class Mastermind {
 		
 	}
 	
-	
-	
-	
 	/**
 	 * Code to automatically detect the look and feel from the system. If the system
 	 * doesn't have a native look and feel it tries the Nimbus Look and Feel which looks
