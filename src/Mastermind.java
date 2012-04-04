@@ -6,6 +6,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import mastermind.core.Code;
+import mastermind.core.GameModel;
 import mastermind.core.PlayList;
 import mastermind.core.controller.*;
 import mastermind.gui.*;
@@ -15,6 +16,7 @@ public class Mastermind {
 	private JFrame mainWindow;
 	
 	private PlayList playListModel;
+	private GameModel theGame;
 	private IGameController mainController;
 	private MastermindMain mainView;
 	private CodeMakerPanel codemakerView;
@@ -29,10 +31,11 @@ public class Mastermind {
 	public Mastermind(){
 		
 		playListModel = new PlayList();
+		theGame = new GameModel();
 		
 		initGUI();
 		
-		mainController = new GameController(playListModel, secret);
+		mainController = new GameController(theGame, playListModel, secret);
 		mainView = new MastermindMain(mainController, playListModel);
 		
 		mainWindow.remove(codemakerView);

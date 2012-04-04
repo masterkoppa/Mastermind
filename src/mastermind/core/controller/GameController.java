@@ -18,11 +18,25 @@ public class GameController implements IGameController, Observer {
 	private PlayList dataBackend;
 	private Code secretCode;
 	
+	/**
+	 * 
+	 * Creates the gamecontroller which will maintain a history
+	 * of all moves made to allow for undo operations.
+	 */
+	//TODO Need to remove this and change test cases around.
 	public GameController() {
 		history = new ArrayList<ICommand>();
 		nextUndo = 0;
 	}
 	
+	/**
+	 * Creates the gamecontroller which maintains the playlist
+	 * for undo operations and the secret code for feedback and
+	 * other operations.
+	 * 
+	 * @param data 
+	 * @param secret
+	 */
 	public GameController(GameModel theGame, PlayList data, Code secret){
 		this(); //Do this to not break compatibility, not yet
 		this.game = theGame;
@@ -33,6 +47,7 @@ public class GameController implements IGameController, Observer {
 		System.out.println("Controller Init()");
 	}
 
+	@Override
 	public void executeCommand(ICommand command) {
 		trimHistory();
 		command.execute();
@@ -40,6 +55,7 @@ public class GameController implements IGameController, Observer {
 		nextUndo++;
 	}
 	
+	@Override
 	public void undoCommand() {
 		// NOTE: We're using nextUndo - 1 as as index into the history, since
 		// our nextUndo counter is at 1 when one element gets added
@@ -50,10 +66,20 @@ public class GameController implements IGameController, Observer {
 		}
 	}
 	
+	/**
+	 * @return ArrayList<Icommand> - Returns all commands that
+	 * have been completed at the time of the call.
+	 */
 	public ArrayList<ICommand> getHistory() {
 		return history;
 	}
 	
+	/**
+	 * After undo commands have been completed, the commands still
+	 * exist to allow for redo operations. When a new command is
+	 * run, this method will delete all possible redo's to allow
+	 * for the new command to be added.
+	 */
 	private void trimHistory() {
 		for(int i = nextUndo; i < history.size(); i++) {
 			history.remove(i);
