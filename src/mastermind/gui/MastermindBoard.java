@@ -2,6 +2,7 @@ package mastermind.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -72,12 +73,19 @@ public class MastermindBoard extends JPanel implements Observer{
 		}
 	}
 	
+	public void gameIsOver(){
+		for(Row i : rows){
+			i.disable();
+		}
+	}
+	
 	private class Row extends JPanel{
 
 		private static final long serialVersionUID = 1L;
 		private FeedbackPeg[] feedback;
 		private boolean hasFeedback;
 		private ColorPeg[] code;
+		private JPanel codePanel;
 		
 		public Row(FeedbackPeg[] feedback, ColorPeg[] code){
 			//Check if this data even exists, most of the time
@@ -127,7 +135,7 @@ public class MastermindBoard extends JPanel implements Observer{
 			
 			//Set up the code for this row
 			
-			JPanel codePanel = new JPanel(new GridLayout(0, Code.NUM_OF_PEGS));
+			codePanel = new JPanel(new GridLayout(0, Code.NUM_OF_PEGS));
 			
 			for(int i = 0; i < Code.NUM_OF_PEGS; i++){
 				JButton peg = new JButton();
@@ -172,6 +180,21 @@ public class MastermindBoard extends JPanel implements Observer{
 			}
 			
 			this.add(codePanel, BorderLayout.CENTER);
+		}
+		
+		public void disable(){
+			Component[] componentsInPanel = codePanel.getComponents();
+			
+			for(Component component : componentsInPanel){
+				try{
+					JButton j = (JButton)component;
+					for(ActionListener al : j.getActionListeners()){
+						j.removeActionListener(al);
+					}
+				}catch(ClassCastException e){
+					
+				}
+			}
 		}
 		
 		public ColorPeg[] getCode(){
