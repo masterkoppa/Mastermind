@@ -16,18 +16,20 @@ import mastermind.logging.GameLog;
 public class ConfigureLogForFileCommand implements IFileCommand {
 
 	private String file;
+	private Boolean overwriteFile;
 	
-	public ConfigureLogForFileCommand(String fileName)
+	public ConfigureLogForFileCommand(String fileName, Boolean forceOverwrite)
 	{
 		if(fileName.isEmpty())
 			throw new IllegalArgumentException("Must supply a valid file name");
 		
 		this.file = fileName;
+		this.overwriteFile = forceOverwrite;
 	}
 	
 	public void execute() throws IOException, FileExistsException
 	{
-		GameLog.configureForFileName(file);
+		GameLog.configureForFileName(file, this.overwriteFile);
 	}
 
 	public void undo() throws IOException, FileExistsException

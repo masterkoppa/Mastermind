@@ -47,14 +47,14 @@ public class GameLog
 	 * @throws FileExistsException Throws if the file specified already exists
 	 * @throws IOException
 	 */
-	public static synchronized void configureForFileName(String fileName) throws FileExistsException, IOException
+	public static synchronized void configureForFileName(String fileName, Boolean overwriteFile) throws FileExistsException, IOException
 	{
 		if(null == fileName || fileName.isEmpty())
 			throw new IllegalArgumentException("Must supply a valid file name");
 		
 		File f = new File(fileName);
 		
-		if(f.exists()) 
+		if(f.exists() && !overwriteFile) 
 		{
 			throw new FileExistsException("Game Log for that file name already exists");
 		}
