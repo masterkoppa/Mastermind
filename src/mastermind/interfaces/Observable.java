@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Observable {
-	
+
 	protected List<Observer> observers;
-	
-	protected Observable(){
+
+	protected Observable() {
 		observers = new ArrayList<Observer>();
 	}
-	
+
 	public abstract void register(Observer object);
-	
-	protected void dataChanged(){
-		for(Observer i : observers){
+
+	protected void dataChanged() {
+		for (Observer i : observers) {
 			i.notifyChange();
 		}
 	}

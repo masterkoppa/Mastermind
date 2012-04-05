@@ -8,12 +8,12 @@ import mastermind.core.controller.*;
  * A completely random guess algorithm for a ComputerCodebreaker.
  * 
  * @author Matt Addy <mxa5942>
- *
+ * 
  */
 public class RandomGuess implements ComputerGuessBehavior {
-	
+
 	IGameController controller;
-	
+
 	public RandomGuess(IGameController controller) {
 		this.controller = controller;
 	}
@@ -22,5 +22,5 @@ public class RandomGuess implements ComputerGuessBehavior {
 		ColorPeg[] pegs = Code.Random().getPegs();
 		controller.submitGuess(pegs);
 	}
-	
+
 }
