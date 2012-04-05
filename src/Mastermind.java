@@ -102,8 +102,6 @@ public class Mastermind {
 
 		secret = codemakerView.getSecret();
 
-		System.out.println("Found you!");
-
 	}
 
 	private void startGame() {

@@ -48,7 +48,6 @@ public class GameController implements IGameController, Observer {
 		this.dataBackend = data;
 		this.secretCode = secret;
 
-		System.out.println("Controller Init()");
 	}
 
 	@Override

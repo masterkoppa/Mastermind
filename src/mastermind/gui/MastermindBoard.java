@@ -43,8 +43,6 @@ public class MastermindBoard extends JPanel implements Observer {
 		this.removeAll(); // Clear the JPanel
 		isBeingEdited = false;
 
-		System.out.println("UPDATING!!");
-
 		rows = new ArrayList<Row>();
 
 		for (int i = 0; i < PlayList.NUM_OF_ROWS; i++) {

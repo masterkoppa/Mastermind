@@ -154,7 +154,6 @@ public class MastermindMain implements Observer {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("You called?");
 				newGameSelected = true;
 			}
 
@@ -214,11 +213,9 @@ public class MastermindMain implements Observer {
 
 				if (!l.isSelected()) {
 					// Disable the logging
-					System.out.println("Item Deselected");
 				} else {
 
 					// Enable Logging
-					System.out.println("Item Selected");
 
 					// The file name where the user want's the file stored
 					String fileName = "";
@@ -260,7 +257,6 @@ public class MastermindMain implements Observer {
 						l.setSelected(true);
 
 						fileName = f.getPath();
-						System.out.println(fileName);
 					}
 
 					// Start configuring the logging

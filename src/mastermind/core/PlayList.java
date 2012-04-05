@@ -87,8 +87,6 @@ public class PlayList extends Observable {
 		this.addGuess();
 		int index = this.getLastPlayIndex();
 
-		System.out.println(index);
-
 		this.guessList[index].setCode(code);
 
 		// Notify all observers
