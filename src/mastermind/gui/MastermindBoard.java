@@ -141,6 +141,7 @@ public class MastermindBoard extends JPanel implements Observer{
 			
 			for(int i = 0; i < Code.NUM_OF_PEGS; i++){
 				JButton peg = new JButton();
+				peg.setBackground(Color.WHITE);
 				peg.setName(Integer.toString(i)); //This is how we know where we are
 				
 				if(code[i] == null){
