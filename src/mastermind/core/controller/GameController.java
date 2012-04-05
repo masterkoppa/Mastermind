@@ -62,7 +62,7 @@ public class GameController implements IGameController, Observer {
 	public void undoCommand() {
 		// NOTE: We're using nextUndo - 1 as as index into the history, since
 		// our nextUndo counter is at 1 when one element gets added
-		if (nextUndo >= 0) {
+		if (nextUndo >= 1) {
 			ICommand command = history.get(nextUndo - 1);
 			command.undo();
 			nextUndo--;
