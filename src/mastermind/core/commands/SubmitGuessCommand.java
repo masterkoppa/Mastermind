@@ -29,6 +29,7 @@ public class SubmitGuessCommand extends PlayListCommand implements ICommand {
 		gameLogger = GameLog.getInstance();
 	}
 
+	@Override
 	public void execute() {
 		Code newGuess = new Code(this.colors);
 		this.guesses.addNewCode(newGuess);
@@ -36,6 +37,7 @@ public class SubmitGuessCommand extends PlayListCommand implements ICommand {
 		this.gameLogger.write(newGuess.toString());
 	}
 
+	@Override
 	public void undo() {
 		this.guesses.deleteNewCode();
 		this.gameLogger.write("Removing last Guess");

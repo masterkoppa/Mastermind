@@ -18,6 +18,7 @@ public class RandomGuess implements ComputerGuessBehavior {
 		this.controller = controller;
 	}
 
+	@Override
 	public void guess() {
 		ColorPeg[] pegs = Code.Random().getPegs();
 		controller.submitGuess(pegs);

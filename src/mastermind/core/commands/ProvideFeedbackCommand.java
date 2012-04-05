@@ -47,6 +47,7 @@ public class ProvideFeedbackCommand implements ICommand {
 	/**
 	 * Executes the command to provide feedback
 	 */
+	@Override
 	public void execute() {
 		Code secret = new Code(this.colors);
 		Guess latestGuess = this.guesses.getLatestMove();
@@ -63,6 +64,7 @@ public class ProvideFeedbackCommand implements ICommand {
 	/**
 	 * Removes the most recently provided feedback
 	 */
+	@Override
 	public void undo() {
 		Guess latestGuess = this.guesses.getLatestMove();
 		latestGuess.setFeedback(null);

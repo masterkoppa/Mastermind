@@ -76,11 +76,13 @@ public class MastermindMain implements Observer {
 		this.register();
 	}
 
+	@Override
 	public void register() {
 		this.dataBackend.register(this);
 		this.currentGame.register(this);
 	}
 
+	@Override
 	public void notifyChange() {
 		// Revalidate the internal board
 		board.invalidate();
@@ -123,6 +125,7 @@ public class MastermindMain implements Observer {
 		// Action Listener to submit the code
 		submit.addActionListener(new ActionListener() {
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Input Validation
 				ColorPeg[] code = board.getLastGuess();
@@ -139,6 +142,7 @@ public class MastermindMain implements Observer {
 
 		undo = new JButton("Undo");
 		undo.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (board.isBeingEdited()) {
 					board.clearLastRow();

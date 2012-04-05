@@ -2,8 +2,6 @@ package mastermind.core.codebreaker;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import mastermind.core.controller.*;
-import mastermind.core.*;
 
 /**
  * A class that represents a Computer Codebreaker.
@@ -44,6 +42,7 @@ public class ComputerCodebreaker {
 	 */
 	public void start() {
 		guessTimer.schedule(new TimerTask() {
+			@Override
 			public void run() {
 				guessBehavior.guess();
 			}

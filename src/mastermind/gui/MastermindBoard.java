@@ -1,9 +1,7 @@
 package mastermind.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +12,6 @@ import javax.swing.JPanel;
 
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
-import mastermind.core.Feedback;
 import mastermind.core.FeedbackPeg;
 import mastermind.core.Guess;
 import mastermind.core.PlayList;
@@ -35,10 +32,12 @@ public class MastermindBoard extends JPanel implements Observer {
 		this.register();
 	}
 
+	@Override
 	public void register() {
 		data.register(this);
 	}
 
+	@Override
 	public void notifyChange() {
 		this.removeAll(); // Clear the JPanel
 		isBeingEdited = false;
@@ -156,6 +155,7 @@ public class MastermindBoard extends JPanel implements Observer {
 				peg.addActionListener(new ActionListener() {
 					private int index = -1;
 
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						if (hasFeedback == true) {
 							return;
@@ -185,6 +185,7 @@ public class MastermindBoard extends JPanel implements Observer {
 			this.add(codePanel, BorderLayout.CENTER);
 		}
 
+		@Override
 		public void disable() {
 			Component[] componentsInPanel = codePanel.getComponents();
 

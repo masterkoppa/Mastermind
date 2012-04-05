@@ -26,10 +26,12 @@ public class ConfigureLogForFileCommand implements IFileCommand {
 		this.overwriteFile = forceOverwrite;
 	}
 
+	@Override
 	public void execute() throws IOException, FileExistsException {
 		GameLog.configureForFileName(file, this.overwriteFile);
 	}
 
+	@Override
 	public void undo() throws IOException, FileExistsException {
 		// TODO Auto-generated method stub
 	}

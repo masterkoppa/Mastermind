@@ -73,6 +73,7 @@ public class Mastermind {
 
 		mainWindow.add(codemakerView);
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				// TODO Make this a method calls that creates all the GUI
 				// objects here

@@ -88,7 +88,7 @@ public class GameLog {
 			file = fileName;
 
 		Logger l = Logger.getLogger(GameLog.class);
-		l.setLevel((Level) Level.DEBUG);
+		l.setLevel(Level.DEBUG);
 
 		SimpleLayout sl = new SimpleLayout();
 		FileAppender fa = null;

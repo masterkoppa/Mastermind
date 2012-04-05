@@ -1,6 +1,5 @@
 package mastermind.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -88,6 +87,7 @@ public class CodeMakerPanel extends JPanel {
 		gridButton.addActionListener(new ActionListener() {
 			private int index = -1;
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				JButton self = (JButton) e.getSource();
 				if (index == -1) {

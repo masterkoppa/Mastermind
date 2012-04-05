@@ -19,6 +19,7 @@ public class PlayCommand implements IMacroCommand {
 	/**
 	 * Adds a new command to the stack
 	 */
+	@Override
 	public void add(ICommand command) {
 		if (null == command)
 			throw new IllegalArgumentException("Must supply a valid command");
@@ -29,6 +30,7 @@ public class PlayCommand implements IMacroCommand {
 	/**
 	 * Removes the most recently added command from the stack
 	 */
+	@Override
 	public void remove() {
 		if (this.commands.size() > 0)
 			this.commands.remove(this.commands.size() - 1);
@@ -38,6 +40,7 @@ public class PlayCommand implements IMacroCommand {
 	 * Executes all the commands in the stack, in the order that they were added
 	 * (First In, First Executed)
 	 */
+	@Override
 	public void execute() {
 		for (ICommand c : this.commands) {
 			c.execute();
@@ -48,6 +51,7 @@ public class PlayCommand implements IMacroCommand {
 	 * Undoes all the commands in the stack, in the reverse order that they were
 	 * added (Last In, First Undone)
 	 */
+	@Override
 	public void undo() {
 		for (int count = this.commands.size() - 1; count >= 0; count--) {
 			this.commands.get(count).undo();
@@ -57,6 +61,7 @@ public class PlayCommand implements IMacroCommand {
 	/**
 	 * Returns the number of commands in the stack
 	 */
+	@Override
 	public int stackSize() {
 		return this.commands.size();
 	}
