@@ -18,7 +18,7 @@ import org.junit.Test;
 /**
  * 
  * @author Andrew Church
- *
+ * 
  */
 public class ProvideFeedbackCommandFixture {
 
@@ -27,7 +27,7 @@ public class ProvideFeedbackCommandFixture {
 	private Code guessCode;
 	private Guess theGuess;
 	private GameModel theGame;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		secret = new Code();
@@ -35,13 +35,13 @@ public class ProvideFeedbackCommandFixture {
 		secret.setPegs(1, ColorPeg.BLUE);
 		secret.setPegs(2, ColorPeg.WHITE);
 		secret.setPegs(3, ColorPeg.YELLOW);
-		
+
 		guessCode = new Code();
-		guessCode.setPegs(0,  ColorPeg.BLUE);
+		guessCode.setPegs(0, ColorPeg.BLUE);
 		guessCode.setPegs(1, ColorPeg.BLACK);
 		guessCode.setPegs(2, ColorPeg.WHITE);
 		guessCode.setPegs(3, ColorPeg.YELLOW);
-		
+
 		this.theGuess = new Guess();
 		this.theGuess.setCode(guessCode);
 		this.gamePlays = new PlayList();
@@ -52,42 +52,38 @@ public class ProvideFeedbackCommandFixture {
 	public void testExecute() {
 		this.gamePlays.addNewCode(this.guessCode);
 		ICommand feedback = null;
-		
-		try
-		{
-			feedback = new ProvideFeedbackCommand(this.theGame, this.gamePlays, this.secret.getPegs());
-		}
-		catch(IOException io)
-		{
+
+		try {
+			feedback = new ProvideFeedbackCommand(this.theGame, this.gamePlays,
+					this.secret.getPegs());
+		} catch (IOException io) {
 			fail();
 		}
-		
+
 		feedback.execute();
-		
+
 		assertTrue(this.gamePlays.getLatestMove().getFeedback() != null);
-		
+
 	}
 
 	@Test
 	public void testUndo() {
 		this.gamePlays.addNewCode(this.guessCode);
 		ICommand feedback = null;
-		
-		try
-		{
-			feedback = new ProvideFeedbackCommand(this.theGame, this.gamePlays, this.secret.getPegs());
-		}
-		catch(IOException io)
-		{
+
+		try {
+			feedback = new ProvideFeedbackCommand(this.theGame, this.gamePlays,
+					this.secret.getPegs());
+		} catch (IOException io) {
 			fail();
 		}
-		
+
 		feedback.execute();
-		
+
 		assertTrue(this.gamePlays.getLatestMove().getFeedback() != null);
-		
+
 		feedback.undo();
-		
+
 		assertTrue(this.gamePlays.getLatestMove().getFeedback() == null);
 	}
 

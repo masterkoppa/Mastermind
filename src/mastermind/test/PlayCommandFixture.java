@@ -21,7 +21,7 @@ import org.junit.Test;
 /**
  * 
  * @author Andrew Church
- *
+ * 
  */
 public class PlayCommandFixture {
 
@@ -30,8 +30,7 @@ public class PlayCommandFixture {
 	private Code guessCode;
 	private PlayList gamePlays;
 	private GameModel theGame;
-	
-	
+
 	@Before
 	public void setUp() throws Exception {
 		secret = new Code();
@@ -39,13 +38,13 @@ public class PlayCommandFixture {
 		secret.setPegs(1, ColorPeg.BLUE);
 		secret.setPegs(2, ColorPeg.WHITE);
 		secret.setPegs(3, ColorPeg.YELLOW);
-		
+
 		guessCode = new Code();
-		guessCode.setPegs(0,  ColorPeg.BLUE);
+		guessCode.setPegs(0, ColorPeg.BLUE);
 		guessCode.setPegs(1, ColorPeg.BLACK);
 		guessCode.setPegs(2, ColorPeg.WHITE);
 		guessCode.setPegs(3, ColorPeg.YELLOW);
-		
+
 		this.theGuess = new Guess();
 		this.theGuess.setCode(guessCode);
 		gamePlays = new PlayList();
@@ -56,18 +55,16 @@ public class PlayCommandFixture {
 	public void testAdd() {
 		IMacroCommand play = new PlayCommand();
 		ICommand submitGuess = null;
-		
-		try
-		{
-		 submitGuess = new SubmitGuessCommand(this.gamePlays, this.guessCode.getPegs());
-		}
-		catch(IOException io)
-		{
+
+		try {
+			submitGuess = new SubmitGuessCommand(this.gamePlays,
+					this.guessCode.getPegs());
+		} catch (IOException io) {
 			fail();
 		}
-		
+
 		play.add(submitGuess);
-		
+
 		assertTrue(play.stackSize() > 0);
 	}
 
@@ -75,22 +72,20 @@ public class PlayCommandFixture {
 	public void testRemove() {
 		IMacroCommand play = new PlayCommand();
 		ICommand submitGuess = null;
-		
-		try
-		{
-			submitGuess = new SubmitGuessCommand(this.gamePlays, this.guessCode.getPegs());
-		}
-		catch(IOException io)
-		{
+
+		try {
+			submitGuess = new SubmitGuessCommand(this.gamePlays,
+					this.guessCode.getPegs());
+		} catch (IOException io) {
 			fail();
 		}
-		
+
 		play.add(submitGuess);
-		
+
 		assertTrue(play.stackSize() > 0);
-		
+
 		play.remove();
-		
+
 		assertTrue(play.stackSize() == 0);
 	}
 
@@ -99,24 +94,23 @@ public class PlayCommandFixture {
 		IMacroCommand play = new PlayCommand();
 		ICommand submitGuess = null;
 		ICommand getFeedback = null;
-		
-		try
-		{
-			submitGuess = new SubmitGuessCommand(this.gamePlays, this.guessCode.getPegs());
-			getFeedback = new ProvideFeedbackCommand(this.theGame, this.gamePlays, this.secret.getPegs());
-		}
-		catch(IOException io)
-		{
+
+		try {
+			submitGuess = new SubmitGuessCommand(this.gamePlays,
+					this.guessCode.getPegs());
+			getFeedback = new ProvideFeedbackCommand(this.theGame,
+					this.gamePlays, this.secret.getPegs());
+		} catch (IOException io) {
 			fail();
 		}
-		
+
 		play.add(submitGuess);
 		play.add(getFeedback);
-		
+
 		assertTrue(play.stackSize() > 1);
-		
+
 		play.execute();
-		
+
 		assertTrue(this.gamePlays.getLatestMove() != null);
 		assertTrue(this.gamePlays.getLatestMove().getFeedback() != null);
 	}
@@ -126,29 +120,28 @@ public class PlayCommandFixture {
 		IMacroCommand play = new PlayCommand();
 		ICommand submitGuess = null;
 		ICommand getFeedback = null;
-		
-		try
-		{
-			submitGuess = new SubmitGuessCommand(this.gamePlays, this.guessCode.getPegs());
-			getFeedback = new ProvideFeedbackCommand(this.theGame, this.gamePlays, this.secret.getPegs());
-		}
-		catch(IOException io)
-		{
+
+		try {
+			submitGuess = new SubmitGuessCommand(this.gamePlays,
+					this.guessCode.getPegs());
+			getFeedback = new ProvideFeedbackCommand(this.theGame,
+					this.gamePlays, this.secret.getPegs());
+		} catch (IOException io) {
 			fail();
 		}
-		
+
 		play.add(submitGuess);
 		play.add(getFeedback);
-		
+
 		assertTrue(play.stackSize() > 1);
-		
+
 		play.execute();
-		
+
 		assertTrue(this.gamePlays.getLatestMove() != null);
 		assertTrue(this.gamePlays.getLatestMove().getFeedback() != null);
-		
+
 		play.undo();
-		
+
 		assertTrue(this.gamePlays.getLatestMove() == null);
 	}
 
