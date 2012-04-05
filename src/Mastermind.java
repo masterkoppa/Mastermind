@@ -16,7 +16,7 @@ public class Mastermind {
 
 	private JFrame mainWindow;
 	private Rectangle previousBounds;
-
+	
 	private PlayList playListModel;
 	private GameModel theGame;
 	private IGameController mainController;
