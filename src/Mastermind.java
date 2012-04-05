@@ -55,6 +55,7 @@ public class Mastermind {
 			
 			mainWindow.dispose();
 			
+			
 			theGame.newGame();
 			
 			

@@ -96,6 +96,10 @@ public class MastermindMain implements Observer{
 		}
 	}
 	
+	/**
+	 * Show a pop-up window saying that the game is over
+	 * @param winningMessage
+	 */
 	private void showWinningMessage(String winningMessage) {
 		if(gameIsOver != true)
 			JOptionPane.showMessageDialog(mainWindow, winningMessage);
@@ -237,10 +241,9 @@ public class MastermindMain implements Observer{
 					result = file.showSaveDialog(mainWindow);
 					
 					
-					
+					//If the user cancels the file picker
 					if(result == JFileChooser.CANCEL_OPTION){
 						l = (JCheckBox) e.getSource();
-						//l.setSelected(false);
 						return;
 					}else{
 						File f = file.getSelectedFile();
@@ -252,15 +255,17 @@ public class MastermindMain implements Observer{
 						System.out.println(fileName);
 					}
 					
-					
+					//Start configuring the logging
 					ConfigureLogForFileCommand logger = new ConfigureLogForFileCommand(fileName, false);
 					
 					try {
+						//Try to save the log in place
 						logger.execute();
 					} catch (FileExistsException e1) {
-						//TODO Overwrite The File
+						//The file already exists aske the user what it wants to do
 						int response = JOptionPane.showConfirmDialog(mainWindow, "File Already Exists, Please Pick Another file");
 						
+						//Yes Overriwrite?
 						if(response == JOptionPane.YES_OPTION){
 							logger = new ConfigureLogForFileCommand(fileName, true);
 							try {
@@ -275,11 +280,13 @@ public class MastermindMain implements Observer{
 								e2.printStackTrace();
 							}
 						}else{
+							//Cancel or No
 							l.setSelected(false);
 						}
 					} catch (IOException e1) {
+						//IO Exception, let the user try again
 						JOptionPane.showMessageDialog(mainWindow, "Unknown IO Exception, please try again");
-						e1.printStackTrace();
+						e1.printStackTrace(); //Print error message for debugging purposes from the user
 						l.setSelected(false);
 					}
 				}
@@ -349,6 +356,11 @@ public class MastermindMain implements Observer{
 
 	public boolean isDone() {
 		return newGameSelected;
+	}
+	
+	public void dispose(){
+		mainWindow.invalidate();
+		gameIsOver = true;
 	}
 
 }
