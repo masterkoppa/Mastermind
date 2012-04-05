@@ -253,14 +253,30 @@ public class MastermindMain implements Observer{
 					}
 					
 					
-					ConfigureLogForFileCommand logger = new ConfigureLogForFileCommand(fileName);
+					ConfigureLogForFileCommand logger = new ConfigureLogForFileCommand(fileName, false);
 					
 					try {
 						logger.execute();
 					} catch (FileExistsException e1) {
 						//TODO Overwrite The File
-						JOptionPane.showMessageDialog(mainWindow, "File Already Exists, Please Pick Another file");
-						l.setSelected(false);
+						int response = JOptionPane.showConfirmDialog(mainWindow, "File Already Exists, Please Pick Another file");
+						
+						if(response == JOptionPane.YES_OPTION){
+							logger = new ConfigureLogForFileCommand(fileName, true);
+							try {
+								logger.execute();
+							} catch (FileExistsException e2) {
+								System.err.println("I say I want to override, why wont you let me IO");
+								l.setSelected(false);
+								e2.printStackTrace();
+							} catch (IOException e2) {
+								JOptionPane.showMessageDialog(mainWindow, "Unknown IO Exception, please try again");
+								l.setSelected(false);
+								e2.printStackTrace();
+							}
+						}else{
+							l.setSelected(false);
+						}
 					} catch (IOException e1) {
 						JOptionPane.showMessageDialog(mainWindow, "Unknown IO Exception, please try again");
 						e1.printStackTrace();
