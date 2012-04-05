@@ -126,7 +126,9 @@ public class GameController implements IGameController, Observer {
 
 	@Override
 	public void stopAI() {
-		computerCodebreaker.stop();
+		if(computerCodebreaker != null)
+			computerCodebreaker.stop();
+		
 		this.game.setCodeBreakerAsAI(false);
 	}
 
