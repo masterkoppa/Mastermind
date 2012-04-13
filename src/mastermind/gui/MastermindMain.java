@@ -16,6 +16,7 @@ import java.text.NumberFormat;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -49,9 +50,6 @@ public class MastermindMain implements Observer {
 	private JButton submit;
 	private JButton undo;
 	private JButton newGame;
-	private JSlider delaySelector;
-	private JLabel delayLabel;
-	private JCheckBox computer;
 
 	public MastermindMain(IGameController controller, PlayList model,
 			GameModel theGame) {
@@ -60,6 +58,7 @@ public class MastermindMain implements Observer {
 		this.controller = controller;
 		this.selectedDelay = 30;
 		this.newGameSelected = false;
+		
 
 		mainWindow = new JPanel();// Set the JFrame with the window title
 
@@ -90,7 +89,6 @@ public class MastermindMain implements Observer {
 		if (currentGame.isGameOver()) {
 			board.gameIsOver();
 			submit.setEnabled(false);
-			computer.setEnabled(false);
 			undo.setEnabled(false);
 			showWinningMessage(currentGame.getWinningMessage());
 		}
@@ -161,49 +159,8 @@ public class MastermindMain implements Observer {
 
 		});
 
-		computer = new JCheckBox("Computer Code Breaker");
 
-		computer.addItemListener(new ItemListener() {
-
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				int newState = e.getStateChange();
-
-				if (newState == ItemEvent.DESELECTED) {
-					submit.setEnabled(true);
-					undo.setEnabled(true);
-					delaySelector.setEnabled(true);
-
-					controller.stopAI();
-				} else {
-					submit.setEnabled(false);
-					undo.setEnabled(false);
-					delaySelector.setEnabled(false);
-
-					controller.startAI(selectedDelay);
-				}
-			}
-		});
-
-		delayLabel = new JLabel("30 s");
-
-		delaySelector = new JSlider(1, 30, 30);
-
-		delaySelector.addChangeListener(new ChangeListener() {
-
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				JSlider j = (JSlider) e.getSource();
-
-				NumberFormat number = NumberFormat.getInstance();
-				number.setMinimumIntegerDigits(2);
-
-				selectedDelay = j.getValue();
-				delayLabel.setText(number.format(j.getValue()) + " s");
-			}
-
-		});
-
+		
 		JCheckBox logging = new JCheckBox("Logging Enabled");
 
 		logging.addActionListener(new ActionListener() {
@@ -314,22 +271,18 @@ public class MastermindMain implements Observer {
 
 		GridBagConstraints c = new GridBagConstraints();
 
-		c.gridx = 0;
+		
 		c.gridy = 0;
-
-		checkPanel.add(computer, c);
 
 		c.gridx = 1;
 		c.insets = new Insets(0, 20, 0, 10);
 
-		checkPanel.add(delayLabel, c);
 
 		c.gridx = 0;
 		c.gridy = 1;
 		c.gridwidth = 2;
 		c.insets = new Insets(20, 0, 40, 0);
 
-		checkPanel.add(delaySelector, c);
 
 		c.gridy = 2;
 		c.insets = new Insets(0, 0, 50, 0);
