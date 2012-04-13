@@ -1,6 +1,7 @@
 package mastermind.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -139,13 +140,11 @@ public class MastermindBoard extends JPanel implements Observer {
 
 			for (int i = 0; i < Code.NUM_OF_PEGS; i++) {
 				JButton peg = new JButton();
-				peg.setName(Integer.toString(i)); // This is how we know where
-													// we are
-
-				if (code[i] == null) {
-					// Don't do anything
-					// peg.setBackground(Color.RED); //To show something
-					// there...
+				peg.setName(Integer.toString(i)); //This is how we know where we are
+				
+				if(code[i] == null){
+					//Don't do anything
+					//peg.setBackground(Color.RED); //To show something there...
 					peg.setToolTipText("Empty");
 				} else {
 					peg.setBackground(code[i].getColor());
