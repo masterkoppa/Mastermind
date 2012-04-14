@@ -55,8 +55,6 @@ public class MastermindMain implements Observer {
 
 	public MastermindMain(IGameController controller, PlayList model,
 			GameModel theGame) {
-		// setLookAndFeel();
-
 		this.dataBackend = model;
 		this.currentGame = theGame;
 		this.controller = controller;
