@@ -11,8 +11,9 @@ import mastermind.core.GameModel;
 import mastermind.core.PlayList;
 import mastermind.core.controller.*;
 import mastermind.gui.*;
+import mastermind.interfaces.Observer;
 
-public class Mastermind {
+public class Mastermind implements Observer{
 
 	private JFrame mainWindow;
 	private Rectangle previousBounds;
@@ -23,6 +24,15 @@ public class Mastermind {
 	private MastermindMain mainView;
 	private CodeMakerPanel codemakerView;
 	private Code secret;
+	
+	/**
+	 * The state of the game
+	 * 
+	 * 0 for the settings page
+	 * 1 for the codemakers page
+	 * 2 for the codebreakers page 
+	 */
+	private int state;
 
 	/**
 	 * Sets up the gui and controller. First view opened will populate the
@@ -30,33 +40,13 @@ public class Mastermind {
 	 * player and logger options.
 	 */
 	public Mastermind() {
+		
+		state = 0;
 
 		theGame = new GameModel();
-
-		// TODO Clean this up into a less hackish way of solving this problem
-		// needs to be hacking because Java is Java sometimes
-		while (true) {
-			initGUI();
-			startGame();
-
-			// Wait for the game to kill itself
-			while (!mainView.isDone()) {
-				try {
-					Thread.sleep(200);
-					if (!mainWindow.isVisible()) {
-						break;
-					}
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-
-			previousBounds = mainWindow.getBounds();
-
-			mainWindow.dispose();
-
-			theGame.newGame();
-		}
+		
+		setLookAndFeel();		
+		notifyChange();
 
 	}
 
@@ -65,9 +55,9 @@ public class Mastermind {
 	 * being used.
 	 */
 	private void initGUI() {
-		setLookAndFeel();
+		
 		playListModel = new PlayList();
-		codemakerView = new CodeMakerPanel();
+		codemakerView = new CodeMakerPanel(this);
 
 		mainWindow = new JFrame();
 
@@ -107,7 +97,7 @@ public class Mastermind {
 
 	private void startGame() {
 		mainController = new GameController(theGame, playListModel, secret);
-		mainView = new MastermindMain(mainController, playListModel, theGame);
+		mainView = new MastermindMain(mainController, playListModel, theGame, this);
 
 		mainWindow.remove(codemakerView);
 		mainWindow.add(mainView.getView());
@@ -168,8 +158,34 @@ public class Mastermind {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		new Mastermind();
+	}
+
+	@Override
+	public void register() {
+		
+	}
+
+	@Override
+	public void notifyChange() {
+		
+		state = (state + 1)%3;
+		
+		
+		switch(state){
+		case 0:
+			System.out.println("Settings Page");
+			break;
+		case 1:
+			System.out.println("Codemakers Page");
+			
+			initGUI();
+			break;
+		case 2:
+			System.out.println("Codebreakers Page");
+			startGame();
+			break;
+		}
 	}
 
 }

@@ -12,20 +12,23 @@ import javax.swing.*;
 
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
+import mastermind.interfaces.Observer;
 
 public class CodeMakerPanel extends JPanel {
 
 	private Code secret;
+	private Observer mainGame;
 	private ColorPeg[] code;
 	private ColorPeg[] availableColors;
 	private boolean submitted;
 
-	public CodeMakerPanel() {
+	public CodeMakerPanel(Observer mainGame) {
 		secret = new Code();
 		code = new ColorPeg[Code.NUM_OF_PEGS];
 		availableColors = new ColorPeg[] { ColorPeg.BLACK, ColorPeg.BLUE,
 				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.WHITE, ColorPeg.YELLOW };
 		submitted = false;
+		this.mainGame = mainGame;
 		build();
 	}
 
@@ -61,8 +64,12 @@ public class CodeMakerPanel extends JPanel {
 		Submit.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// Validate Code Here
+			public void actionPerformed(ActionEvent e) {
+				//TODO Make this not break law of demeter
+				if(getSecret().isEmpty()){
+					mainGame.notifyChange();
+				}
+				mainGame.notifyChange();
 				submitted = true;
 			}
 
@@ -117,12 +124,5 @@ public class CodeMakerPanel extends JPanel {
 		return secret;
 	}
 
-	public static void main(String[] args) {
-		JFrame main = new JFrame();
-		main.add(new CodeMakerPanel());
-
-		main.setSize(800, 600);
-		main.setVisible(true);
-	}
 
 }
