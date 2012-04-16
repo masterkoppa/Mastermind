@@ -183,6 +183,7 @@ public class Mastermind implements Observer{
 			break;
 		case 2:
 			System.out.println("Codebreakers Page");
+			secret = codemakerView.getSecret();
 			startGame();
 			break;
 		}
