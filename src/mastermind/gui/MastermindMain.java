@@ -7,30 +7,15 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.io.File;
-import java.io.IOException;
-import java.text.NumberFormat;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.filechooser.FileFilter;
-
-import org.apache.commons.io.FileExistsException;
 
 import mastermind.core.ColorPeg;
 import mastermind.core.GameModel;
 import mastermind.core.PlayList;
-import mastermind.core.commands.ConfigureLogForFileCommand;
 import mastermind.core.controller.IGameController;
 import mastermind.interfaces.Observer;
 
@@ -40,7 +25,6 @@ public class MastermindMain implements Observer {
 	private PlayList dataBackend;
 	private GameModel currentGame;
 	private IGameController controller;
-	private int selectedDelay;
 	private boolean newGameSelected;
 	private boolean gameIsOver;
 
@@ -56,7 +40,6 @@ public class MastermindMain implements Observer {
 		this.dataBackend = model;
 		this.currentGame = theGame;
 		this.controller = controller;
-		this.selectedDelay = 30;
 		this.newGameSelected = false;
 		
 

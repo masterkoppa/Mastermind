@@ -3,7 +3,6 @@ package mastermind.gui;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,7 +15,8 @@ import org.apache.commons.io.FileExistsException;
 public class LogfilePickerGenerator {
 	
 	/**
-	 * 
+	 * Generates the file picker with the designated filters that allow for the user
+	 * to pick a file suitable for logging.
 	 * @param mainWindow - The panel where this is originating from
 	 *                     to use as a parent of the popup window.
 	 * @return
