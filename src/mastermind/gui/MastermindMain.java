@@ -25,6 +25,7 @@ public class MastermindMain implements Observer {
 	private PlayList dataBackend;
 	private GameModel currentGame;
 	private IGameController controller;
+	private Observer mainGame;
 	private boolean newGameSelected;
 	private boolean gameIsOver;
 
@@ -36,11 +37,12 @@ public class MastermindMain implements Observer {
 	private JButton newGame;
 
 	public MastermindMain(IGameController controller, PlayList model,
-			GameModel theGame) {
+			GameModel theGame, Observer mainGame) {
 		this.dataBackend = model;
 		this.currentGame = theGame;
 		this.controller = controller;
 		this.newGameSelected = false;
+		this.mainGame = mainGame;
 		
 
 		mainWindow = new JPanel();// Set the JFrame with the window title
@@ -137,6 +139,7 @@ public class MastermindMain implements Observer {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				mainGame.notifyChange();
 				newGameSelected = true;
 			}
 
