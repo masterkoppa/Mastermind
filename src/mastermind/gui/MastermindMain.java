@@ -169,104 +169,11 @@ public class MastermindMain implements Observer {
 			public void actionPerformed(ActionEvent e) {
 
 				JCheckBox l = (JCheckBox) e.getSource();
-
-				if (!l.isSelected()) {
-					// Disable the logging
-				} else {
-
-					// Enable Logging
-
-					// The file name where the user want's the file stored
-					String fileName = "";
-
-					// Open a File Chooser
-
-					int result = JFileChooser.ERROR_OPTION;
-
-					JFileChooser file = new JFileChooser();
-
-					file.setFileFilter(new FileFilter() {
-
-						@Override
-						public boolean accept(File f) {
-							if (f.getName().endsWith(".txt") || f.isDirectory()) {
-								return true;
-							} else {
-								return false;
-							}
-						}
-
-						@Override
-						public String getDescription() {
-							return "Text File (.txt)";
-						}
-
-					});
-
-					result = file.showSaveDialog(mainWindow);
-
-					// If the user cancels the file picker
-					if (result == JFileChooser.CANCEL_OPTION) {
-						l = (JCheckBox) e.getSource();
-						return;
-					} else {
-						File f = file.getSelectedFile();
-
-						l = (JCheckBox) e.getSource();
-						l.setSelected(true);
-
-						fileName = f.getPath();
-					}
-
-					// Start configuring the logging
-					ConfigureLogForFileCommand logger = new ConfigureLogForFileCommand(
-							fileName, false);
-
-					try {
-						// Try to save the log in place
-						logger.execute();
-					} catch (FileExistsException e1) {
-						// The file already exists aske the user what it wants
-						// to do
-						int response = JOptionPane
-								.showConfirmDialog(mainWindow,
-										"File Already Exists, Please Pick Another file");
-
-						// Yes Overriwrite?
-						if (response == JOptionPane.YES_OPTION) {
-							logger = new ConfigureLogForFileCommand(fileName,
-									true);
-							try {
-								logger.execute();
-							} catch (FileExistsException e2) {
-								System.err
-										.println("I say I want to override, why wont you let me IO");
-								l.setSelected(false);
-								e2.printStackTrace();
-							} catch (IOException e2) {
-								JOptionPane
-										.showMessageDialog(mainWindow,
-												"Unknown IO Exception, please try again");
-								l.setSelected(false);
-								e2.printStackTrace();
-							}
-						} else {
-							// Cancel or No
-							l.setSelected(false);
-						}
-					} catch (IOException e1) {
-						// IO Exception, let the user try again
-						JOptionPane.showMessageDialog(mainWindow,
-								"Unknown IO Exception, please try again");
-						e1.printStackTrace(); // Print error message for
-												// debugging purposes from the
-												// user
-						l.setSelected(false);
-					}
-				}
-
+				boolean returnValue = LogfilePickerGenerator.generateAndShow(mainWindow);
+				
+				l.setSelected(returnValue);
+				
 			}
-
 		});
 
 		GridBagConstraints c = new GridBagConstraints();
