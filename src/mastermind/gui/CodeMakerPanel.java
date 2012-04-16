@@ -118,8 +118,6 @@ public class CodeMakerPanel extends JPanel {
 	}
 
 	public Code getSecret() {
-		if (!submitted)
-			return new Code();
 		secret = new Code(code);
 		return secret;
 	}
