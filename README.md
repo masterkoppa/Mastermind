@@ -27,9 +27,15 @@ Project Packages
 The project will be divided into the following packages to allow for better handling:
 
 mastermind.gui - For any view and GUI related code  
-mastermind.core - All the data models and any core functionality  
+mastermind.core - All the data models and any core functionality
+mastermind.core.codebreaker - All the implementations of computer codebreakers
+mastermind.core.commands - All the commands used in the system reside here
+mastermind.core.controller - The game controller and anything usefull resides here
+mastermind.gui - All gui related classes reside here.
+mastermind.interfaces - Any generic interfaces that are used reside here
+mastermind.logging - The logger resides here
 mastermind.test - All JUnit Tests should be used here (JUnit4)  
-mastermind.helper - Any helper classes that don't belong anywhere else  
+mastermind.helper - Any helper classes that don't belong anywhere else
 
 Downloading the Repository
 ---------------------------
@@ -64,6 +70,8 @@ don't break anything for anyone else.
 Add the log4j library
 ----------------------
 
+### From website
+
 For logging we will be using the [log4j](http://logging.apache.org/log4j/1.2/) library.
 
 In order for you to be able to compile the code you must add this library to 
@@ -72,6 +80,21 @@ and unzip the file. Then follow the instructions on the install/readme file cont
 
 See [this](http://wiki.eclipse.org/FAQ_How_do_I_add_an_extra_library_to_my_project%27s_classpath%3F) to learn how to add a library
 to your project class path.
+
+### From the git repository
+
+The logging library log4j is included inside of the repository inside of the libraries folder
+
+See [this](http://wiki.eclipse.org/FAQ_How_do_I_add_an_extra_library_to_my_project%27s_classpath%3F) to learn how to add a library
+this library to your project class path.
+
+Add the Apche Commons library
+-----------------------------
+
+The Apache Commons library is used for the FileExists exception used for the logging.
+
+This library resides inside of the libraries folder, see the log4j instructions to learn how to
+add the library.
 
 
 Coding Conventions
