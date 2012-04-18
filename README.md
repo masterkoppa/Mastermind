@@ -16,7 +16,7 @@ The repository has the following structure:
 ./             
 ./README.md    
 ./.gitignore   
-./src/
+./src/   
 ./libraries
 
 This src folder is where everything will be shared, please try not to add any other
