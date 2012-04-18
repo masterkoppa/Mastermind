@@ -20,14 +20,12 @@ public class CodeMakerPanel extends JPanel {
 	private Observer mainGame;
 	private ColorPeg[] code;
 	private ColorPeg[] availableColors;
-	private boolean submitted;
 
 	public CodeMakerPanel(Observer mainGame) {
 		secret = new Code();
 		code = new ColorPeg[Code.NUM_OF_PEGS];
 		availableColors = new ColorPeg[] { ColorPeg.BLACK, ColorPeg.BLUE,
 				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.WHITE, ColorPeg.YELLOW };
-		submitted = false;
 		this.mainGame = mainGame;
 		build();
 	}
@@ -70,7 +68,6 @@ public class CodeMakerPanel extends JPanel {
 					mainGame.notifyChange();
 				}
 				mainGame.notifyChange();
-				submitted = true;
 			}
 
 		});
