@@ -30,15 +30,15 @@ Project Packages
 The project will be divided into the following packages to allow for better handling:
 
 mastermind.gui - For any view and GUI related code  
-mastermind.core - All the data models and any core functionality
-mastermind.core.codebreaker - All the implementations of computer codebreakers
-mastermind.core.commands - All the commands used in the system reside here
-mastermind.core.controller - The game controller and anything usefull resides here
-mastermind.gui - All gui related classes reside here.
-mastermind.interfaces - Any generic interfaces that are used reside here
-mastermind.logging - The logger resides here
-mastermind.test - All JUnit Tests should be used here (JUnit4)  
-mastermind.helper - Any helper classes that don't belong anywhere else
+mastermind.core - All the data models and any core functionality  
+mastermind.core.codebreaker - All the implementations of computer codebreakers  
+mastermind.core.commands - All the commands used in the system reside here  
+mastermind.core.controller - The game controller and anything usefull resides here  
+mastermind.gui - All gui related classes reside here.  
+mastermind.interfaces - Any generic interfaces that are used reside here  
+mastermind.logging - The logger resides here  
+mastermind.test - All JUnit Tests should be used here (JUnit4)    
+mastermind.helper - Any helper classes that don't belong anywhere else  
 
 Downloading the Repository
 ---------------------------
