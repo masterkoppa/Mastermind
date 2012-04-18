@@ -16,10 +16,13 @@ The repository has the following structure:
 ./             
 ./README.md    
 ./.gitignore   
-./src/         
+./src/
+./libraries
 
 This src folder is where everything will be shared, please try not to add any other
 folders or files unless strictly necessary. 
+
+Any libraries used reside in the libraries folder.
 
 Project Packages
 -----------------
