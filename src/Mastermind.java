@@ -21,6 +21,7 @@ public class Mastermind implements Observer{
 	private PlayList playListModel;
 	private GameModel theGame;
 	private IGameController mainController;
+	private SettingsView settings;
 	private MastermindMain mainView;
 	private CodeMakerPanel codemakerView;
 	private Code secret;
@@ -45,29 +46,17 @@ public class Mastermind implements Observer{
 
 		theGame = new GameModel();
 		
-		setLookAndFeel();		
-		notifyChange();
+		createAndShowWindow();
+		//notifyChange();//Jump Straight to Codemaker
 
 	}
-
-	/**
-	 * Get secret and set up gui with look and feel specific to operating system
-	 * being used.
-	 */
-	private void initGUI() {
-		
-		playListModel = new PlayList();
-		codemakerView = new CodeMakerPanel(this);
-
+	
+	private void createAndShowWindow(){
+		setLookAndFeel();
 		mainWindow = new JFrame();
-
-		mainWindow.add(codemakerView);
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				// TODO Make this a method calls that creates all the GUI
-				// objects here
-				// inside the GUI thread instead of the main thread.
 				mainWindow.setTitle("Mastermind");
 				mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				mainWindow.setSize(800, 600);
@@ -79,20 +68,31 @@ public class Mastermind implements Observer{
 				mainWindow.setVisible(true);
 			}
 		});
+		showSettings();
+	}
+	
+	private void showSettings(){
+		//If a previous game was played nuke it
+		if(mainView != null)
+			mainWindow.remove(mainView.getView());
+		
+		settings = new SettingsView(this);
+		mainWindow.add(settings);
+		mainWindow.validate();
+	}
 
-		while (codemakerView.getSecret().isEmpty()) {
-			try {
-				Thread.sleep(100);
-				if (!mainWindow.isVisible()) {
-					break;
-				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-
-		secret = codemakerView.getSecret();
-
+	/**
+	 * Get secret and set up gui with look and feel specific to operating system
+	 * being used.
+	 */
+	private void initGUI() {
+		
+		mainWindow.remove(settings);
+		playListModel = new PlayList();
+		codemakerView = new CodeMakerPanel(this);
+		mainWindow.add(codemakerView);
+		mainWindow.validate();
+		
 	}
 
 	private void startGame() {
@@ -101,8 +101,7 @@ public class Mastermind implements Observer{
 
 		mainWindow.remove(codemakerView);
 		mainWindow.add(mainView.getView());
-		mainWindow.getContentPane().invalidate();
-		mainWindow.getContentPane().validate();
+		mainWindow.validate();
 	}
 
 	/**
@@ -175,6 +174,7 @@ public class Mastermind implements Observer{
 		switch(state){
 		case 0:
 			System.out.println("Settings Page");
+			showSettings();
 			break;
 		case 1:
 			System.out.println("Codemakers Page");
