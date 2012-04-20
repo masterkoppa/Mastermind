@@ -1,7 +1,27 @@
 package mastermind.gui;
 
-import javax.swing.JFrame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class SettingsView extends JFrame {
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
+import mastermind.interfaces.Observer;
+
+public class SettingsView extends JPanel {
+	
+	public SettingsView(final Observer mainFrame){
+		super();
+		JButton next = new JButton("NEXT");
+		this.add(next);
+		
+		next.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mainFrame.notifyChange();
+			}
+			
+		});
+	}
 }
