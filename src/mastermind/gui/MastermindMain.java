@@ -98,7 +98,6 @@ public class MastermindMain implements Observer {
 	 */
 	private JPanel generateOptions() {
 		JPanel options = new JPanel(new GridBagLayout());
-		JPanel checkPanel = new JPanel(new GridBagLayout());
 		JPanel buttonPanel = new JPanel(new FlowLayout());
 
 		submit = new JButton("Submit");
@@ -161,40 +160,25 @@ public class MastermindMain implements Observer {
 			}
 		});
 
-		GridBagConstraints c = new GridBagConstraints();
-
-		c.gridy = 0;
-
-		c.gridx = 1;
-		c.insets = new Insets(0, 20, 0, 10);
-
-		c.gridx = 0;
-		c.gridy = 1;
-		c.gridwidth = 2;
-		c.insets = new Insets(20, 0, 40, 0);
-
-		c.gridy = 2;
-		c.insets = new Insets(0, 0, 50, 0);
-
-		checkPanel.add(logging, c);
-
-		buttonPanel.add(submit);
-		buttonPanel.add(undo);
+		
 
 		// Setup the gridbag layout options
-
-		c = new GridBagConstraints();
+		GridBagConstraints c = new GridBagConstraints();
 
 		// Check Panel Settings
 		c.gridx = 0;
 		c.gridy = 0;
+		c.insets = new Insets(0, 0, 40, 0);
 
-		options.add(checkPanel, c);
+		options.add(logging, c);
 
 		// Button Panel Settings
 		c.gridx = 0;
 		c.gridy = 1;
-
+		c.insets = new Insets(0,0,0,0);
+		
+		buttonPanel.add(submit);
+		buttonPanel.add(undo);
 		options.add(buttonPanel, c);
 
 		c.gridy = 2;
