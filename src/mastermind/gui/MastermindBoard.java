@@ -1,7 +1,6 @@
 package mastermind.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -20,6 +19,10 @@ import mastermind.interfaces.Observer;
 
 public class MastermindBoard extends JPanel implements Observer {
 
+	/**
+	 * Generated Serial Version ID
+	 */
+	private static final long serialVersionUID = 2995807532949820200L;
 	private PlayList data;
 	private ArrayList<Row> rows;
 	private final ColorPeg[] availableColors;
@@ -140,11 +143,13 @@ public class MastermindBoard extends JPanel implements Observer {
 
 			for (int i = 0; i < Code.NUM_OF_PEGS; i++) {
 				JButton peg = new JButton();
-				peg.setName(Integer.toString(i)); //This is how we know where we are
-				
-				if(code[i] == null){
-					//Don't do anything
-					//peg.setBackground(Color.RED); //To show something there...
+				peg.setName(Integer.toString(i)); // This is how we know where
+													// we are
+
+				if (code[i] == null) {
+					// Don't do anything
+					// peg.setBackground(Color.RED); //To show something
+					// there...
 					peg.setToolTipText("Empty");
 				} else {
 					peg.setBackground(code[i].getColor());

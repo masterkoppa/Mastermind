@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.Rectangle;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -11,18 +10,35 @@ import mastermind.core.GameModel;
 import mastermind.core.PlayList;
 import mastermind.core.controller.*;
 import mastermind.gui.*;
+import mastermind.interfaces.INotifiable;
 
-public class Mastermind {
+public class Mastermind implements INotifiable {
 
+	// Constants
+	// for easy access
+	final private String windowTitle;
+
+	// GUI Components
 	private JFrame mainWindow;
-	private Rectangle previousBounds;
-	
+	private SettingsView settings;
+	private CodeMakerPanel codemakerView;
+	private MastermindMain mainView;
+
+	// Data Models
 	private PlayList playListModel;
 	private GameModel theGame;
-	private IGameController mainController;
-	private MastermindMain mainView;
-	private CodeMakerPanel codemakerView;
 	private Code secret;
+
+	// Controllers
+	private IGameController mainController;
+
+	/**
+	 * The state of the game
+	 * 
+	 * 0 for the settings page 1 for the codemakers page 2 for the codebreakers
+	 * page
+	 */
+	private int state;
 
 	/**
 	 * Sets up the gui and controller. First view opened will populate the
@@ -30,89 +46,91 @@ public class Mastermind {
 	 * player and logger options.
 	 */
 	public Mastermind() {
+		state = 0; // Set the state as 0 to start
 
+		// Set up any constants through this run
+		windowTitle = "Mastermind";
+
+		// Initialize the main game model, this model is persistent
+		// through all the games
 		theGame = new GameModel();
+	}
 
-		// TODO Clean this up into a less hackish way of solving this problem
-		// needs to be hacking because Java is Java sometimes
-		while (true) {
-			initGUI();
-			startGame();
+	/**
+	 * Create the gui window and show it.
+	 */
+	private void createAndShowWindow() {
+		// Set the look and feel
+		setLookAndFeel();
 
-			// Wait for the game to kill itself
-			while (!mainView.isDone()) {
-				try {
-					Thread.sleep(200);
-					if (!mainWindow.isVisible()) {
-						break;
-					}
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+		// Create the window
+		mainWindow = new JFrame();
+
+		// Spawn this window in a new thread, good java practice
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+
+				mainWindow.setTitle(windowTitle);
+				mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				mainWindow.setSize(800, 600);
+
+				// Show the window
+				mainWindow.setVisible(true);
 			}
+		});
 
-			previousBounds = mainWindow.getBounds();
+		// Start by showing the settings window
+		showSettings();
+	}
 
-			mainWindow.dispose();
-
-			theGame.newGame();
-		}
-
+	private void showSettings() {
+		// If a previous game was played nuke it
+		if (mainView != null)
+			mainWindow.remove(mainView.getView());
+		
+		//Setup the settings view
+		settings = new SettingsView(this);
+		
+		//Change the panel
+		mainWindow.add(settings);
+		mainWindow.validate();
 	}
 
 	/**
 	 * Get secret and set up gui with look and feel specific to operating system
 	 * being used.
 	 */
-	private void initGUI() {
-		setLookAndFeel();
-		playListModel = new PlayList();
-		codemakerView = new CodeMakerPanel();
+	private void showCodeMaker() {
 
-		mainWindow = new JFrame();
+		// Build the view
+		codemakerView = new CodeMakerPanel(this);
 
+		// Change the panel
+		mainWindow.remove(settings);
 		mainWindow.add(codemakerView);
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				// TODO Make this a method calls that creates all the GUI
-				// objects here
-				// inside the GUI thread instead of the main thread.
-				mainWindow.setTitle("Mastermind");
-				mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				mainWindow.setSize(800, 600);
 
-				if (previousBounds != null) {
-					mainWindow.setBounds(previousBounds);
-				}
-
-				mainWindow.setVisible(true);
-			}
-		});
-
-		while (codemakerView.getSecret().isEmpty()) {
-			try {
-				Thread.sleep(100);
-				if (!mainWindow.isVisible()) {
-					break;
-				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-
-		secret = codemakerView.getSecret();
+		// Validate the new window contents
+		mainWindow.validate();
 
 	}
 
-	private void startGame() {
-		mainController = new GameController(theGame, playListModel, secret);
-		mainView = new MastermindMain(mainController, playListModel, theGame);
+	private void showCodeBreaker() {
+		// Get the secret code
+		secret = codemakerView.getSecret();
 
+		// Build the controller and the view
+		playListModel = new PlayList();
+		mainController = new GameController(theGame, playListModel, secret);
+		mainView = new MastermindMain(mainController, playListModel, theGame,
+				this);
+
+		// Change the panel
 		mainWindow.remove(codemakerView);
 		mainWindow.add(mainView.getView());
-		mainWindow.getContentPane().invalidate();
-		mainWindow.getContentPane().validate();
+
+		// Validate the new window contents
+		mainWindow.validate();
 	}
 
 	/**
@@ -161,6 +179,26 @@ public class Mastermind {
 		}
 	}
 
+	public void Notify() {
+
+		state = (state + 1) % 3;
+
+		switch (state) {
+		case 0:
+			System.out.println("Settings Page");
+			showSettings();
+			break;
+		case 1:
+			System.out.println("Codemakers Page");
+			showCodeMaker();
+			break;
+		case 2:
+			System.out.println("Codebreakers Page");
+			showCodeBreaker();
+			break;
+		}
+	}
+	
 	/**
 	 * Kicks the program off by creating the Main container for the gui and
 	 * system.
@@ -168,8 +206,7 @@ public class Mastermind {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		new Mastermind();
+		new Mastermind().createAndShowWindow();
 	}
 
 }
