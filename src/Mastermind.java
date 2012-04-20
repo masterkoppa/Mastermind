@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.Rectangle;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
