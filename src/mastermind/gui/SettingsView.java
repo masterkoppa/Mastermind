@@ -6,22 +6,27 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import mastermind.interfaces.Observer;
+import mastermind.interfaces.INotifiable;
 
 public class SettingsView extends JPanel {
-	
-	public SettingsView(final Observer mainFrame){
+
+	/**
+	 * Generate Serial Version ID
+	 */
+	private static final long serialVersionUID = 27122833485072815L;
+
+	public SettingsView(final INotifiable mainFrame) {
 		super();
 		JButton next = new JButton("NEXT");
 		this.add(next);
-		
-		next.addActionListener(new ActionListener(){
+
+		next.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainFrame.notifyChange();
+				mainFrame.Notify();
 			}
-			
+
 		});
 	}
 }

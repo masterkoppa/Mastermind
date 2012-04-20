@@ -8,20 +8,26 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
-import mastermind.interfaces.Observer;
+import mastermind.interfaces.INotifiable;
 
 public class CodeMakerPanel extends JPanel {
 
+	/**
+	 * Generated serial version ID
+	 */
+	private static final long serialVersionUID = 2222995828266338433L;
 	private Code secret;
-	private Observer mainGame;
+	private INotifiable mainGame;
 	private ColorPeg[] code;
 	private ColorPeg[] availableColors;
 
-	public CodeMakerPanel(Observer mainGame) {
+	public CodeMakerPanel(INotifiable mainGame) {
 		secret = new Code();
 		code = new ColorPeg[Code.NUM_OF_PEGS];
 		availableColors = new ColorPeg[] { ColorPeg.BLACK, ColorPeg.BLUE,
@@ -63,11 +69,11 @@ public class CodeMakerPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO Make this not break law of demeter
-				if(getSecret().isEmpty()){
-					mainGame.notifyChange();
+				// TODO Make this not break law of demeter
+				if (getSecret().isEmpty()) {
+					mainGame.Notify();
 				}
-				mainGame.notifyChange();
+				mainGame.Notify();
 			}
 
 		});
@@ -118,6 +124,5 @@ public class CodeMakerPanel extends JPanel {
 		secret = new Code(code);
 		return secret;
 	}
-
 
 }
