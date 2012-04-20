@@ -8,24 +8,31 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
+import mastermind.interfaces.INotifiable;
 
 public class CodeMakerPanel extends JPanel {
 
+	/**
+	 * Generated serial version ID
+	 */
+	private static final long serialVersionUID = 2222995828266338433L;
 	private Code secret;
+	private INotifiable mainGame;
 	private ColorPeg[] code;
 	private ColorPeg[] availableColors;
-	private boolean submitted;
 
-	public CodeMakerPanel() {
+	public CodeMakerPanel(INotifiable mainGame) {
 		secret = new Code();
 		code = new ColorPeg[Code.NUM_OF_PEGS];
 		availableColors = new ColorPeg[] { ColorPeg.BLACK, ColorPeg.BLUE,
 				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.WHITE, ColorPeg.YELLOW };
-		submitted = false;
+		this.mainGame = mainGame;
 		build();
 	}
 
@@ -61,9 +68,12 @@ public class CodeMakerPanel extends JPanel {
 		Submit.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// Validate Code Here
-				submitted = true;
+			public void actionPerformed(ActionEvent e) {
+				// TODO Make this not break law of demeter
+				if (getSecret().isEmpty()) {
+					mainGame.Notify();
+				}
+				mainGame.Notify();
 			}
 
 		});
@@ -111,18 +121,8 @@ public class CodeMakerPanel extends JPanel {
 	}
 
 	public Code getSecret() {
-		if (!submitted)
-			return new Code();
 		secret = new Code(code);
 		return secret;
-	}
-
-	public static void main(String[] args) {
-		JFrame main = new JFrame();
-		main.add(new CodeMakerPanel());
-
-		main.setSize(800, 600);
-		main.setVisible(true);
 	}
 
 }
