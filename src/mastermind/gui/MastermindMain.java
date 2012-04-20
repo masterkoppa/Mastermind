@@ -17,6 +17,7 @@ import mastermind.core.ColorPeg;
 import mastermind.core.GameModel;
 import mastermind.core.PlayList;
 import mastermind.core.controller.IGameController;
+import mastermind.interfaces.INotifiable;
 import mastermind.interfaces.Observer;
 
 public class MastermindMain implements Observer {
@@ -25,7 +26,7 @@ public class MastermindMain implements Observer {
 	private PlayList dataBackend;
 	private GameModel currentGame;
 	private IGameController controller;
-	private Observer mainGame;
+	private INotifiable mainGame;
 	private boolean newGameSelected;
 	private boolean gameIsOver;
 
@@ -37,13 +38,12 @@ public class MastermindMain implements Observer {
 	private JButton newGame;
 
 	public MastermindMain(IGameController controller, PlayList model,
-			GameModel theGame, Observer mainGame) {
+			GameModel theGame, INotifiable mainGame) {
 		this.dataBackend = model;
 		this.currentGame = theGame;
 		this.controller = controller;
 		this.newGameSelected = false;
 		this.mainGame = mainGame;
-		
 
 		mainWindow = new JPanel();// Set the JFrame with the window title
 
@@ -139,14 +139,12 @@ public class MastermindMain implements Observer {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainGame.notifyChange();
+				mainGame.Notify();
 				newGameSelected = true;
 			}
 
 		});
 
-
-		
 		JCheckBox logging = new JCheckBox("Logging Enabled");
 
 		logging.addActionListener(new ActionListener() {
@@ -155,27 +153,25 @@ public class MastermindMain implements Observer {
 			public void actionPerformed(ActionEvent e) {
 
 				JCheckBox l = (JCheckBox) e.getSource();
-				boolean returnValue = LogfilePickerGenerator.generateAndShow(mainWindow);
-				
+				boolean returnValue = LogfilePickerGenerator
+						.generateAndShow(mainWindow);
+
 				l.setSelected(returnValue);
-				
+
 			}
 		});
 
 		GridBagConstraints c = new GridBagConstraints();
 
-		
 		c.gridy = 0;
 
 		c.gridx = 1;
 		c.insets = new Insets(0, 20, 0, 10);
 
-
 		c.gridx = 0;
 		c.gridy = 1;
 		c.gridwidth = 2;
 		c.insets = new Insets(20, 0, 40, 0);
-
 
 		c.gridy = 2;
 		c.insets = new Insets(0, 0, 50, 0);

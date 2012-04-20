@@ -8,27 +8,30 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 
-import mastermind.core.commands.*;
+import mastermind.core.commands.ConfigureLogForFileCommand;
+import mastermind.core.commands.IFileCommand;
 
 import org.apache.commons.io.FileExistsException;
 
 public class LogfilePickerGenerator {
-	
+
 	/**
-	 * Generates the file picker with the designated filters that allow for the user
-	 * to pick a file suitable for logging.
-	 * @param mainWindow - The panel where this is originating from
-	 *                     to use as a parent of the popup window.
+	 * Generates the file picker with the designated filters that allow for the
+	 * user to pick a file suitable for logging.
+	 * 
+	 * @param mainWindow
+	 *            - The panel where this is originating from to use as a parent
+	 *            of the popup window.
 	 * @return
 	 */
-	public static boolean generateAndShow(JPanel mainWindow){
+	public static boolean generateAndShow(JPanel mainWindow) {
 		// The file name where the user want's the file stored
 		String fileName = "";
 
 		// Open a File Chooser
 
 		int result = JFileChooser.ERROR_OPTION;
-		
+
 		JFileChooser file = new JFileChooser();
 
 		file.setFileFilter(new FileFilter() {
@@ -58,41 +61,37 @@ public class LogfilePickerGenerator {
 			File f = file.getSelectedFile();
 
 			fileName = f.getPath();
-			
-			//return true;
+
+			// return true;
 		}
 
 		// Start configuring the logging
 		IFileCommand logger = new ConfigureLogForFileCommand(fileName, false);
-		
-		
+
 		try {
 			// Try to save the log in place
 			logger.execute();
 		} catch (FileExistsException e1) {
 			// The file already exists aske the user what it wants
 			// to do
-			int response = JOptionPane
-					.showConfirmDialog(mainWindow,
-							"File Already Exists, Please Pick Another file");
+			int response = JOptionPane.showConfirmDialog(mainWindow,
+					"File Already Exists, Please Pick Another file");
 
 			// Yes Overriwrite?
 			if (response == JOptionPane.YES_OPTION) {
-				logger = new ConfigureLogForFileCommand(fileName,
-						true);
+				logger = new ConfigureLogForFileCommand(fileName, true);
 				try {
 					logger.execute();
 				} catch (FileExistsException e2) {
 					System.err
 							.println("I say I want to override, why wont you let me IO");
-					
+
 					e2.printStackTrace();
-					
+
 					return false;
 				} catch (IOException e2) {
-					JOptionPane
-							.showMessageDialog(mainWindow,
-									"Unknown IO Exception, please try again");
+					JOptionPane.showMessageDialog(mainWindow,
+							"Unknown IO Exception, please try again");
 					e2.printStackTrace();
 					return false;
 				}
@@ -109,7 +108,7 @@ public class LogfilePickerGenerator {
 									// user
 			return false;
 		}
-		
+
 		return true;
 	}
 
