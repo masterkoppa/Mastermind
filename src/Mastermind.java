@@ -45,12 +45,11 @@ public class Mastermind implements Observer{
 		state = 0;
 
 		theGame = new GameModel();
-		
-		createAndShowWindow();
-		//notifyChange();//Jump Straight to Codemaker
-
 	}
 	
+	/**
+	 * Create the gui window and show it.
+	 */
 	private void createAndShowWindow(){
 		setLookAndFeel();
 		mainWindow = new JFrame();
@@ -157,7 +156,7 @@ public class Mastermind implements Observer{
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new Mastermind();
+		new Mastermind().createAndShowWindow();;
 	}
 
 	@Override
