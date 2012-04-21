@@ -2,6 +2,8 @@ package mastermind.core;
 
 import mastermind.interfaces.Observable;
 import mastermind.interfaces.Observer;
+import mastermind.core.validation.*;
+import mastermind.core.modes.*;
 
 /**
  * 
@@ -14,6 +16,7 @@ public class GameModel extends Observable {
 	private GameWinner winner;
 	private Boolean loggingEnabled;
 	private Boolean codebreakerIsAI;
+	private GameMode mode;
 
 	public GameModel() {
 		this.winner = null;
@@ -107,5 +110,9 @@ public class GameModel extends Observable {
 		} else {
 			return "I Don't know who won...";//Some comic relief from long hours
 		}
+	}
+	
+	public ICodeValidator codeValidator() {
+		return mode.secretCodeValidator();
 	}
 }
