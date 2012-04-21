@@ -177,6 +177,7 @@ public class MastermindMain implements Observer {
 		c.gridy = 1;
 		c.insets = new Insets(0,0,0,0);
 		
+		
 		buttonPanel.add(submit);
 		buttonPanel.add(undo);
 		options.add(buttonPanel, c);
