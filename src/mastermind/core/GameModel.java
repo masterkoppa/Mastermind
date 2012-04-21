@@ -112,6 +112,10 @@ public class GameModel extends Observable {
 		return this.codemaker;
 	}
 	
+	/**
+	 * Set the game mode
+	 * @param mode
+	 */
 	public void setGameMode(IGameMode mode)
 	{
 		if(null == mode)
@@ -120,6 +124,10 @@ public class GameModel extends Observable {
 		this.mode = mode;
 	}
 	
+	/**
+	 * Return the currently set game mode
+	 * @return
+	 */
 	public IGameMode getGameMode()
 	{
 		return this.mode;
