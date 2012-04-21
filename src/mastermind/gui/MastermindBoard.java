@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -110,7 +111,8 @@ public class MastermindBoard extends JPanel implements Observer {
 
 			build();
 			
-			this.setPreferredSize(new Dimension(0, 100));
+			this.setPreferredSize(new Dimension(0, 80));
+			this.setBorder(BorderFactory.createEtchedBorder());
 		}
 
 		private void build() {
@@ -140,7 +142,7 @@ public class MastermindBoard extends JPanel implements Observer {
 			}
 			
 			this.add(feedbackPanel, BorderLayout.WEST);
-			feedbackPanel.setPreferredSize(new Dimension(100, 0));
+			feedbackPanel.setPreferredSize(new Dimension(80, 0));
 
 			// Set up the code for this row
 
