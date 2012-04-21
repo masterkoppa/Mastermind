@@ -103,6 +103,10 @@ public class GameModel extends Observable {
 		
 		this.codemaker = c;
 	}
+	
+	public ICodemaker getCodeMaker(){
+		return this.codemaker;
+	}
 
 	@Override
 	public void register(Observer object) {
