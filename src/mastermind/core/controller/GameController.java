@@ -41,6 +41,7 @@ public class GameController implements IGameController, Observer {
 	 * @param data
 	 * @param secret
 	 */
+	@Deprecated
 	public GameController(GameModel theGame, PlayList data, Code secret) {
 		this(); // Do this to not break compatibility, not yet
 		this.game = theGame;
@@ -48,6 +49,17 @@ public class GameController implements IGameController, Observer {
 		this.dataBackend = data;
 		this.secretCode = secret;
 
+	}
+	
+	/**
+	 * USE THIS ONE
+	 * @param theGame
+	 * @param data
+	 */
+	public GameController(GameModel theGame, PlayList data){
+		this.game = theGame;
+		this.dataBackend = data;
+		this.game.register(this);
 	}
 
 	@Override
@@ -116,7 +128,6 @@ public class GameController implements IGameController, Observer {
 		this.executeCommand(play);
 	}
 	
-	//TODO This method is not supposed to be here? Breaking everything.
 	public void setSecretCode(Code c){
 		
 		if(null == c)

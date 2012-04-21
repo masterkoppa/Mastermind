@@ -138,7 +138,7 @@ public class Mastermind implements INotifiable {
 		secret = codemakerView.getSecret();
 
 		// Build the controller and the view
-		playListModel = new PlayList(50);
+		playListModel = new PlayList(10);
 		mainController = new GameController(theGame, playListModel, secret);
 		mainView = new MastermindMain(mainController, playListModel, theGame,
 				this);
