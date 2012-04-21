@@ -18,7 +18,7 @@ public class FeedbackTest {
 		secret = new Code();
 		secret.setPegs(0, ColorPeg.BLACK);
 		secret.setPegs(1, ColorPeg.BLUE);
-		secret.setPegs(2, ColorPeg.WHITE);
+		secret.setPegs(2, ColorPeg.PURPLE);
 		secret.setPegs(3, ColorPeg.YELLOW);
 	}
 
@@ -35,7 +35,7 @@ public class FeedbackTest {
 		guess = new Code();
 		guess.setPegs(2, ColorPeg.BLACK);
 		guess.setPegs(3, ColorPeg.BLUE);
-		guess.setPegs(1, ColorPeg.WHITE);
+		guess.setPegs(1, ColorPeg.PURPLE);
 		guess.setPegs(0, ColorPeg.YELLOW);
 
 		Feedback f = Feedback.analyze(secret, guess);
@@ -51,7 +51,7 @@ public class FeedbackTest {
 		guess = new Code();
 		guess.setPegs(0, ColorPeg.BLACK);
 		guess.setPegs(2, ColorPeg.BLUE);
-		guess.setPegs(1, ColorPeg.WHITE);
+		guess.setPegs(1, ColorPeg.PURPLE);
 		guess.setPegs(3, ColorPeg.YELLOW);
 
 		Feedback f = Feedback.analyze(secret, guess);
@@ -67,7 +67,7 @@ public class FeedbackTest {
 		guess = new Code();
 		guess.setPegs(0, ColorPeg.BLACK);
 		guess.setPegs(2, ColorPeg.BLUE);
-		guess.setPegs(1, ColorPeg.WHITE);
+		guess.setPegs(1, ColorPeg.PURPLE);
 		guess.setPegs(3, ColorPeg.BLACK);
 
 		Feedback f = Feedback.analyze(secret, guess);

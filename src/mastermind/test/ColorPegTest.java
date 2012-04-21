@@ -10,7 +10,7 @@ public class ColorPegTest {
 
 	@Test
 	public void testGetName() {
-		assert (ColorPeg.WHITE.getName().equalsIgnoreCase("White"));
+		assert (ColorPeg.BLUE.getName().equalsIgnoreCase("Blue"));
 	}
 
 	@Test
