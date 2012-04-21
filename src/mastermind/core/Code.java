@@ -60,18 +60,18 @@ public class Code {
 	/**
 	 * Allows you to set a specific color to a position in this code
 	 * 
-	 * @param ID
+	 * @param id
 	 *            The index in the array starting at 0.
 	 * @param color
 	 *            The color to be placed here
 	 */
-	public void setPegs(int ID, ColorPeg color) {
+	public void setPegs(int id, ColorPeg color) {
 
-		if (ID >= NUM_OF_PEGS)
+		if (id >= NUM_OF_PEGS)
 			throw new IllegalArgumentException(
 					"The index for this peg exeeds the max number of pegs");
 
-		Pegs[ID] = color;
+		Pegs[id] = color;
 
 	}
 
