@@ -3,6 +3,13 @@ package mastermind.core.validation;
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
 
+/**
+ * 
+ * @author Andrew Church
+ * 
+ * Class that implements ICodeValidator to validate that a code does not have duplicates
+ *
+ */
 public class DuplicatePegsNotAllowedValidator implements ICodeValidator{
 
 	@Override
