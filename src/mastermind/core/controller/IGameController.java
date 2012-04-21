@@ -1,5 +1,6 @@
 package mastermind.core.controller;
 
+import mastermind.core.Code;
 import mastermind.core.ColorPeg;
 import mastermind.core.commands.ICommand;
 
@@ -21,6 +22,12 @@ public interface IGameController {
 	 * commands. After creation, this will execute the commands.
 	 */
 	public void submitGuess(ColorPeg[] code);
+	
+	/**
+	 * 
+	 * @param code
+	 */
+	public void setSecretCode(Code code);
 
 	/**
 	 * Create the thread for the AI guesses.
