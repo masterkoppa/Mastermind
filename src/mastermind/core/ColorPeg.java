@@ -10,6 +10,7 @@ public enum ColorPeg {
 
 	private String Name;
 	private Color ColorForGUI;
+	public static int NUMBER_OF_COLORS=5;
 
 	ColorPeg(String name, Color color) {
 		Name = name;
