@@ -17,7 +17,7 @@ public class SubmitGuessCommandFixture {
 		colors[0] = ColorPeg.BLACK;
 		colors[1] = ColorPeg.GREEN;
 		colors[2] = ColorPeg.RED;
-		colors[3] = ColorPeg.WHITE;
+		colors[3] = ColorPeg.YELLOW;
 
 		PlayList plays = new PlayList();
 		ICommand command = null;
