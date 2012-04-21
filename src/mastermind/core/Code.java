@@ -121,7 +121,7 @@ public class Code {
 	 */
 	private static ColorPeg pickRandomPeg() {
 		Random r = new Random();
-		int randomNum = r.nextInt(5) + 1;
+		int randomNum = r.nextInt(5);
 
 		switch (randomNum) {
 		case 1:
@@ -133,8 +133,6 @@ public class Code {
 		case 4:
 			return ColorPeg.YELLOW;
 		case 5:
-			return ColorPeg.WHITE;
-		case 6:
 			return ColorPeg.BLACK;
 		default:
 			return ColorPeg.BLACK;
