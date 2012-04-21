@@ -8,7 +8,7 @@ import mastermind.core.validation.*;
  * @author Matt Addy <mxa5942@rit.edu>
  *
  */
-public class NoviceMode implements GameMode {
+public class NoviceMode implements IGameMode {
 	
 	/**
 	 * Get the secret code validator associated with this mode.

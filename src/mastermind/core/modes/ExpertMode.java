@@ -9,7 +9,7 @@ import mastermind.core.validation.ICodeValidator;
  * @author Matt Addy <mxa5942@rit.edu>
  *
  */
-public class ExpertMode {
+public class ExpertMode implements IGameMode {
 
 	/**
 	 * Get the secret code validator associated with this mode.
