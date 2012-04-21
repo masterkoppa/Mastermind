@@ -48,7 +48,7 @@ public class MastermindBoard extends JPanel implements Observer {
 
 		rows = new ArrayList<Row>();
 
-		for (int i = 0; i < PlayList.NUM_OF_ROWS; i++) {
+		for (int i = 0; i < PlayList.getNUM_OF_ROWS(); i++) {
 			Guess g = data.getMove(i);
 			// TODO Fix the law of demeter here, major breakage of the law here
 			// plus its not pretty or readable.
