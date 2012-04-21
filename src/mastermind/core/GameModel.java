@@ -3,6 +3,7 @@ package mastermind.core;
 import mastermind.interfaces.Observable;
 import mastermind.interfaces.Observer;
 import mastermind.core.validation.*;
+import mastermind.core.codemaker.ICodemaker;
 import mastermind.core.modes.*;
 
 /**
@@ -17,11 +18,13 @@ public class GameModel extends Observable {
 	private Boolean loggingEnabled;
 	private Boolean codebreakerIsAI;
 	private GameMode mode;
+	private ICodemaker codemaker;
 
 	public GameModel() {
 		this.winner = null;
 		this.loggingEnabled = false;
 		this.codebreakerIsAI = false;
+		this.codemaker = null;
 	}
 
 	/**
@@ -88,6 +91,21 @@ public class GameModel extends Observable {
 	public void setCodeBreakerAsAI(Boolean ai) {
 		this.codebreakerIsAI = ai;
 		super.dataChanged();
+	}
+	
+	/**
+	 * Set the code maker
+	 * @param c
+	 */
+	public void setCodeMaker(ICodemaker c){
+		if(null == c)
+			throw new IllegalArgumentException();
+		
+		this.codemaker = c;
+	}
+	
+	public ICodemaker getCodeMaker(){
+		return this.codemaker;
 	}
 
 	@Override

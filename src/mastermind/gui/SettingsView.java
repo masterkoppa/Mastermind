@@ -50,35 +50,41 @@ public class SettingsView extends JPanel {
 		this.setLayout(new BorderLayout());
 		settingsWindow.setLayout(new GridBagLayout());
 		
+		//set the constraints for the settings window
 		GridBagConstraints c = new GridBagConstraints();
 		
+		//add the label for the mode selection
 		modeLabel = new JLabel("Game Mode");
 		c.gridx = 0;
 		c.gridy = 0;
 		settingsWindow.add(modeLabel, c);
 		
-		
+		//add the label for the codemaker selection
 		codeMakerLabel = new JLabel("Code Maker");
 		c.gridx = 0;
 		c.gridy = 1;
 		settingsWindow.add(codeMakerLabel, c);
 		
+		//add the label for the codebreaker selection
 		codeBreakerLabel = new JLabel("Code Breaker");
 		c.gridx = 0;
 		c.gridy = 2;
 		settingsWindow.add(codeBreakerLabel, c);
 		
+		//add the label for the computer difficulty selection
 		compDifficultyLabel = new JLabel("Computer Difficulty");
 		c.gridx = 2;
 		c.gridy = 3;
 		settingsWindow.add(compDifficultyLabel, c);
 		
+		//add the label for the guess interval slider
 		guessIntervalLabel = new JLabel("Guess Interval");
 		c.gridx = 2;
 		c.gridy = 4;
 		settingsWindow.add(guessIntervalLabel, c);
 		
-		numGuessesLabel = new JLabel("Number of guesses per game");
+		//add the label for number of guesses in the game
+		numGuessesLabel = new JLabel("Number of guesses per game(10-50)");
 		c.gridx = 0;
 		c.gridy = 5;
 		c.gridwidth = 2;
@@ -86,12 +92,14 @@ public class SettingsView extends JPanel {
 		
 		ButtonGroup codemakerGroup = new ButtonGroup();
 		
+		//add the check box for human codemaker
 		humanCodemaker = new JCheckBox("Human");
 		c.gridx = 1;
 		c.gridy = 1;
 		c.gridwidth = 1;
 		settingsWindow.add(humanCodemaker, c);
 		
+		//add the check box for computer codemaker
 		compCodemaker = new JCheckBox("Computer");
 		c.gridx = 2;
 		c.gridy = 1;
@@ -102,11 +110,13 @@ public class SettingsView extends JPanel {
 		
 		ButtonGroup codebreakerGroup = new ButtonGroup();
 		
+		//add the check box for human codebreaker
 		humanCodebreaker = new JCheckBox("Human");
 		c.gridx = 1;
 		c.gridy = 2;
 		settingsWindow.add(humanCodebreaker, c);
 		
+		//add the check box for computer codemaker
 		compCodebreaker = new JCheckBox("Computer");
 		c.gridx = 2;
 		c.gridy = 2;
@@ -115,6 +125,7 @@ public class SettingsView extends JPanel {
 		codebreakerGroup.add(compCodebreaker);
 		codebreakerGroup.add(humanCodebreaker);
 		
+		//add the combo box for mode selection
 		String[] modes = {"Novice", "Expert"};
 		modeSelect = new JComboBox(modes);
 		
@@ -124,6 +135,7 @@ public class SettingsView extends JPanel {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		settingsWindow.add(modeSelect, c);
 		
+		//add the combo box for computer difficulty
 		String[] compDifficulty = {"Random"};
 		compCodebreakerSelect = new JComboBox(compDifficulty);
 		c.fill = GridBagConstraints.NONE;
@@ -132,18 +144,20 @@ public class SettingsView extends JPanel {
 		c.gridwidth = 1;
 		settingsWindow.add(compCodebreakerSelect, c);
 		
+		//add the slider for guess interval
 		guessIntervalSlider = new JSlider();
 		c.gridx = 3;
 		c.gridy = 4;
 		settingsWindow.add(guessIntervalSlider, c);
 		
+		//add the text field for the number of guesses
 		numGuessesField = new JTextField();
 		c.gridx = 2;
 		c.gridy = 5;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		settingsWindow.add(numGuessesField, c);
 		
-		
+		//add the next button
 		next = new JButton("NEXT");
 		this.add(next, BorderLayout.SOUTH);
 		this.add(settingsWindow, BorderLayout.CENTER);
