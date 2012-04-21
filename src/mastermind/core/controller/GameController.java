@@ -28,7 +28,7 @@ public class GameController implements IGameController, Observer {
 	 * Creates the gamecontroller which will maintain a history of all moves
 	 * made to allow for undo operations.
 	 */
-	// TODO Need to remove this and change test cases around.
+	@Deprecated
 	public GameController() {
 		history = new ArrayList<ICommand>();
 		nextUndo = 0;
@@ -116,6 +116,7 @@ public class GameController implements IGameController, Observer {
 		this.executeCommand(play);
 	}
 	
+	//TODO This method is not supposed to be here? Breaking everything.
 	public void setSecretCode(Code c){
 		
 		if(null == c)
