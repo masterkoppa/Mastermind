@@ -112,7 +112,12 @@ public class GameModel extends Observable {
 		}
 	}
 	
-	public ICodeValidator codeValidator() {
-		return mode.secretCodeValidator();
+	public Boolean validateSecretCode(Code c) {
+		
+		if(null == c)
+			throw new IllegalArgumentException();
+		
+		ICodeValidator v = this.mode.secretCodeValidator();
+		return v.validate(c);
 	}
 }

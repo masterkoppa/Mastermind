@@ -115,6 +115,17 @@ public class GameController implements IGameController, Observer {
 
 		this.executeCommand(play);
 	}
+	
+	public void setSecretCode(Code c){
+		
+		if(null == c)
+			throw new IllegalArgumentException();
+		
+		if(!this.game.validateSecretCode(c))
+			throw new IllegalArgumentException();
+		
+		this.secretCode = c;
+	}
 
 	@Override
 	public void startAI(int delaySeconds) {
