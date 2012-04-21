@@ -32,7 +32,7 @@ public class MastermindBoard extends JPanel implements Observer {
 		data = model;
 		rows = new ArrayList<Row>();
 		availableColors = new ColorPeg[] { ColorPeg.BLACK, ColorPeg.BLUE,
-				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.WHITE, ColorPeg.YELLOW };
+				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.WHITE, ColorPeg.YELLOW, ColorPeg.PURPLE };
 		this.register();
 	}
 
@@ -180,7 +180,6 @@ public class MastermindBoard extends JPanel implements Observer {
 						int index = Integer.parseInt(number);
 						code[index] = availableColors[this.index];
 					}
-
 				});
 
 				codePanel.add(peg);
