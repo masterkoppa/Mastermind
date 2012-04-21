@@ -6,7 +6,7 @@ public enum ColorPeg {
 
 	RED("Red", Color.RED), BLUE("Blue", Color.BLUE), GREEN("Green", Color.GREEN), 
 			YELLOW("Yellow", Color.YELLOW), WHITE("White", Color.WHITE), 
-			BLACK("Black", Color.BLACK), PURPLE("Purple", Color.getHSBColor(300, 100, 53));
+			BLACK("Black", Color.BLACK), PURPLE("Purple", Color.getHSBColor(0.83333f, 1.0f, 0.5686275f));
 
 	private String Name;
 	private Color ColorForGUI;

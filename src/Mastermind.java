@@ -165,7 +165,7 @@ public class Mastermind implements INotifiable {
 				// FOR TESTING Use this as an example to change the color scheme
 				// see:
 				// http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/_nimbusDefaults.html#primary
-				// float[] HSB = Color.RGBtoHSB(192, 194, 196, null);
+				// float[] HSB = Color.RGBtoHSB(145, 0, 145, null);
 				// System.out.println(HSB[0] + " " + HSB[1] + " " + HSB[2]);
 				// UIManager.put("control", Color.getHSBColor(HSB[0], HSB[1],
 				// HSB[2]));
