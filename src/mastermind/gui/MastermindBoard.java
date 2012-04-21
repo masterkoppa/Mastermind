@@ -2,6 +2,7 @@ package mastermind.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,6 +35,7 @@ public class MastermindBoard extends JPanel implements Observer {
 		availableColors = new ColorPeg[] { ColorPeg.BLACK, ColorPeg.BLUE,
 				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.YELLOW, ColorPeg.PURPLE };
 		this.register();
+		
 	}
 
 	@Override
@@ -107,6 +109,8 @@ public class MastermindBoard extends JPanel implements Observer {
 				this.code = new ColorPeg[Code.NUM_OF_PEGS];
 
 			build();
+			
+			this.setPreferredSize(new Dimension(0, 100));
 		}
 
 		private void build() {
@@ -134,8 +138,9 @@ public class MastermindBoard extends JPanel implements Observer {
 
 				feedbackPanel.add(peg);
 			}
-
+			
 			this.add(feedbackPanel, BorderLayout.WEST);
+			feedbackPanel.setPreferredSize(new Dimension(100, 0));
 
 			// Set up the code for this row
 
