@@ -12,6 +12,14 @@ import mastermind.core.controller.*;
 import mastermind.gui.*;
 import mastermind.interfaces.INotifiable;
 
+/**
+ * Mastermind
+ * 
+ * Main class that takes care of initializing and setting up the program
+ * 
+ * @author Andres J Ruiz(ajr2546@rit.edu)
+ *
+ */
 public class Mastermind implements INotifiable {
 
 	// Constants
@@ -84,6 +92,13 @@ public class Mastermind implements INotifiable {
 		showSettings();
 	}
 
+	/**
+	 * Show the settings page.
+	 * 
+	 * This method will remove the window in the previous step, if there was 
+	 * a previous step and show the settings window. To grab the information from
+	 * it use settings
+	 */
 	private void showSettings() {
 		// If a previous game was played nuke it
 		if (mainView != null)
@@ -115,6 +130,9 @@ public class Mastermind implements INotifiable {
 
 	}
 
+	/**
+	 * Shows the CodeBreaker window and board
+	 */
 	private void showCodeBreaker() {
 		// Get the secret code
 		secret = codemakerView.getSecret();
@@ -179,6 +197,7 @@ public class Mastermind implements INotifiable {
 		}
 	}
 
+	@Override
 	public void Notify() {
 
 		state = (state + 1) % 3;

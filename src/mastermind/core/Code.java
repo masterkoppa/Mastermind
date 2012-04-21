@@ -2,6 +2,14 @@ package mastermind.core;
 
 import java.util.Random;
 
+/**
+ * Code
+ * 
+ * This class is used to contain the representation of the code using ColorPeg.
+ * 
+ * @author Andres J Ruiz(ajr2546@rit.edu)
+ * 
+ */
 public class Code {
 
 	/**
@@ -22,6 +30,13 @@ public class Code {
 		Pegs = new ColorPeg[NUM_OF_PEGS];
 	}
 
+	/**
+	 * Initialize a code with the specified colors in it
+	 * 
+	 * @param colors
+	 *            The desired colors inside the code, an incorrect number of
+	 *            pegs inside the array with throw a IllegalArgumentException.
+	 */
 	public Code(ColorPeg[] colors) {
 		if (colors.length > NUM_OF_PEGS)
 			throw new IllegalArgumentException("Too many colors!");
