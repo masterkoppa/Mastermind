@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -56,6 +57,7 @@ public class SettingsView extends JPanel {
 		c.gridy = 0;
 		settingsWindow.add(modeLabel, c);
 		
+		
 		codeMakerLabel = new JLabel("Code Maker");
 		c.gridx = 0;
 		c.gridy = 1;
@@ -82,6 +84,8 @@ public class SettingsView extends JPanel {
 		c.gridwidth = 2;
 		settingsWindow.add(numGuessesLabel, c);
 		
+		ButtonGroup codemakerGroup = new ButtonGroup();
+		
 		humanCodemaker = new JCheckBox("Human");
 		c.gridx = 1;
 		c.gridy = 1;
@@ -93,6 +97,11 @@ public class SettingsView extends JPanel {
 		c.gridy = 1;
 		settingsWindow.add(compCodemaker, c);
 		
+		codemakerGroup.add(humanCodemaker);
+		codemakerGroup.add(compCodemaker);
+		
+		ButtonGroup codebreakerGroup = new ButtonGroup();
+		
 		humanCodebreaker = new JCheckBox("Human");
 		c.gridx = 1;
 		c.gridy = 2;
@@ -103,15 +112,21 @@ public class SettingsView extends JPanel {
 		c.gridy = 2;
 		settingsWindow.add(compCodebreaker, c);
 		
+		codebreakerGroup.add(compCodebreaker);
+		codebreakerGroup.add(humanCodebreaker);
+		
 		String[] modes = {"Novice", "Expert"};
 		modeSelect = new JComboBox(modes);
+		
 		c.gridx = 1;
 		c.gridy = 0;
 		c.gridwidth = 2;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		settingsWindow.add(modeSelect, c);
 		
 		String[] compDifficulty = {"Random"};
 		compCodebreakerSelect = new JComboBox(compDifficulty);
+		c.fill = GridBagConstraints.NONE;
 		c.gridx = 3;
 		c.gridy = 3;
 		c.gridwidth = 1;
@@ -125,6 +140,7 @@ public class SettingsView extends JPanel {
 		numGuessesField = new JTextField();
 		c.gridx = 2;
 		c.gridy = 5;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		settingsWindow.add(numGuessesField, c);
 		
 		
@@ -133,12 +149,11 @@ public class SettingsView extends JPanel {
 		this.add(settingsWindow, BorderLayout.CENTER);
 
 		next.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mainFrame.Notify();
 			}
-
 		});
 	}
 }
