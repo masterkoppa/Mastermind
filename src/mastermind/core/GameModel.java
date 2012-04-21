@@ -105,7 +105,7 @@ public class GameModel extends Observable {
 		} else if (winner == GameWinner.CODEMAKER) {
 			return "The Code was NOT Cracked, Codemaker Wins!";
 		} else {
-			return "I Don't know who won...";
+			return "I Don't know who won...";//Some comic relief from long hours
 		}
 	}
 }
