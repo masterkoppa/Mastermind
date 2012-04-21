@@ -17,6 +17,7 @@ public class Code {
 	 * here in case this needs to be changed in the future.
 	 */
 	public static final int NUM_OF_PEGS = 4;
+	
 
 	/**
 	 * Array that holds all the pegs that make this code
@@ -60,18 +61,19 @@ public class Code {
 	/**
 	 * Allows you to set a specific color to a position in this code
 	 * 
-	 * @param ID
+	 * @param id
 	 *            The index in the array starting at 0.
 	 * @param color
 	 *            The color to be placed here
 	 */
-	public void setPegs(int ID, ColorPeg color) {
+	public void setPegs(int id, ColorPeg color) {
 
-		if (ID >= NUM_OF_PEGS)
+		//Check whether the id is between 0 and the max number of pegs
+		if (id >= NUM_OF_PEGS || id < 0)
 			throw new IllegalArgumentException(
 					"The index for this peg exeeds the max number of pegs");
 
-		Pegs[ID] = color;
+		Pegs[id] = color;
 
 	}
 
@@ -117,26 +119,27 @@ public class Code {
 	/**
 	 * Randomly selects a peg color
 	 * 
-	 * @return
+	 * @return A randomly generated code
 	 */
 	private static ColorPeg pickRandomPeg() {
 		Random r = new Random();
-		int randomNum = r.nextInt(5) + 1;
+		
+		int randomNum = r.nextInt(ColorPeg.NUMBER_OF_COLORS);
 
 		switch (randomNum) {
-		case 1:
+		case 0:
 			return ColorPeg.RED;
-		case 2:
+		case 1:
 			return ColorPeg.BLUE;
-		case 3:
+		case 2:
 			return ColorPeg.GREEN;
-		case 4:
+		case 3:
 			return ColorPeg.YELLOW;
-		case 5:
-			return ColorPeg.WHITE;
-		case 6:
+		case 4:
 			return ColorPeg.BLACK;
-		default:
+		case 5:
+			return ColorPeg.PURPLE;
+		default://If on the off chance the number is 6, then we default
 			return ColorPeg.BLACK;
 		}
 	}

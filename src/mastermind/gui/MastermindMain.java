@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import mastermind.core.ColorPeg;
 import mastermind.core.GameModel;
@@ -50,8 +51,10 @@ public class MastermindMain implements Observer {
 		mainWindow.setLayout(new BorderLayout());
 
 		board = new MastermindBoard(model);
+		JScrollPane boardContainer = new JScrollPane(board);
+		
 
-		mainWindow.add(board, BorderLayout.CENTER);
+		mainWindow.add(boardContainer, BorderLayout.CENTER);
 		mainWindow.add(this.generateOptions(), BorderLayout.EAST);
 
 		// Register after initializing everything

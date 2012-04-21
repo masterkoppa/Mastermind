@@ -31,7 +31,7 @@ public class CodeMakerPanel extends JPanel {
 		secret = new Code();
 		code = new ColorPeg[Code.NUM_OF_PEGS];
 		availableColors = new ColorPeg[] { ColorPeg.BLACK, ColorPeg.BLUE,
-				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.WHITE, ColorPeg.YELLOW, ColorPeg.PURPLE };
+				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.YELLOW, ColorPeg.PURPLE };
 		this.mainGame = mainGame;
 		build();
 	}

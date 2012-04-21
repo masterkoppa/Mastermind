@@ -2,11 +2,13 @@ package mastermind.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -32,8 +34,9 @@ public class MastermindBoard extends JPanel implements Observer {
 		data = model;
 		rows = new ArrayList<Row>();
 		availableColors = new ColorPeg[] { ColorPeg.BLACK, ColorPeg.BLUE,
-				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.WHITE, ColorPeg.YELLOW, ColorPeg.PURPLE };
+				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.YELLOW, ColorPeg.PURPLE };
 		this.register();
+		
 	}
 
 	@Override
@@ -48,7 +51,7 @@ public class MastermindBoard extends JPanel implements Observer {
 
 		rows = new ArrayList<Row>();
 
-		for (int i = 0; i < PlayList.NUM_OF_ROWS; i++) {
+		for (int i = 0; i < PlayList.getNUM_OF_ROWS(); i++) {
 			Guess g = data.getMove(i);
 			// TODO Fix the law of demeter here, major breakage of the law here
 			// plus its not pretty or readable.
@@ -107,6 +110,9 @@ public class MastermindBoard extends JPanel implements Observer {
 				this.code = new ColorPeg[Code.NUM_OF_PEGS];
 
 			build();
+			
+			this.setPreferredSize(new Dimension(0, 80));
+			this.setBorder(BorderFactory.createEtchedBorder());
 		}
 
 		private void build() {
@@ -134,8 +140,9 @@ public class MastermindBoard extends JPanel implements Observer {
 
 				feedbackPanel.add(peg);
 			}
-
+			
 			this.add(feedbackPanel, BorderLayout.WEST);
+			feedbackPanel.setPreferredSize(new Dimension(80, 0));
 
 			// Set up the code for this row
 

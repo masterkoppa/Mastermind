@@ -5,11 +5,12 @@ import java.awt.Color;
 public enum ColorPeg {
 
 	RED("Red", Color.RED), BLUE("Blue", Color.BLUE), GREEN("Green", Color.GREEN), 
-			YELLOW("Yellow", Color.YELLOW), WHITE("White", Color.WHITE), 
+			YELLOW("Yellow", Color.YELLOW), 
 			BLACK("Black", Color.BLACK), PURPLE("Purple", Color.getHSBColor(0.83333f, 1.0f, 0.5686275f));
 
 	private String Name;
 	private Color ColorForGUI;
+	public static int NUMBER_OF_COLORS=5;
 
 	ColorPeg(String name, Color color) {
 		Name = name;
