@@ -17,7 +17,7 @@ public class GameModel extends Observable {
 	private GameWinner winner;
 	private Boolean loggingEnabled;
 	private Boolean codebreakerIsAI;
-	private GameMode mode;
+	private IGameMode mode;
 	private ICodemaker codemaker;
 
 	public GameModel() {
@@ -104,8 +104,25 @@ public class GameModel extends Observable {
 		this.codemaker = c;
 	}
 	
+	/**
+	 * Get the Code maker
+	 * @return
+	 */
 	public ICodemaker getCodeMaker(){
 		return this.codemaker;
+	}
+	
+	public void setGameMode(IGameMode mode)
+	{
+		if(null == mode)
+			throw new IllegalArgumentException();
+		
+		this.mode = mode;
+	}
+	
+	public IGameMode getGameMode()
+	{
+		return this.mode;
 	}
 
 	@Override
