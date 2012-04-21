@@ -35,5 +35,21 @@ public enum ColorPeg {
 	public Color getColor() {
 		return ColorForGUI;
 	}
+	
+	public static ColorPeg valueFromConsole(String color){
+		if(color.compareTo("rd")==0)
+			return RED;
+		if(color.compareTo("bl")==0)
+			return BLUE;
+		if(color.compareTo("gr")==0)
+			return GREEN;
+		if(color.compareTo("ye")==0)
+			return YELLOW;
+		if(color.compareTo("pu")==0)
+			return PURPLE;
+		if(color.compareTo("bk")==0)
+			return BLACK;
+		return null;
+	}
 
 }
