@@ -43,12 +43,12 @@ public class PlayListTest {
 		testCode1 = new Code(new ColorPeg[] { ColorPeg.BLACK, ColorPeg.BLUE,
 				ColorPeg.GREEN, ColorPeg.RED });
 		testCode2 = new Code(new ColorPeg[] { ColorPeg.BLACK, ColorPeg.YELLOW,
-				ColorPeg.RED, ColorPeg.WHITE });
-		testCode3 = new Code(new ColorPeg[] { ColorPeg.WHITE, ColorPeg.YELLOW,
-				ColorPeg.BLUE, ColorPeg.WHITE });
+				ColorPeg.RED, ColorPeg.PURPLE });
+		testCode3 = new Code(new ColorPeg[] { ColorPeg.PURPLE, ColorPeg.YELLOW,
+				ColorPeg.BLUE, ColorPeg.PURPLE });
 
-		secret = new Code(new ColorPeg[] { ColorPeg.WHITE, ColorPeg.YELLOW,
-				ColorPeg.BLUE, ColorPeg.WHITE });
+		secret = new Code(new ColorPeg[] { ColorPeg.PURPLE, ColorPeg.YELLOW,
+				ColorPeg.BLUE, ColorPeg.PURPLE });
 		theGame = new GameModel();
 	}
 

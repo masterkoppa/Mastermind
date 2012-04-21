@@ -36,13 +36,13 @@ public class PlayCommandFixture {
 		secret = new Code();
 		secret.setPegs(0, ColorPeg.BLACK);
 		secret.setPegs(1, ColorPeg.BLUE);
-		secret.setPegs(2, ColorPeg.WHITE);
+		secret.setPegs(2, ColorPeg.PURPLE);
 		secret.setPegs(3, ColorPeg.YELLOW);
 
 		guessCode = new Code();
 		guessCode.setPegs(0, ColorPeg.BLUE);
 		guessCode.setPegs(1, ColorPeg.BLACK);
-		guessCode.setPegs(2, ColorPeg.WHITE);
+		guessCode.setPegs(2, ColorPeg.PURPLE);
 		guessCode.setPegs(3, ColorPeg.YELLOW);
 
 		this.theGuess = new Guess();
