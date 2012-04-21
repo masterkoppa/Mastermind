@@ -48,13 +48,11 @@ public class MastermindBoard extends JPanel implements Observer {
 	public void notifyChange() {
 		this.removeAll(); // Clear the JPanel
 		isBeingEdited = false;
-
+		
 		rows = new ArrayList<Row>();
 
 		for (int i = 0; i < PlayList.getNUM_OF_ROWS(); i++) {
 			Guess g = data.getMove(i);
-			// TODO Fix the law of demeter here, major breakage of the law here
-			// plus its not pretty or readable.
 			if (g == null) {
 				g = new Guess();
 			}
@@ -62,7 +60,11 @@ public class MastermindBoard extends JPanel implements Observer {
 			ColorPeg[] code = g.getCodePegs();
 			rows.add(new Row(feedback, code));
 		}
-
+		
+		int index = data.getLastPlayIndex();
+		if(data.getMove(index) != null)
+			rows.get(index).setBackground(Color.GREEN);
+		
 		this.setLayout(new GridLayout(0, 1));
 
 		for (Row r : rows) {
