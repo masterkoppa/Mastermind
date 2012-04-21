@@ -3,6 +3,7 @@ package mastermind.gui;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,7 +13,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 
@@ -28,8 +28,6 @@ public class SettingsView extends JPanel {
 	// GUI Variables
 	private JPanel settingsWindow;
 	private JButton next;
-	private JLabel modeLabel;
-	private JLabel codeMakerLabel;
 	private JLabel codeBreakerLabel;
 	private JLabel compDifficultyLabel;
 	private JLabel guessIntervalLabel;
@@ -43,6 +41,8 @@ public class SettingsView extends JPanel {
 	private JSlider guessIntervalSlider;
 	private JTextField numGuessesField;
 	
+	private GridBagConstraints c;
+	
 	public SettingsView(final INotifiable mainFrame) {
 		super();
 		settingsWindow = new JPanel();
@@ -51,44 +51,67 @@ public class SettingsView extends JPanel {
 		settingsWindow.setLayout(new GridBagLayout());
 		
 		//set the constraints for the settings window
-		GridBagConstraints c = new GridBagConstraints();
+		c = new GridBagConstraints();
 		
+		
+		//Set everyone to fill their spots
+		c.fill = GridBagConstraints.HORIZONTAL;
+		
+		//Set some borders, no touching each other....
+		c.insets = new Insets(0, 10, 10, 10);
+		
+		c.weightx = 1;
+		
+		this.buildGameModeRow();
+		this.buildCodeMakerRow();
+		this.buildCodeBreakerRow();
+		this.buildComputerOptions();
+		this.buildNumberOfGuessesRow();
+		
+		
+		
+		//add the next button
+		next = new JButton("NEXT");
+		this.add(next, BorderLayout.SOUTH);
+		this.add(settingsWindow, BorderLayout.CENTER);
+
+		next.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mainFrame.Notify();
+			}
+		});
+	}
+	
+	private void buildGameModeRow(){
 		//add the label for the mode selection
-		modeLabel = new JLabel("Game Mode");
+		JLabel modeLabel = new JLabel("Game Mode");
+		
 		c.gridx = 0;
 		c.gridy = 0;
 		settingsWindow.add(modeLabel, c);
 		
+		//add the combo box for mode selection
+		String[] modes = {"Novice", "Expert"};
+		modeSelect = new JComboBox(modes);
+		
+		c.gridx = 1;
+		c.gridy = 0;
+		c.gridwidth = 2;
+		
+		settingsWindow.add(modeSelect, c);
+		
+		c.gridwidth = 1;
+	}
+	
+	private void buildCodeMakerRow(){
+		
 		//add the label for the codemaker selection
-		codeMakerLabel = new JLabel("Code Maker");
+		JLabel codeMakerLabel = new JLabel("Code Maker");
 		c.gridx = 0;
 		c.gridy = 1;
 		settingsWindow.add(codeMakerLabel, c);
-		
-		//add the label for the codebreaker selection
-		codeBreakerLabel = new JLabel("Code Breaker");
-		c.gridx = 0;
-		c.gridy = 2;
-		settingsWindow.add(codeBreakerLabel, c);
-		
-		//add the label for the computer difficulty selection
-		compDifficultyLabel = new JLabel("Computer Difficulty");
-		c.gridx = 2;
-		c.gridy = 3;
-		settingsWindow.add(compDifficultyLabel, c);
-		
-		//add the label for the guess interval slider
-		guessIntervalLabel = new JLabel("Guess Interval");
-		c.gridx = 2;
-		c.gridy = 4;
-		settingsWindow.add(guessIntervalLabel, c);
-		
-		//add the label for number of guesses in the game
-		numGuessesLabel = new JLabel("Number of guesses per game(10-50)");
-		c.gridx = 0;
-		c.gridy = 5;
-		c.gridwidth = 2;
-		settingsWindow.add(numGuessesLabel, c);
 		
 		ButtonGroup codemakerGroup = new ButtonGroup();
 		
@@ -107,6 +130,17 @@ public class SettingsView extends JPanel {
 		
 		codemakerGroup.add(humanCodemaker);
 		codemakerGroup.add(compCodemaker);
+	}
+	
+	private void buildCodeBreakerRow(){
+		//set the constraints for the settings window
+		
+				
+		//add the label for the codebreaker selection
+		codeBreakerLabel = new JLabel("Code Breaker");
+		c.gridx = 0;
+		c.gridy = 2;
+		settingsWindow.add(codeBreakerLabel, c);
 		
 		ButtonGroup codebreakerGroup = new ButtonGroup();
 		
@@ -125,49 +159,77 @@ public class SettingsView extends JPanel {
 		codebreakerGroup.add(compCodebreaker);
 		codebreakerGroup.add(humanCodebreaker);
 		
-		//add the combo box for mode selection
-		String[] modes = {"Novice", "Expert"};
-		modeSelect = new JComboBox(modes);
 		
+		//Setup the action listeners
+		
+		humanCodebreaker.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(humanCodebreaker.isSelected()){
+					System.out.println("System is hiding");
+				}
+				
+			}
+			
+		});
+		
+		compCodebreaker.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(compCodebreaker.isSelected()){
+					
+					System.out.println("System is showing");
+				}
+			}
+			
+		});
+		
+	}
+	
+	private void buildComputerOptions(){
+		//add the label for the computer difficulty selection
+		compDifficultyLabel = new JLabel("Computer Difficulty");
 		c.gridx = 1;
-		c.gridy = 0;
-		c.gridwidth = 2;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		settingsWindow.add(modeSelect, c);
+		c.gridy = 3;
+		settingsWindow.add(compDifficultyLabel, c);
 		
 		//add the combo box for computer difficulty
 		String[] compDifficulty = {"Random"};
 		compCodebreakerSelect = new JComboBox(compDifficulty);
-		c.fill = GridBagConstraints.NONE;
-		c.gridx = 3;
+		c.gridx = 2;
 		c.gridy = 3;
 		c.gridwidth = 1;
 		settingsWindow.add(compCodebreakerSelect, c);
 		
+		//add the label for the guess interval slider
+		guessIntervalLabel = new JLabel("Guess Interval");
+		c.gridx = 1;
+		c.gridy = 4;
+		settingsWindow.add(guessIntervalLabel, c);
+		
 		//add the slider for guess interval
 		guessIntervalSlider = new JSlider();
-		c.gridx = 3;
+		c.gridx = 2;
 		c.gridy = 4;
 		settingsWindow.add(guessIntervalSlider, c);
+		
+		settingsWindow.validate();
+	}
+	
+	private void buildNumberOfGuessesRow(){
+		//add the label for number of guesses in the game
+		numGuessesLabel = new JLabel("Number of Guesses per Game (10-50)");
+		c.gridx = 0;
+		c.gridy = 5;
+		c.gridwidth = 2;
+		settingsWindow.add(numGuessesLabel, c);
 		
 		//add the text field for the number of guesses
 		numGuessesField = new JTextField();
 		c.gridx = 2;
 		c.gridy = 5;
-		c.fill = GridBagConstraints.HORIZONTAL;
 		settingsWindow.add(numGuessesField, c);
-		
-		//add the next button
-		next = new JButton("NEXT");
-		this.add(next, BorderLayout.SOUTH);
-		this.add(settingsWindow, BorderLayout.CENTER);
-
-		next.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				mainFrame.Notify();
-			}
-		});
 	}
 }
