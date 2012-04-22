@@ -24,8 +24,8 @@ public interface IGameController {
 	public void submitGuess(ColorPeg[] code);
 	
 	/**
-	 * 
-	 * @param code
+	 * Sets the secret code to that of the arguments
+	 * @param code The secret code to set, if the code is invalid this will throw a illegal argument exception, catch it and try again.
 	 */
 	public void setSecretCode(Code code);
 
