@@ -11,6 +11,7 @@ import mastermind.core.PlayList;
 import mastermind.core.controller.*;
 import mastermind.gui.*;
 import mastermind.interfaces.INotifiable;
+import mastermind.interfaces.Observer;
 
 /**
  * Mastermind
@@ -20,7 +21,7 @@ import mastermind.interfaces.INotifiable;
  * @author Andres J Ruiz(ajr2546@rit.edu)
  *
  */
-public class Mastermind implements INotifiable {
+public class Mastermind implements INotifiable, Observer {
 
 	// Constants
 	// for easy access
@@ -35,7 +36,8 @@ public class Mastermind implements INotifiable {
 	// Data Models
 	private PlayList playListModel;
 	private GameModel theGame;
-	private Code secret;
+	
+	private boolean trigger = false;
 
 	// Controllers
 	private IGameController mainController;
@@ -62,6 +64,7 @@ public class Mastermind implements INotifiable {
 		// Initialize the main game model, this model is persistent
 		// through all the games
 		theGame = new GameModel();
+		theGame.register(this);
 	}
 
 	/**
@@ -119,7 +122,9 @@ public class Mastermind implements INotifiable {
 	private void showCodeMaker() {
 
 		// Build the view
-		codemakerView = new CodeMakerPanel(this);
+		playListModel = new PlayList(10);
+		mainController = new GameController(theGame, playListModel);
+		codemakerView = new CodeMakerPanel(mainController);
 
 		// Change the panel
 		mainWindow.remove(settings);
@@ -135,11 +140,10 @@ public class Mastermind implements INotifiable {
 	 */
 	private void showCodeBreaker() {
 		// Get the secret code
-		secret = codemakerView.getSecret();
+		//secret = codemakerView.getSecret();
 
 		// Build the controller and the view
-		playListModel = new PlayList(10);
-		mainController = new GameController(theGame, playListModel, secret);
+		
 		mainView = new MastermindMain(mainController, playListModel, theGame,
 				this);
 
@@ -233,6 +237,22 @@ public class Mastermind implements INotifiable {
 	 */
 	public static void main(String[] args) {
 		new Mastermind().createAndShowWindow();
+	}
+
+	@Override
+	public void register() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyChange() {
+		if(theGame.isCodeMakerDone() && !trigger){
+			System.out.println("Got the change, code maker is done");
+			trigger = true;
+			showCodeBreaker();
+		}
+		
 	}
 
 }

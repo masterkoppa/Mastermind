@@ -3,6 +3,7 @@ package mastermind.core.controller;
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
 import mastermind.core.commands.ICommand;
+import mastermind.interfaces.Observer;
 
 public interface IGameController {
 
@@ -47,5 +48,11 @@ public interface IGameController {
 	 * the game back one move.
 	 */
 	public void undoCommand();
+	
+	/**
+	 * Notifies the controller that this view is done, and that the game should proceed.
+	 * @param e
+	 */
+	public void stageDone(Observer e);
 
 }

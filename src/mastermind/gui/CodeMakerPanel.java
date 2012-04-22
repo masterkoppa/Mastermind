@@ -10,29 +10,41 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
+import mastermind.core.controller.IGameController;
 import mastermind.interfaces.INotifiable;
+import mastermind.interfaces.Observer;
 
-public class CodeMakerPanel extends JPanel {
+public class CodeMakerPanel extends JPanel implements Observer {
 
 	/**
 	 * Generated serial version ID
 	 */
 	private static final long serialVersionUID = 2222995828266338433L;
 	private Code secret;
-	private INotifiable mainGame;
 	private ColorPeg[] code;
 	private ColorPeg[] availableColors;
+	private IGameController gameController;
 
+	@Deprecated
 	public CodeMakerPanel(INotifiable mainGame) {
 		secret = new Code();
 		code = new ColorPeg[Code.NUM_OF_PEGS];
 		availableColors = new ColorPeg[] { ColorPeg.BLACK, ColorPeg.BLUE,
 				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.YELLOW, ColorPeg.PURPLE };
-		this.mainGame = mainGame;
+		build();
+	}
+	
+	public CodeMakerPanel(IGameController gameController){
+		this.gameController = gameController;
+		secret = new Code();
+		code = new ColorPeg[Code.NUM_OF_PEGS];
+		availableColors = new ColorPeg[] { ColorPeg.BLACK, ColorPeg.BLUE,
+				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.YELLOW, ColorPeg.PURPLE };
 		build();
 	}
 
@@ -69,11 +81,16 @@ public class CodeMakerPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Make this not break law of demeter
-				if (getSecret().isEmpty()) {
-					mainGame.Notify();
+				try{
+					getSecret();
+					gameController.setSecretCode(secret);
+					System.out.println("Code is valid");
+					gameController.stageDone(CodeMakerPanel.this);
+				}catch(IllegalArgumentException ex){
+					JOptionPane
+					.showMessageDialog(CodeMakerPanel.this,
+							"The Code you tried to submit is not valid, please try again");
 				}
-				mainGame.Notify();
 			}
 
 		});
@@ -89,10 +106,10 @@ public class CodeMakerPanel extends JPanel {
 
 	}
 
-	private JButton generateButton(int ID) {
+	private JButton generateButton(int id) {
 		JButton gridButton = new JButton();
 
-		gridButton.setName(Integer.toString(ID));
+		gridButton.setName(Integer.toString(id));
 
 		gridButton.addActionListener(new ActionListener() {
 			private int index = -1;
@@ -119,10 +136,21 @@ public class CodeMakerPanel extends JPanel {
 
 		return gridButton;
 	}
+	
 
-	public Code getSecret() {
+	private Code getSecret() {
 		secret = new Code(code);
 		return secret;
+	}
+
+	@Override
+	public void register() {
+		//UNUSED
+	}
+
+	@Override
+	public void notifyChange() {
+		//UNUSED
 	}
 
 }

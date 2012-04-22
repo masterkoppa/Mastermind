@@ -3,10 +3,12 @@ package mastermind.core.controller;
 import mastermind.core.*;
 import mastermind.core.codebreaker.*;
 import mastermind.core.commands.*;
+import mastermind.gui.CodeMakerPanel;
 import mastermind.interfaces.Observer;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 /**
  * Handles requests made from the gui. Creates command objects based on these
@@ -60,6 +62,7 @@ public class GameController implements IGameController, Observer {
 		this.game = theGame;
 		this.dataBackend = data;
 		this.game.register(this);
+		history = new ArrayList<ICommand>();
 	}
 
 	@Override
@@ -158,7 +161,6 @@ public class GameController implements IGameController, Observer {
 	@Override
 	public void configureLog(String fileName) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -172,6 +174,17 @@ public class GameController implements IGameController, Observer {
 	public void register() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public void stageDone(Observer e){
+		if(e instanceof CodeMakerPanel){
+			try{
+				this.game.setCodeMakerDone();
+			}catch(ConcurrentModificationException ex){
+				//This is to be expected... sadly
+			}
+			System.out.println("Stage Done!");
+		}
 	}
 
 }

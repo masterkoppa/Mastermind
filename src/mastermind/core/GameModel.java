@@ -19,12 +19,17 @@ public class GameModel extends Observable {
 	private Boolean codebreakerIsAI;
 	private IGameMode mode;
 	private ICodemaker codemaker;
+	
+	private boolean codeMakerDone;
 
 	public GameModel() {
 		this.winner = null;
 		this.loggingEnabled = false;
 		this.codebreakerIsAI = false;
 		this.codemaker = null;
+		
+		this.codeMakerDone = false;
+		
 		mode = new NoviceMode();
 	}
 
@@ -84,6 +89,7 @@ public class GameModel extends Observable {
 	 */
 	public void newGame() {
 		this.winner = null;
+		this.codeMakerDone = false;
 	}
 
 	/**
@@ -163,5 +169,14 @@ public class GameModel extends Observable {
 		
 		ICodeValidator v = this.mode.secretCodeValidator();
 		return v.validate(c);
+	}
+	
+	public void setCodeMakerDone(){
+		codeMakerDone = true;
+		this.dataChanged();
+	}
+	
+	public boolean isCodeMakerDone(){
+		return codeMakerDone;
 	}
 }
