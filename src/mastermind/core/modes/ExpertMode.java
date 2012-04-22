@@ -15,7 +15,7 @@ public class ExpertMode implements IGameMode {
 	/**
 	 * Get the secret code validator associated with this mode.
 	 * 
-	 * @return ICodeValidator a validator that does not allow duplicate pegs.
+	 * @return ICodeValidator a validator that does allow duplicate pegs.
 	 */
 	public ICodeValidator secretCodeValidator() {
 		return new DuplicatePegsAllowedValidator();
