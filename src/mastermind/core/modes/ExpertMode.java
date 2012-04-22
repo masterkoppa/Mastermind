@@ -1,5 +1,6 @@
 package mastermind.core.modes;
 
+import mastermind.core.validation.DuplicatePegsAllowedValidator;
 import mastermind.core.validation.DuplicatePegsNotAllowedValidator;
 import mastermind.core.validation.ICodeValidator;
 
@@ -17,7 +18,7 @@ public class ExpertMode implements IGameMode {
 	 * @return ICodeValidator a validator that does not allow duplicate pegs.
 	 */
 	public ICodeValidator secretCodeValidator() {
-		return new DuplicatePegsNotAllowedValidator();
+		return new DuplicatePegsAllowedValidator();
 	}
 	
 }

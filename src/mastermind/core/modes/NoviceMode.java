@@ -16,7 +16,7 @@ public class NoviceMode implements IGameMode {
 	 * @return ICodeValidator a validator that does allow duplicate pegs.
 	 */
 	public ICodeValidator secretCodeValidator() {
-		return new DuplicatePegsAllowedValidator();
+		return new DuplicatePegsNotAllowedValidator();
 	}
 
 }
