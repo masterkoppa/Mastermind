@@ -23,7 +23,7 @@ public class DuplicatePegsNotAllowedValidator implements ICodeValidator{
 				return false;
 		}
 			
-		return true;
+		return !c.isEmpty();
 	}
 	
 	/**
