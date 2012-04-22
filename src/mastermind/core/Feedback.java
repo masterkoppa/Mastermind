@@ -54,6 +54,28 @@ public class Feedback {
 				}
 			}
 		}
+		
+		int black = howClose.getBlackCount();
+		int white = howClose.getWhiteCount();
+		
+		int i = 0;
+		
+		while(black > 0){
+			howClose.feedback[i] = FeedbackPeg.BLACK;
+			i++;
+			black--;
+		}
+		
+		while(white > 0){
+			howClose.feedback[i] = FeedbackPeg.WHITE;
+			i++;
+			white--;
+		}
+		
+		while(i < Code.NUM_OF_PEGS){
+			howClose.feedback[i] = null;
+			i++;
+		}
 
 		return howClose;
 	}
