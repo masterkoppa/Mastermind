@@ -25,7 +25,7 @@ public class GameModel extends Observable {
 		this.loggingEnabled = false;
 		this.codebreakerIsAI = false;
 		this.codemaker = null;
-		mode = new ExpertMode();
+		mode = new NoviceMode();
 	}
 
 	/**
