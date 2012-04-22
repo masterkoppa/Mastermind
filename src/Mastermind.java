@@ -166,13 +166,6 @@ public class Mastermind implements INotifiable, Observer {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				// AWESOMENESS GOING ON HERE!!
 				
-				//Try to go for the MacOS look and feel
-				if(info.getClassName().contains("Mac")){
-					UIManager.setLookAndFeel(info.getClassName());
-					System.out.println("Mac Theme Enabled: DEBUG " + info.getClassName());
-					break;
-				}
-				
 				// FOR TESTING Use this as an example to change the color scheme
 				// see:
 				// http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/_nimbusDefaults.html#primary
