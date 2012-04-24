@@ -9,4 +9,7 @@ package mastermind.core;
  */
 public interface IGameState {
 
+	void setSecretCode(Code c);
+	void setSettings(int gameGuesses, boolean codeMakerIsHuman);
+	void submitGuess(ColorPeg[] code);
 }

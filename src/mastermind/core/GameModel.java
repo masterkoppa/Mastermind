@@ -151,6 +151,14 @@ public class GameModel extends Observable {
 	{
 		return this.state;
 	}
+	
+	public void setState(IGameState state)
+	{
+		if(null == state)
+			throw new IllegalArgumentException();
+		
+		this.state = state;
+	}
 
 	@Override
 	public void register(Observer object) {
