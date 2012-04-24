@@ -2,8 +2,10 @@ package mastermind.core.controller;
 
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
+import mastermind.core.PlayList;
 import mastermind.core.commands.ICommand;
 import mastermind.interfaces.Observer;
+import mastermind.core.IGameState;
 
 public interface IGameController {
 
@@ -54,5 +56,17 @@ public interface IGameController {
 	 * @param e
 	 */
 	public void stageDone(Observer e);
+	
+	/**
+	 * Gets the current state of the game
+	 * @return
+	 */
+	public IGameState getGameState();
+	
+	/**
+	 * Method to get the playlist model
+	 * @return
+	 */
+	public PlayList getPlaylist();
 
 }

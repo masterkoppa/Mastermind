@@ -186,5 +186,14 @@ public class GameController implements IGameController, Observer {
 			System.out.println("Stage Done!");
 		}
 	}
-
+	
+	public IGameState getGameState()
+	{
+		return this.game.getState();
+	}
+	
+	public PlayList getPlaylist()
+	{
+		return this.dataBackend;
+	}
 }

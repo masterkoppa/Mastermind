@@ -19,6 +19,7 @@ public class GameModel extends Observable {
 	private Boolean codebreakerIsAI;
 	private IGameMode mode;
 	private ICodemaker codemaker;
+	private IGameState state;
 	
 	private boolean codeMakerDone;
 
@@ -31,6 +32,8 @@ public class GameModel extends Observable {
 		this.codeMakerDone = false;
 		
 		mode = new NoviceMode();
+		
+		state = new GameNotStarted();
 	}
 
 	/**
@@ -138,6 +141,15 @@ public class GameModel extends Observable {
 	public IGameMode getGameMode()
 	{
 		return this.mode;
+	}
+	
+	/**
+	 * Returns the Game's state
+	 * @return
+	 */
+	public IGameState getState()
+	{
+		return this.state;
 	}
 
 	@Override
