@@ -3,6 +3,7 @@ package mastermind.core.controller;
 import mastermind.core.*;
 import mastermind.core.codebreaker.*;
 import mastermind.core.commands.*;
+import mastermind.core.modes.IGameMode;
 import mastermind.gui.CodeMakerPanel;
 import mastermind.interfaces.Observer;
 
@@ -22,6 +23,7 @@ public class GameController implements IGameController, Observer {
 	private ComputerCodebreaker computerCodebreaker;
 
 	private GameModel game;
+	private IGameState state;
 	private PlayList dataBackend;
 	private Code secretCode;
 
@@ -62,6 +64,7 @@ public class GameController implements IGameController, Observer {
 		this.game = theGame;
 		this.dataBackend = data;
 		this.game.register(this);
+		this.state = new GameNotStarted(this.game);
 		history = new ArrayList<ICommand>();
 	}
 
@@ -132,15 +135,13 @@ public class GameController implements IGameController, Observer {
 	}
 	
 	public void setSecretCode(Code c){
-		
 		if(null == c)
 			throw new IllegalArgumentException();
 		
 		if(!this.game.validateSecretCode(c))
 			throw new IllegalArgumentException();
 		
-		this.secretCode = c;
-		this.game.setState(new SecretCodeSet());
+		this.state.setSecretCode(c);
 	}
 
 	@Override
@@ -190,11 +191,20 @@ public class GameController implements IGameController, Observer {
 	
 	public IGameState getGameState()
 	{
-		return this.game.getState();
+		return this.state;
 	}
 	
 	public PlayList getPlaylist()
 	{
 		return this.dataBackend;
+	}
+	
+	public void setSettings(int gameGuesses, 
+			boolean codeMakerIsComputer,
+			IGameMode mode,
+			boolean codeBreakerIsComputer, 
+			int guessInterval){
+		
+		this.state.setSettings(gameGuesses, null, mode, codeBreakerIsComputer, guessInterval);
 	}
 }

@@ -1,7 +1,6 @@
 package mastermind.core.validation;
 
 import mastermind.core.Code;
-import mastermind.core.ColorPeg;
 
 /**
  * 

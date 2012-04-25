@@ -1,5 +1,9 @@
 package mastermind.core;
 
+import mastermind.core.codebreaker.ComputerCodebreaker;
+import mastermind.core.codemaker.ICodemaker;
+import mastermind.core.modes.IGameMode;
+
 /**
  * 
  * @author Andrew Church
@@ -10,6 +14,7 @@ package mastermind.core;
 public interface IGameState {
 
 	void setSecretCode(Code c);
-	void setSettings(int gameGuesses, boolean codeMakerIsHuman);
 	void submitGuess(ColorPeg[] code);
+	void setSettings(int gameGuesses, ICodemaker codeMaker,
+			IGameMode mode, boolean codeBreakerIsComputer, int guessInterval);
 }

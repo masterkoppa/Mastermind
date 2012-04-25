@@ -1,23 +1,23 @@
 package mastermind.core;
 
+import mastermind.core.codemaker.ICodemaker;
+import mastermind.core.modes.IGameMode;
+
 public class GameInProgress implements IGameState {
 
 	@Override
 	public void setSecretCode(Code c) {
-		// TODO Auto-generated method stub
-		
+		throw new IllegalStateException();
 	}
 
 	@Override
-	public void setSettings(int gameGuesses, boolean codeMakerIsHuman) {
-		// TODO Auto-generated method stub
-		
+	public void setSettings(int gameGuesses, ICodemaker codeMaker,
+			IGameMode mode, boolean codeBreakerIsComputer, int guessInterval) {
+		throw new IllegalStateException();
 	}
 
 	@Override
 	public void submitGuess(ColorPeg[] code) {
 		// TODO Auto-generated method stub
-		
 	}
-
 }

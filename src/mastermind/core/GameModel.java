@@ -19,7 +19,7 @@ public class GameModel extends Observable {
 	private Boolean codebreakerIsAI;
 	private IGameMode mode;
 	private ICodemaker codemaker;
-	private IGameState state;
+	private Code secretCode;
 	
 	private boolean codeMakerDone;
 
@@ -32,8 +32,6 @@ public class GameModel extends Observable {
 		this.codeMakerDone = false;
 		
 		mode = new NoviceMode();
-		
-		state = new GameNotStarted();
 	}
 
 	/**
@@ -144,20 +142,23 @@ public class GameModel extends Observable {
 	}
 	
 	/**
-	 * Returns the Game's state
-	 * @return
+	 * Sets the secret code
+	 * @param c
 	 */
-	public IGameState getState()
-	{
-		return this.state;
-	}
-	
-	public void setState(IGameState state)
-	{
-		if(null == state)
+	public void setSecretCode(Code c){
+		
+		if(null == c)
 			throw new IllegalArgumentException();
 		
-		this.state = state;
+		this.secretCode = c;
+	}
+	
+	/**
+	 * Sets the number of guesses allowed in the game
+	 * @param numGuesses
+	 */
+	public void setGuessInterval(int numGuesses){
+		//if(numGuesses)
 	}
 
 	@Override

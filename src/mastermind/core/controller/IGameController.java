@@ -4,6 +4,7 @@ import mastermind.core.Code;
 import mastermind.core.ColorPeg;
 import mastermind.core.PlayList;
 import mastermind.core.commands.ICommand;
+import mastermind.core.modes.IGameMode;
 import mastermind.interfaces.Observer;
 import mastermind.core.IGameState;
 
@@ -68,5 +69,18 @@ public interface IGameController {
 	 * @return
 	 */
 	public PlayList getPlaylist();
-
+	
+	/**
+	 * Method to accept data from views for setting the initial game settings
+	 * @param gameGuesses
+	 * @param codeMakerIsComputer
+	 * @param mode
+	 * @param codeBreakerIsComputer
+	 * @param guessInterval
+	 */
+	public void setSettings(int gameGuesses, 
+							boolean codeMakerIsComputer,
+							IGameMode mode,
+							boolean codeBreakerIsComputer, 
+							int guessInterval);
 }
