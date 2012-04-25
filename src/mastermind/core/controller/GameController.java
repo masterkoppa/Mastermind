@@ -147,7 +147,7 @@ public class GameController implements IGameController, Observer {
 			throw new IllegalArgumentException();
 		
 		this.state.setSecretCode(c);
-		this.state = new SecretCodeSet(this.game);
+		this.state = new SecretCodeSet();
 	}
 
 	@Override

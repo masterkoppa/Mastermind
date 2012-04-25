@@ -4,16 +4,6 @@ import mastermind.core.codemaker.ICodemaker;
 import mastermind.core.modes.IGameMode;
 
 public class SecretCodeSet implements IGameState {
-
-	private GameModel theModel;
-	
-	public SecretCodeSet(GameModel model)
-	{
-		if(null == model)
-			throw new IllegalArgumentException();
-		
-		this.theModel = model;
-	}
 	
 	@Override
 	public void setSecretCode(Code c) {
