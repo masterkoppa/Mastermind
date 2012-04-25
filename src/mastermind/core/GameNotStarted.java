@@ -40,12 +40,13 @@ public class GameNotStarted implements IGameState {
 		{
 			this.theModel.setCodeMaker(codeMaker);
 		}
+		
+		this.theModel.setGameMode(mode);
 	}
 
 	@Override
 	public void submitGuess(ColorPeg[] code) {
-		// TODO Auto-generated method stub
-		
+		throw new IllegalStateException();
 	}
 
 }

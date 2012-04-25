@@ -14,7 +14,7 @@ import mastermind.interfaces.Observer;
 import mastermind.core.Code;
 
 /**
- * Implements a console interface to the Pizza Delivery System.
+ * Implements a console interface to Mastermind
  * 
  */
 public class ConsoleUi implements Observer {
@@ -26,9 +26,13 @@ public class ConsoleUi implements Observer {
 	private GameModel theGame;
 	private IGameController gameController;
 	private PlayList data;
+	
+	private boolean waitingState;
 
 	public ConsoleUi() {
 		this.availableColors = new ArrayList<String>();
+		
+		waitingState = false;
 
 		// Get all the available colors for code in the system
 		for (ColorPeg i : ColorPeg.values()) {
@@ -46,7 +50,7 @@ public class ConsoleUi implements Observer {
 	private void run() {
 		printBoxedTitle("Welcome to Mastermind!");
 		setSettings();
-		data = new PlayList(10); // CHANGE TO GET INPUT
+		data = new PlayList(MAX_NUMBER_OF_GUESSES);
 		data.register(this);
 		playGame();
 	}
@@ -63,24 +67,18 @@ public class ConsoleUi implements Observer {
 	}
 
 	private void playGame() {
+		boolean secretCodeSubmitted = false;
+		
 		// Get secret code
-		ICodemaker codeMaker = this.theGame.getCodeMaker();
-		String[] inputcode = null;
-		if (codeMaker != null) {
-			codeMaker.setSecretCode();
-		} else {
-			inputcode = getCode("Set Secret Code!", Code.NUM_OF_PEGS);
-		}
-		ColorPeg[] pegs;
-		pegs = new ColorPeg[Code.NUM_OF_PEGS];
-		for (int j = 0; j < Code.NUM_OF_PEGS; j++) {
-			System.out.println(inputcode[j]);
-			pegs[j] = ColorPeg.valueFromConsole(inputcode[j]);
-			System.out.println(pegs[j]);
-		}
-		Code code = new Code(pegs);
-		System.out.println(code);
-		this.gameController.setSecretCode(code);
+		do{
+			try{
+				setSecretCode();
+				secretCodeSubmitted = true; //SUCESS!
+			} catch (IllegalArgumentException ex){
+				System.out.println("ERROR: Please try again!");
+			}
+		}while(!secretCodeSubmitted);
+		
 
 		// If computer player -- Start timer and listen.
 		// If human -- prompt for guess
@@ -123,8 +121,8 @@ public class ConsoleUi implements Observer {
 			}
 
 			if (result < 0 || result > items.length) {
-				System.out
-						.println("\r\nInvalid option. Please enter a valid number.");
+				System.out.println("\r\nInvalid option."
+						+ " Please enter a valid number.");
 				result = -1;
 			}
 		}
@@ -177,6 +175,24 @@ public class ConsoleUi implements Observer {
 		}
 		return code;
 	}
+	
+	private void setSecretCode(){
+		ICodemaker codeMaker = this.theGame.getCodeMaker();
+		String[] inputcode = null;
+		if (codeMaker != null) {
+			codeMaker.setSecretCode();
+		} else {
+			inputcode = getCode("Set Secret Code!", Code.NUM_OF_PEGS);
+		}
+		ColorPeg[] pegs;
+		pegs = new ColorPeg[Code.NUM_OF_PEGS];
+		for (int j = 0; j < Code.NUM_OF_PEGS; j++) {
+			pegs[j] = ColorPeg.valueFromConsole(inputcode[j]);
+		}
+		Code code = new Code(pegs);
+		
+		this.gameController.setSecretCode(code);
+	}
 
 	/**
 	 * Prints a title surrounded by a box.
@@ -212,7 +228,7 @@ public class ConsoleUi implements Observer {
 
 		boolean codeMakerIsComputer;
 		IGameMode mode;
-		//If null it means its a computer codebreaker
+		// If null it means its a computer codebreaker
 		ComputerGuessBehavior computer = null;
 
 		// Get the mode of play from the user
@@ -248,12 +264,13 @@ public class ConsoleUi implements Observer {
 				computer = new RandomGuess(gameController);
 			}
 
-		} 
+		}
 
 		if (codeBreaker == 0) {
 			this.theGame.setCodeMaker(new ComputerCodemaker(gameController));
 		}
-
+		
+		
 		// Generate the mode based on the pick
 		if (modeSelection == 0) {
 			mode = new NoviceMode();
@@ -275,7 +292,7 @@ public class ConsoleUi implements Observer {
 	@Override
 	public void notifyChange() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }

@@ -144,8 +144,7 @@ public class MastermindMain implements Observer {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mainGame.Notify();
-				newGameSelected = true;
+				currentGame.triggerNewGame();
 			}
 
 		});

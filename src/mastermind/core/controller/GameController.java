@@ -217,4 +217,12 @@ public class GameController implements IGameController, Observer {
 		this.state = new SettingsSelected(this.game);
 		this.dataBackend = new PlayList(gameGuesses);
 	}
+
+	@Override
+	public void triggerNewGame() {
+		game.triggerNewGame();
+	}
+	
+	
+	
 }
