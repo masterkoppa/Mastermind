@@ -3,7 +3,7 @@ package mastermind.core;
 import mastermind.interfaces.Observable;
 import mastermind.interfaces.Observer;
 import mastermind.core.validation.*;
-import mastermind.core.codebreaker.ComputerCodebreaker;
+import mastermind.core.codebreaker.ComputerGuessBehavior;
 import mastermind.core.codemaker.ICodemaker;
 import mastermind.core.modes.*;
 
@@ -20,7 +20,7 @@ public class GameModel extends Observable {
 	private Boolean codebreakerIsAI;
 	private IGameMode mode;
 	private ICodemaker codemaker;
-	private ComputerCodebreaker guessStrategy;
+	private ComputerGuessBehavior guessStrategy;
 	private Code secretCode;
 	private int guessesAllowed;
 	private int guessInterval;
@@ -234,7 +234,7 @@ public class GameModel extends Observable {
 	 * Sets the desired automated guess strategy for the game
 	 * @param strategy The type of strategy to use
 	 */
-	public void setGuessStrategy(ComputerCodebreaker strategy) {
+	public void setGuessStrategy(ComputerGuessBehavior strategy) {
 		if(null == strategy)
 			throw new IllegalArgumentException();
 		
@@ -244,7 +244,7 @@ public class GameModel extends Observable {
 	/**
 	 * Returns the selected automated guess strategy
 	 */
-	public ComputerCodebreaker getGuessStrategy(){
+	public ComputerGuessBehavior getGuessStrategy(){
 		return this.guessStrategy;
 	}
 }

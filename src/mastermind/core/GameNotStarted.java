@@ -1,6 +1,6 @@
 package mastermind.core;
 
-import mastermind.core.codebreaker.ComputerCodebreaker;
+import mastermind.core.codebreaker.ComputerGuessBehavior;
 import mastermind.core.codemaker.ICodemaker;
 import mastermind.core.modes.IGameMode;
 
@@ -25,7 +25,7 @@ public class GameNotStarted implements IGameState {
 	public void setSettings(int gameGuesses, 
 							ICodemaker codeMaker,
 							IGameMode mode,
-							ComputerCodebreaker guessStrategy, 
+							ComputerGuessBehavior guessStrategy, 
 							int guessInterval) {
 		
 		if(null != guessStrategy)
