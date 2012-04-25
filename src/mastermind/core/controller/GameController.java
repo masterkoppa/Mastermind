@@ -206,5 +206,6 @@ public class GameController implements IGameController, Observer {
 			int guessInterval){
 		
 		this.state.setSettings(gameGuesses, null, mode, codeBreakerIsComputer, guessInterval);
+		this.state = new SettingsSelected(this.game);
 	}
 }
