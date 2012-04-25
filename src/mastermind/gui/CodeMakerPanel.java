@@ -34,7 +34,7 @@ public class CodeMakerPanel extends JPanel implements Observer {
 	public CodeMakerPanel(INotifiable mainGame) {
 		secret = new Code();
 		code = new ColorPeg[Code.NUM_OF_PEGS];
-		availableColors = new ColorPeg[] { ColorPeg.BLACK, ColorPeg.BLUE,
+		availableColors = new ColorPeg[] {ColorPeg.BLUE,
 				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.YELLOW, ColorPeg.PURPLE };
 		build();
 	}
@@ -43,7 +43,7 @@ public class CodeMakerPanel extends JPanel implements Observer {
 		this.gameController = gameController;
 		secret = new Code();
 		code = new ColorPeg[Code.NUM_OF_PEGS];
-		availableColors = new ColorPeg[] { ColorPeg.BLACK, ColorPeg.BLUE,
+		availableColors = new ColorPeg[] {ColorPeg.BLUE,
 				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.YELLOW, ColorPeg.PURPLE };
 		build();
 	}
