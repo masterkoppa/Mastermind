@@ -122,6 +122,7 @@ public class SettingsView extends JPanel {
 					controller.setSettings(numGuesses, codemakerIsComputer, gameMode, behavior, interval);
 					mainFrame.Notify();
 				} catch(Exception ex) {
+					ex.printStackTrace();
 					JOptionPane.showMessageDialog(SettingsView.this,
 							"Please make sure all settings have been set before continuing.");
 				}

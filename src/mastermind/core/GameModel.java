@@ -116,9 +116,6 @@ public class GameModel extends Observable {
 	 * @param c
 	 */
 	public void setCodeMaker(ICodemaker c){
-		if(null == c)
-			throw new IllegalArgumentException();
-		
 		this.codemaker = c;
 		super.dataChanged();
 	}
