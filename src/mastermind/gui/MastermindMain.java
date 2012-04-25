@@ -22,7 +22,7 @@ import mastermind.interfaces.INotifiable;
 import mastermind.interfaces.Observer;
 
 public class MastermindMain  extends JPanel implements Observer{
-
+	
 	// MODELS AND CONTROLLERS
 	private PlayList dataBackend;
 	private GameModel currentGame;

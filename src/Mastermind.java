@@ -199,7 +199,6 @@ public class Mastermind implements INotifiable, Observer {
 		}
 		else if(!this.currentState.equals(this.mainController.getGameState()))
 		{
-			System.out.println("State Changed!");
 			this.showViewForState();
 		}
 	}
