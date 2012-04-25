@@ -36,7 +36,6 @@ public class MastermindBoard extends JPanel implements Observer {
 		rows = new ArrayList<Row>();
 		availableColors = ColorPeg.values();
 		this.register();
-		
 	}
 
 	@Override

@@ -37,7 +37,7 @@ public interface IGameController {
 	/**
 	 * Create the thread for the AI guesses.
 	 */
-	public void startAI(int delaySeconds);
+	public void startAI();
 
 	/**
 	 * Kills the computer codebreaker and its thread.

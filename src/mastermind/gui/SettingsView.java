@@ -99,7 +99,7 @@ public class SettingsView extends JPanel {
 				Boolean codebreakerIsComputer = compCodebreaker.isSelected();
 				
 				String difficultyString = compCodebreakerSelect.getSelectedItem().toString();
-				ComputerGuessBehavior behavior;
+				ComputerGuessBehavior behavior = new RandomGuess(controller);;
 				
 				if (difficultyString == "Random") {
 					behavior = new RandomGuess(controller);
@@ -108,7 +108,7 @@ public class SettingsView extends JPanel {
 				int interval = guessIntervalSlider.getValue();
 				int numGuesses = Integer.parseInt(numGuessesField.getText());
 				
-				controller.setSettings(numGuesses, codemakerIsComputer, gameMode, codebreakerIsComputer, interval);
+				controller.setSettings(numGuesses, codemakerIsComputer, gameMode, behavior, interval);
 				
 				mainFrame.Notify();
 			}
