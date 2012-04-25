@@ -1,5 +1,6 @@
 package mastermind.core;
 
+import mastermind.core.codebreaker.ComputerCodebreaker;
 import mastermind.core.codemaker.ICodemaker;
 import mastermind.core.modes.IGameMode;
 
@@ -29,9 +30,9 @@ public interface IGameState {
 	 * @param gameGuesses The number of guesses allowed in the game
 	 * @param codeMaker The code maker to use for setting the secret code
 	 * @param mode The mode of the game
-	 * @param codeBreakerIsComputer Whether the code breaker is a computer or not
+	 * @param guessStrategy The strategy to use when making automated guesses
 	 * @param guessInterval The amount of time the game should wait between automated guesses
 	 */
 	void setSettings(int gameGuesses, ICodemaker codeMaker,
-			IGameMode mode, boolean codeBreakerIsComputer, int guessInterval);
+			IGameMode mode, ComputerCodebreaker guessStrategy, int guessInterval);
 }

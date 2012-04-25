@@ -2,6 +2,7 @@ package mastermind.core;
 
 import mastermind.core.codemaker.ICodemaker;
 import mastermind.core.modes.IGameMode;
+import mastermind.core.codebreaker.ComputerCodebreaker;
 
 public class SecretCodeSet implements IGameState {
 	
@@ -12,7 +13,7 @@ public class SecretCodeSet implements IGameState {
 
 	@Override
 	public void setSettings(int gameGuesses, ICodemaker codeMaker,
-			IGameMode mode, boolean codeBreakerIsComputer, int guessInterval) {
+			IGameMode mode, ComputerCodebreaker guessStrategy, int guessInterval) {
 		throw new IllegalStateException();
 	}
 

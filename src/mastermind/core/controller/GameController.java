@@ -208,12 +208,12 @@ public class GameController implements IGameController, Observer {
 	public void setSettings(int gameGuesses, 
 			boolean codeMakerIsComputer,
 			IGameMode mode,
-			boolean codeBreakerIsComputer, 
+			ComputerCodebreaker codeBreaker, 
 			int guessInterval){
 		
 		ICodemaker codeMaker = codeMakerIsComputer ? new ComputerCodemaker(this) : null;
 		
-		this.state.setSettings(gameGuesses, codeMaker, mode, codeBreakerIsComputer, guessInterval);
+		this.state.setSettings(gameGuesses, codeMaker, mode, codeBreaker, guessInterval);
 		this.state = new SettingsSelected(this.game);
 	}
 }

@@ -3,6 +3,7 @@ package mastermind.core.controller;
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
 import mastermind.core.PlayList;
+import mastermind.core.codebreaker.ComputerCodebreaker;
 import mastermind.core.commands.ICommand;
 import mastermind.core.modes.IGameMode;
 import mastermind.interfaces.Observer;
@@ -81,6 +82,6 @@ public interface IGameController {
 	public void setSettings(int gameGuesses, 
 							boolean codeMakerIsComputer,
 							IGameMode mode,
-							boolean codeBreakerIsComputer, 
+							ComputerCodebreaker guessStrategy, 
 							int guessInterval);
 }

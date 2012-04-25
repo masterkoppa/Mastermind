@@ -3,6 +3,7 @@ package mastermind.core;
 import mastermind.interfaces.Observable;
 import mastermind.interfaces.Observer;
 import mastermind.core.validation.*;
+import mastermind.core.codebreaker.ComputerCodebreaker;
 import mastermind.core.codemaker.ICodemaker;
 import mastermind.core.modes.*;
 
@@ -19,6 +20,7 @@ public class GameModel extends Observable {
 	private Boolean codebreakerIsAI;
 	private IGameMode mode;
 	private ICodemaker codemaker;
+	private ComputerCodebreaker guessStrategy;
 	private Code secretCode;
 	private int guessesAllowed;
 	private int guessInterval;
@@ -36,6 +38,7 @@ public class GameModel extends Observable {
 		mode = new NoviceMode();
 		this.guessesAllowed = 10;
 		this.guessInterval = 5;
+		this.guessStrategy = null;
 	}
 
 	/**
@@ -157,11 +160,19 @@ public class GameModel extends Observable {
 		this.secretCode = c;
 	}
 	
+	public Code getSecretCode() {
+		return this.secretCode;
+	}
+	
 	public void setGuessInterval(int guessInterval) {
 		if(guessInterval < 1)
 			throw new IllegalArgumentException();
 		
 		this.guessInterval = guessInterval;
+	}
+	
+	public int getGuessInterval() {
+		return this.guessInterval;
 	}
 	
 	/**
@@ -217,5 +228,23 @@ public class GameModel extends Observable {
 	
 	public boolean isCodeMakerDone(){
 		return codeMakerDone;
+	}
+	
+	/**
+	 * Sets the desired automated guess strategy for the game
+	 * @param strategy The type of strategy to use
+	 */
+	public void setGuessStrategy(ComputerCodebreaker strategy) {
+		if(null == strategy)
+			throw new IllegalArgumentException();
+		
+		this.guessStrategy = strategy;
+	}
+	
+	/**
+	 * Returns the selected automated guess strategy
+	 */
+	public ComputerCodebreaker getGuessStrategy(){
+		return this.guessStrategy;
 	}
 }
