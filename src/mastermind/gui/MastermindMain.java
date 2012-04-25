@@ -59,6 +59,9 @@ public class MastermindMain implements Observer {
 
 		// Register after initializing everything
 		this.register();
+		
+		if(null != this.currentGame.getGuessStrategy())
+			this.controller.startAI();
 	}
 
 	@Override

@@ -149,15 +149,6 @@ public class GameController implements IGameController, Observer {
 		this.state.setSecretCode(c);
 		this.state = new SecretCodeSet();
 	}
-
-	@Override
-	@Deprecated
-	public void startAI(int delaySeconds) {
-		computerCodebreaker = new ComputerCodebreaker(this.game.getGuessInterval() * 1000,
-				this.game.getGuessStrategy());
-		computerCodebreaker.start();
-		this.game.setCodeBreakerAsAI(true);
-	}
 	
 	public void startAI() {
 		computerCodebreaker = new ComputerCodebreaker(this.game.getGuessInterval() * 1000,
