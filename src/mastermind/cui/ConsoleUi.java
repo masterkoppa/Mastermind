@@ -130,8 +130,26 @@ public class ConsoleUi implements Observer {
 					// GOOD we stop here
 				}
 			}
+			
+			if(theGame.isGameOver()){
+				break;
+			}
 
 		}
+		
+		System.out.println();
+		System.out.println();
+		System.out.println("The game is over, what would you like to do know?");
+		System.out.print("(New, Restart, Exit)");
+		
+		try {
+			String input = (new BufferedReader(new InputStreamReader(
+					System.in))).readLine();
+		} catch (IOException e) {
+		}
+		
+		//Temp, while we get everything working fine
+		System.out.println("Goodbye!");
 
 		// If computer player -- Start timer and listen.
 		// If human -- prompt for guess
@@ -228,6 +246,48 @@ public class ConsoleUi implements Observer {
 		}
 		return code;
 	}
+	
+	private String[] getHiddenCode(String titleText, int numOfPegs){
+		String[] code;
+		for (;;) {
+			System.out.println();
+			System.out.println(titleText);
+			System.out.println();
+
+			System.out.println();
+			System.out.print("Enter a " + numOfPegs
+					+ " peg code(Ex:rd rd gr gr): ");
+
+			try {
+				Console c;
+				char[] secret;
+				String input = "";
+				if ((c = System.console()) != null && (secret = c.readPassword()) != null){
+					input = String.valueOf(secret);
+				}
+				if (input == null || input.isEmpty())
+					continue;
+				code = input.split(" ");
+
+			} catch (Exception ex) {
+				continue;
+			}
+			boolean valid = true;
+			if (code.length > numOfPegs)
+				valid = false;
+			for (String a : code) {
+				if (!this.availableColors.contains(a))
+					valid = false;
+			}
+			if (!valid) {
+				System.out
+						.println("\r\nInvalid option. Please enter a valid number.");
+				continue;
+			}
+			break;
+		}
+		return code;
+	}
 
 	private void setSecretCode() {
 		ICodemaker codeMaker = this.theGame.getCodeMaker();
@@ -235,7 +295,10 @@ public class ConsoleUi implements Observer {
 		if (codeMaker != null) {
 			codeMaker.setSecretCode();
 		} else {
+			//Use this line for the testing version
 			inputcode = getCode("Set Secret Code!", Code.NUM_OF_PEGS);
+			//Use this line for the final version
+			//inputcode = getHiddenCode("Set the secret code!", Code.NUM_OF_PEGS);
 		}
 
 		Code code = this.stringArrayToCode(inputcode);
@@ -354,7 +417,10 @@ public class ConsoleUi implements Observer {
 				waitingState = false;
 			}
 		}
-
+		
+		if(theGame.isGameOver()){
+			System.out.println(theGame.getWinningMessage());
+		}
 	}
 
 }
