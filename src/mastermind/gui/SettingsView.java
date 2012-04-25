@@ -20,6 +20,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import mastermind.interfaces.INotifiable;
+import mastermind.interfaces.Observer;
 import mastermind.core.controller.*;
 import mastermind.core.modes.*;
 import mastermind.core.codebreaker.*;
@@ -51,7 +52,7 @@ public class SettingsView extends JPanel {
 	
 	private IGameController controller;
 	
-	public SettingsView(final INotifiable mainFrame, final IGameController controller) {
+	public SettingsView(final IGameController controller) {
 		super();
 		this.controller = controller;
 		
@@ -122,7 +123,6 @@ public class SettingsView extends JPanel {
 					System.out.println("Num guesses: " + numGuesses);
 
 					controller.setSettings(numGuesses, codemakerIsComputer, gameMode, behavior, interval);
-					mainFrame.Notify();
 				} catch(Exception ex) {
 					ex.printStackTrace();
 					JOptionPane.showMessageDialog(SettingsView.this,

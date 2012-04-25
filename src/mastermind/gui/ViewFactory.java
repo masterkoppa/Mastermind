@@ -8,13 +8,14 @@ import mastermind.core.SecretCodeSet;
 import mastermind.core.IGameState;
 import mastermind.core.controller.IGameController;
 import mastermind.interfaces.INotifiable;
+import mastermind.interfaces.Observer;
 
 public class ViewFactory {
 	
 	private IGameController theController;
-	private INotifiable theFrame;
+	private Observer theFrame;
 	
-	public ViewFactory(IGameController controller, INotifiable frame)
+	public ViewFactory(IGameController controller, Observer frame)
 	{
 		if(null == controller)
 			throw new IllegalArgumentException();
@@ -35,7 +36,7 @@ public class ViewFactory {
 		IGameState theState = theController.getGameState();
 			
 		if(theState instanceof GameNotStarted) {
-			return new SettingsView(this.theFrame, this.theController);
+			return new SettingsView(this.theController);
 		} else if(theState instanceof SettingsSelected) {
 			if (theController.isCodemakerComputer()) {
 				return new MastermindMain(this.theController).getView();
