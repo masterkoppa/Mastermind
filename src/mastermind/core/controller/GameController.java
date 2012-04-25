@@ -219,6 +219,10 @@ public class GameController implements IGameController, Observer {
 		this.state = new SettingsSelected(this.game);
 		this.dataBackend = new PlayList(gameGuesses);
 	}
+	
+	public Boolean isCodemakerComputer() {
+		return game.getCodeMaker() != null;
+	}
 
 	@Override
 	public void triggerNewGame() {

@@ -34,12 +34,17 @@ public class ViewFactory {
 	{
 		IGameState theState = theController.getGameState();
 			
-		if(theState instanceof GameNotStarted)
+		if(theState instanceof GameNotStarted) {
 			return new SettingsView(this.theFrame, this.theController);
-		else if(theState instanceof SettingsSelected)
-			return new CodeMakerPanel(this.theController);
-		else if(theState instanceof SecretCodeSet)
+		} else if(theState instanceof SettingsSelected) {
+			if (theController.isCodemakerComputer()) {
+				return new MastermindMain(this.theController, this.theFrame).getView();
+			} else {
+				return new CodeMakerPanel(this.theController);
+			}
+		} else if(theState instanceof SecretCodeSet) {
 			return new MastermindMain(this.theController, this.theFrame).getView();
+		}
 		
 		throw new IllegalStateException();
 	}

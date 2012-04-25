@@ -95,4 +95,11 @@ public interface IGameController {
 	 * Sends a signal to the Game Model to let it know that the game is over.
 	 */
 	public void triggerNewGame();
+	
+	/**
+	 * Check if the Codemaker is a computer player.
+	 * 
+	 * @return Boolean true if the codemaker is a human, false otherwise.
+	 */
+	public Boolean isCodemakerComputer();
 }
