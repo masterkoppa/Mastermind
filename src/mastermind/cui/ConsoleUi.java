@@ -9,6 +9,9 @@ import mastermind.core.codemaker.ComputerCodemaker;
 import mastermind.core.codemaker.ICodemaker;
 import mastermind.core.controller.GameController;
 import mastermind.core.controller.IGameController;
+import mastermind.core.modes.ExpertMode;
+import mastermind.core.modes.IGameMode;
+import mastermind.core.modes.NoviceMode;
 import mastermind.interfaces.INotifiable;
 import mastermind.interfaces.Observer;
 import mastermind.core.Code;
@@ -17,13 +20,16 @@ import mastermind.core.Code;
  * Implements a console interface to the Pizza Delivery System.
  * 
  */
-public class ConsoleUi implements Observer
-{
+public class ConsoleUi implements Observer{
+	
+	private final static int MAX_NUMBER_OF_GUESSES = 10;
+	private final static int COMPUTER_INTERVAL = 3;
 
 	ArrayList<String> availableColors;
 	private GameModel theGame;
 	private IGameController gameController;
 	private PlayList data;
+	
 	private boolean codeBreakerHuman;
 	
 	public ConsoleUi() {
@@ -31,20 +37,18 @@ public class ConsoleUi implements Observer
 		
 		//Get all the available colors for code in the system
 		for(ColorPeg i : ColorPeg.values()){
-			System.out.println("Available Color: " + i.getShortName());
 			availableColors.add(i.getShortName());
 		}
-		
 		// Initialize the main game model, this model is persistent
 		// through all the games
 		theGame = new GameModel();
 		gameController = new GameController(theGame, data);
 		this.register();
+
 		run();
 	}
 	
 	private void run() {
-		// TODO Auto-generated method stub
 		printBoxedTitle("Welcome to Mastermind!");
 		setSettings();
 		data = new PlayList(10);                         //CHANGE TO GET INPUT
@@ -208,24 +212,51 @@ public class ConsoleUi implements Observer
 	 *            An array of items to display in the menu.
 	 * @return An item selected from the array.
 	 */
-	private void setSettings()
-	{
-			int mode = showMenu("Select mode of play", new Object[] { "Novice", "Expert"});
-			int codeMaker = showMenu("Identify the codemaker (computer/human)", new Object[] { "Computer", "Human"});
-			int codeBreaker = showMenu("Identify the codebreaker (computer/human)", new Object[] { "Computer", "Human"});
-			int algorithm = -1;
-			if(codeMaker == 0)
-				algorithm = showMenu("The codebreaker is a computer, select an algorithm", new Object[] { "random","dumb","smart"});
-			//if(mode == 0){
-			//	this.mode = "Novice";
-			//}else
-			//	this.mode = "Expert";
-			if(codeMaker == 0)
-				this.theGame.setCodeMaker(new ComputerCodemaker(gameController));
-			if(codeBreaker == 0){
-				this.codeBreakerHuman = false;
-			}else
-				this.codeBreakerHuman = true;			
+	private void setSettings() {
+
+		boolean codeMakerIsComputer;
+		boolean codeBreakerIsComputer;
+		IGameMode mode;
+
+		int modeSelection = showMenu("Select mode of play", new Object[] {
+				"Novice", "Expert" });
+
+		int codeMaker = showMenu("Identify the codemaker (computer/human)",
+				new Object[] { "Computer", "Human" });
+
+		int codeBreaker = showMenu("Identify the codebreaker (computer/human)",
+				new Object[] { "Computer", "Human" });
+		int algorithm = -1;
+
+		if (codeMaker == 0) {
+			codeMakerIsComputer = true;
+		} else {
+			codeMakerIsComputer = false;
+		}
+
+		if (codeBreaker == 0) {
+			codeBreakerIsComputer = true;
+			algorithm = showMenu(
+					"The codebreaker is a computer, select an algorithm",
+					new Object[] { "random" });
+		} else {
+			codeBreakerIsComputer = false;
+		}
+
+		if (codeBreaker == 0) {
+			this.theGame.setCodeMaker(new ComputerCodemaker(gameController));
+		}
+
+		if (modeSelection == 0) {
+			mode = new NoviceMode();
+		} else {
+			mode = new ExpertMode();
+		}
+
+		this.gameController.setSettings(MAX_NUMBER_OF_GUESSES,
+				codeMakerIsComputer, mode, codeBreakerIsComputer,
+				COMPUTER_INTERVAL);
+
 	}
 
 	@Override
