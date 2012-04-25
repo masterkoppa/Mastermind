@@ -184,6 +184,8 @@ public class Mastermind implements INotifiable, Observer {
 			mainWindow.remove(this.currentView);
 		
 		mainWindow.add(nextView);
+		
+		this.currentView = nextView;
 
 		// Validate the new window contents
 		mainWindow.validate();
