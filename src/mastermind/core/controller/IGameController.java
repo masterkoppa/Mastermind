@@ -2,6 +2,7 @@ package mastermind.core.controller;
 
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
+import mastermind.core.GameModel;
 import mastermind.core.PlayList;
 import mastermind.core.codebreaker.ComputerGuessBehavior;
 import mastermind.core.commands.ICommand;
@@ -58,6 +59,11 @@ public interface IGameController {
 	 * @param e
 	 */
 	public void stageDone(Observer e);
+	
+	/**
+	 * Method to expose the GameModel class
+	 */
+	public GameModel getGameModel();
 	
 	/**
 	 * Gets the current state of the game
