@@ -112,12 +112,19 @@ public class SettingsView extends JPanel {
 					int interval = guessIntervalSlider.getValue();
 					int numGuesses = Integer.parseInt(numGuessesField.getText());
 					
+					System.out.println("Game mode: " + gameModeString);
+					System.out.println("Codemaker computer? " + codemakerIsComputer);
+					System.out.println("Codebreaker computer? " + codebreakerIsComputer);
+					System.out.println("Difficulty: " + difficultyString);
+					System.out.println("Interval: " + interval);
+					System.out.println("Num guesses: " + numGuesses);
+
 					controller.setSettings(numGuesses, codemakerIsComputer, gameMode, behavior, interval);
+					mainFrame.Notify();
 				} catch(Exception ex) {
 					JOptionPane.showMessageDialog(SettingsView.this,
 							"Please make sure all settings have been set before continuing.");
 				}
-				mainFrame.Notify();
 			}
 		});
 	}
