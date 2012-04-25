@@ -109,6 +109,9 @@ public class Mastermind implements INotifiable, Observer {
 		showViewForState();
 	}
 	
+	/**
+	 * Spawns and switches views based on the state of the game
+	 */
 	private void showViewForState() {
 		System.out.println("Showing view for state");
 		
@@ -193,7 +196,6 @@ public class Mastermind implements INotifiable, Observer {
 
 	@Override
 	public void register() {
-		// TODO Auto-generated method stub
 		
 	}
 

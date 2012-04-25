@@ -85,7 +85,6 @@ public class ConsoleUi implements Observer {
 		} while (!secretCodeSubmitted);
 
 		// Start asking the user for input
-
 		for (int i = 0; i < MAX_NUMBER_OF_GUESSES; i++) {
 			//Prepare the timeout timer
 			Thread timer = new Thread(new Runnable(){
@@ -281,6 +280,17 @@ public class ConsoleUi implements Observer {
 		return code;
 	}
 	
+	/**
+	 * Get the secret code in a way that no one can see it, eclipse doesn't like
+	 * this so make sure to disable that when in development mode.
+	 * 
+	 * @param titleText
+	 *            The text to show before asking the uses for the code
+	 * @param numOfPegs
+	 *            The number of pegs to accept
+	 * @return A string array containing the user input, the receiving method
+	 *         must take care of validating this and what not.
+	 */
 	private String[] getHiddenCode(String titleText, int numOfPegs){
 		String[] code;
 		for (;;) {
@@ -296,33 +306,49 @@ public class ConsoleUi implements Observer {
 				Console c;
 				char[] secret;
 				String input = "";
+				
+				
 				if ((c = System.console()) != null && (secret = c.readPassword()) != null){
 					input = String.valueOf(secret);
 				}
-				if (input == null || input.isEmpty())
+				
+				if (input == null || input.isEmpty()){
 					continue;
+				}
+				
 				code = input.split(" ");
 
 			} catch (Exception ex) {
 				continue;
 			}
+			
 			boolean valid = true;
-			if (code.length > numOfPegs)
+			if (code.length > numOfPegs){
 				valid = false;
+			}
+			
+			
 			for (String a : code) {
 				if (!this.availableColors.contains(a))
 					valid = false;
 			}
+			
+			
 			if (!valid) {
 				System.out
 						.println("\r\nInvalid option. Please enter a valid number.");
 				continue;
 			}
+			
 			break;
 		}
+		
 		return code;
 	}
-
+	
+	/**
+	 * Set the secret code and get it from the used through getHiddenCode()
+	 */
 	private void setSecretCode() {
 		ICodemaker codeMaker = this.theGame.getCodeMaker();
 		String[] inputcode = null;
