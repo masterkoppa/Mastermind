@@ -127,7 +127,7 @@ public class GameController implements IGameController, Observer {
 		}
 		try {
 			play.add(new ProvideFeedbackCommand(this.game, dataBackend,
-					secretCode.getPegs()));
+					game.getSecretCode().getPegs()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
