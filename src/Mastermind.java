@@ -108,7 +108,7 @@ public class Mastermind implements INotifiable, Observer {
 			mainWindow.remove(mainView.getView());
 		
 		//Setup the settings view
-		settings = new SettingsView(this);
+		settings = new SettingsView(this, mainController);
 		
 		//Change the panel
 		mainWindow.add(settings);

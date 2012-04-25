@@ -151,11 +151,16 @@ public class GameController implements IGameController, Observer {
 	}
 
 	@Override
+	@Deprecated
 	public void startAI(int delaySeconds) {
 		computerCodebreaker = new ComputerCodebreaker(delaySeconds * 1000,
 				new RandomGuess(this));
 		computerCodebreaker.start();
 		this.game.setCodeBreakerAsAI(true);
+	}
+	
+	public void startAI() {
+		
 	}
 
 	@Override

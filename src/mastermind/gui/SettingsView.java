@@ -17,6 +17,9 @@ import javax.swing.JSlider;
 import javax.swing.JTextField;
 
 import mastermind.interfaces.INotifiable;
+import mastermind.core.controller.*;
+import mastermind.core.modes.*;
+import mastermind.core.codebreaker.*;
 
 public class SettingsView extends JPanel {
 
@@ -43,8 +46,12 @@ public class SettingsView extends JPanel {
 	
 	private GridBagConstraints c;
 	
-	public SettingsView(final INotifiable mainFrame) {
+	private IGameController controller;
+	
+	public SettingsView(final INotifiable mainFrame, final IGameController controller) {
 		super();
+		this.controller = controller;
+		
 		settingsWindow = new JPanel();
 		
 		this.setLayout(new BorderLayout());
@@ -79,6 +86,30 @@ public class SettingsView extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String gameModeString = modeSelect.getSelectedItem().toString();
+				IGameMode gameMode;
+				
+				if (gameModeString == "Novice") {
+					gameMode = new NoviceMode();
+				} else {
+					gameMode = new ExpertMode();
+				}
+				
+				Boolean codemakerIsComputer = compCodemaker.isSelected();
+				Boolean codebreakerIsComputer = compCodebreaker.isSelected();
+				
+				String difficultyString = compCodebreakerSelect.getSelectedItem().toString();
+				ComputerGuessBehavior behavior;
+				
+				if (difficultyString == "Random") {
+					behavior = new RandomGuess(controller);
+				}
+				
+				int interval = guessIntervalSlider.getValue();
+				int numGuesses = Integer.parseInt(numGuessesField.getText());
+				
+				controller.setSettings(numGuesses, codemakerIsComputer, gameMode, codebreakerIsComputer, interval);
+				
 				mainFrame.Notify();
 			}
 		});
