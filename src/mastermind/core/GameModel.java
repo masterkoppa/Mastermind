@@ -16,14 +16,16 @@ import mastermind.core.modes.*;
  */
 public class GameModel extends Observable {
 	private GameWinner winner;
-	private Boolean loggingEnabled;
-	private Boolean codebreakerIsAI;
+
 	private IGameMode mode;
 	private ICodemaker codemaker;
 	private ComputerGuessBehavior guessStrategy;
 	private Code secretCode;
 	private int guessesAllowed;
 	private int guessInterval;
+	private boolean loggingEnabled;
+	private boolean codebreakerIsAI;
+	private boolean forceGameOver;
 	
 	private boolean codeMakerDone;
 
@@ -31,6 +33,7 @@ public class GameModel extends Observable {
 		this.winner = null;
 		this.loggingEnabled = false;
 		this.codebreakerIsAI = false;
+		this.forceGameOver = false;
 		this.codemaker = null;
 		
 		this.codeMakerDone = false;
@@ -56,10 +59,10 @@ public class GameModel extends Observable {
 	 * @return
 	 */
 	public Boolean isGameOver() {
-		if (null == winner)
+		if (null == winner && !this.forceGameOver)
 			return false;
 		else
-			return true;
+			return true ;
 	}
 
 	public Boolean isLoggingEnabled() {
@@ -246,5 +249,9 @@ public class GameModel extends Observable {
 	 */
 	public ComputerGuessBehavior getGuessStrategy(){
 		return this.guessStrategy;
+	}
+	
+	public void triggerNewGame(){
+		this.forceGameOver = true;
 	}
 }

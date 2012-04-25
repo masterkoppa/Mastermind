@@ -215,4 +215,12 @@ public class GameController implements IGameController, Observer {
 		this.state.setSettings(gameGuesses, codeMaker, mode, guessStrategy, guessInterval);
 		this.state = new SettingsSelected(this.game);
 	}
+
+	@Override
+	public void triggerNewGame() {
+		game.triggerNewGame();
+	}
+	
+	
+	
 }

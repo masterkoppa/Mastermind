@@ -84,4 +84,6 @@ public interface IGameController {
 							IGameMode mode,
 							ComputerGuessBehavior guessStrategy, 
 							int guessInterval);
+	
+	public void triggerNewGame();
 }
