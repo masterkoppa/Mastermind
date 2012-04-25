@@ -26,9 +26,13 @@ public class ConsoleUi implements Observer {
 	private GameModel theGame;
 	private IGameController gameController;
 	private PlayList data;
+	
+	private boolean waitingState;
 
 	public ConsoleUi() {
 		this.availableColors = new ArrayList<String>();
+		
+		waitingState = false;
 
 		// Get all the available colors for code in the system
 		for (ColorPeg i : ColorPeg.values()) {
@@ -63,24 +67,13 @@ public class ConsoleUi implements Observer {
 	}
 
 	private void playGame() {
+		boolean secretCodeSubmitted = false;
+		
 		// Get secret code
-		ICodemaker codeMaker = this.theGame.getCodeMaker();
-		String[] inputcode = null;
-		if (codeMaker != null) {
-			codeMaker.setSecretCode();
-		} else {
-			inputcode = getCode("Set Secret Code!", Code.NUM_OF_PEGS);
-		}
-		ColorPeg[] pegs;
-		pegs = new ColorPeg[Code.NUM_OF_PEGS];
-		for (int j = 0; j < Code.NUM_OF_PEGS; j++) {
-			System.out.println(inputcode[j]);
-			pegs[j] = ColorPeg.valueFromConsole(inputcode[j]);
-			System.out.println(pegs[j]);
-		}
-		Code code = new Code(pegs);
-		System.out.println(code);
-		this.gameController.setSecretCode(code);
+		do{
+			
+		}while(!secretCodeSubmitted);
+		
 
 		// If computer player -- Start timer and listen.
 		// If human -- prompt for guess
@@ -176,6 +169,27 @@ public class ConsoleUi implements Observer {
 			break;
 		}
 		return code;
+	}
+	
+	private void setSecretCode(){
+		ICodemaker codeMaker = this.theGame.getCodeMaker();
+		String[] inputcode = null;
+		if (codeMaker != null) {
+			codeMaker.setSecretCode();
+		} else {
+			inputcode = getCode("Set Secret Code!", Code.NUM_OF_PEGS);
+		}
+		ColorPeg[] pegs;
+		pegs = new ColorPeg[Code.NUM_OF_PEGS];
+		for (int j = 0; j < Code.NUM_OF_PEGS; j++) {
+			System.out.println(inputcode[j]);
+			pegs[j] = ColorPeg.valueFromConsole(inputcode[j]);
+			System.out.println(pegs[j]);
+		}
+		Code code = new Code(pegs);
+		System.out.println(code);
+		
+		this.gameController.setSecretCode(code);
 	}
 
 	/**
@@ -275,7 +289,7 @@ public class ConsoleUi implements Observer {
 	@Override
 	public void notifyChange() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }
