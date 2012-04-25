@@ -37,7 +37,7 @@ public class ConsoleUi implements Observer {
 		this.availableColors = new ArrayList<String>();
 
 		waitingState = false;
-
+		
 		// Get all the available colors for code in the system
 		for (ColorPeg i : ColorPeg.values()) {
 			availableColors.add(i.getShortName());
@@ -70,6 +70,7 @@ public class ConsoleUi implements Observer {
 		playGame();
 	}
 
+	@SuppressWarnings("deprecation")
 	private void playGame() {
 		boolean secretCodeSubmitted = false;
 
@@ -86,9 +87,35 @@ public class ConsoleUi implements Observer {
 		// Start asking the user for input
 
 		for (int i = 0; i < MAX_NUMBER_OF_GUESSES; i++) {
-			String[] code = getCode("Guess #" + (i + 1), Code.NUM_OF_PEGS);
+			//Prepare the timeout timer
+			Thread timer = new Thread(new Runnable(){
 
+				@Override
+				public void run() {
+					synchronized(this){
+						try {
+							this.wait(30000);
+						} catch (InterruptedException e) {
+						}
+						theGame.triggerNewGame();
+					}
+				}
+			});
+			
+			timer.start();
+			
+			String[] code = getCode("Guess #" + (i + 1), Code.NUM_OF_PEGS);
+			
+			//This means that the timer ran out
+			if(code == null){
+				break;
+			}
+			
+			timer.stop();
+			
 			Code guess = this.stringArrayToCode(code);
+			
+			
 
 			// Since undo isn't required were sending everything through to
 			// the controller.
@@ -131,9 +158,13 @@ public class ConsoleUi implements Observer {
 				}
 			}
 			
+			
+			
 			if(theGame.isGameOver()){
 				break;
 			}
+			
+			
 
 		}
 		
@@ -212,6 +243,9 @@ public class ConsoleUi implements Observer {
 	private String[] getCode(String titleText, int numOfPegs) {
 		String[] code;
 		for (;;) {
+			if(theGame.isGameOver()){
+				return null;
+			}
 			System.out.println();
 			System.out.println(titleText);
 			System.out.println();
@@ -419,7 +453,18 @@ public class ConsoleUi implements Observer {
 		}
 		
 		if(theGame.isGameOver()){
-			System.out.println(theGame.getWinningMessage());
+			//If the game was triggered as new(timeout) then the game will exit
+			if(theGame.getWinner() == null){
+				//Make some space to account for weird cmd
+				//formatting
+				System.out.println();
+				System.out.println();
+				System.out.println("The user has timed out...");
+				System.out.println("The system will now exit, goodbye!");
+				System.exit(1);
+			}else{
+				System.out.println(theGame.getWinningMessage());
+			}
 		}
 	}
 
