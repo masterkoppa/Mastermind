@@ -3,10 +3,14 @@ package mastermind.cui;
 import java.io.*;
 import java.util.ArrayList;
 
+import javax.swing.SwingUtilities;
+
 import mastermind.core.*;
 import mastermind.core.codebreaker.ComputerGuessBehavior;
 import mastermind.core.codebreaker.RandomGuess;
 import mastermind.core.codemaker.*;
+import mastermind.core.commands.ProvideFeedbackCommand;
+import mastermind.core.commands.SubmitGuessCommand;
 import mastermind.core.controller.GameController;
 import mastermind.core.controller.IGameController;
 import mastermind.core.modes.*;
@@ -26,12 +30,12 @@ public class ConsoleUi implements Observer {
 	private GameModel theGame;
 	private IGameController gameController;
 	private PlayList data;
-	
+
 	private boolean waitingState;
 
 	public ConsoleUi() {
 		this.availableColors = new ArrayList<String>();
-		
+
 		waitingState = false;
 
 		// Get all the available colors for code in the system
@@ -41,17 +45,17 @@ public class ConsoleUi implements Observer {
 		// Initialize the main game model, this model is persistent
 		// through all the games
 		theGame = new GameModel();
+		data = new PlayList(MAX_NUMBER_OF_GUESSES);
+		data.register(this);
 		gameController = new GameController(theGame, data);
 		this.register();
-
 		run();
+
 	}
 
 	private void run() {
 		printBoxedTitle("Welcome to Mastermind!");
 		setSettings();
-		data = new PlayList(MAX_NUMBER_OF_GUESSES);
-		data.register(this);
 		playGame();
 	}
 
@@ -68,17 +72,66 @@ public class ConsoleUi implements Observer {
 
 	private void playGame() {
 		boolean secretCodeSubmitted = false;
-		
+
 		// Get secret code
-		do{
-			try{
+		do {
+			try {
 				setSecretCode();
-				secretCodeSubmitted = true; //SUCESS!
-			} catch (IllegalArgumentException ex){
+				secretCodeSubmitted = true; // SUCESS!
+			} catch (IllegalArgumentException ex) {
 				System.out.println("ERROR: Please try again!");
 			}
-		}while(!secretCodeSubmitted);
-		
+		} while (!secretCodeSubmitted);
+
+		// Start asking the user for input
+
+		for (int i = 0; i < MAX_NUMBER_OF_GUESSES; i++) {
+			String[] code = getCode("Guess #" + (i + 1), Code.NUM_OF_PEGS);
+
+			Code guess = this.stringArrayToCode(code);
+
+			// Since undo isn't required were sending everything through to
+			// the controller.
+			waitingState = true;
+			try {
+				SubmitGuessCommand command = new SubmitGuessCommand(data,
+						guess.getPegs());
+				command.execute();
+			} catch (IOException e) {
+				System.err.println("There was a problem please try some"
+						+ " other time, the program will now exit.");
+				System.exit(2);
+			}
+
+			try {
+				ProvideFeedbackCommand command = new ProvideFeedbackCommand(
+						theGame, data, theGame.getSecretCode().getPegs());
+				command.execute();
+			} catch (IOException e) {
+				System.err.println("There was a problem please try some"
+						+ " other time, the program will now exit.");
+				System.exit(2);
+			}
+
+			// Since the Observables dispatch events on a separate thread, to
+			// avoid multiple streams messing with each other, we wait for 1
+			// second
+			synchronized (this) {
+				/*
+				 * We'll try to make sure this is executed in a synchronized
+				 * manner with the rest of the program.
+				 * 
+				 * IDEALLY, while this waits the model should be updated and
+				 * when this wakes up things are back to normal
+				 */
+				try {
+					this.wait(1000);
+				} catch (InterruptedException e) {
+					// GOOD we stop here
+				}
+			}
+
+		}
 
 		// If computer player -- Start timer and listen.
 		// If human -- prompt for guess
@@ -175,8 +228,8 @@ public class ConsoleUi implements Observer {
 		}
 		return code;
 	}
-	
-	private void setSecretCode(){
+
+	private void setSecretCode() {
 		ICodemaker codeMaker = this.theGame.getCodeMaker();
 		String[] inputcode = null;
 		if (codeMaker != null) {
@@ -184,13 +237,9 @@ public class ConsoleUi implements Observer {
 		} else {
 			inputcode = getCode("Set Secret Code!", Code.NUM_OF_PEGS);
 		}
-		ColorPeg[] pegs;
-		pegs = new ColorPeg[Code.NUM_OF_PEGS];
-		for (int j = 0; j < Code.NUM_OF_PEGS; j++) {
-			pegs[j] = ColorPeg.valueFromConsole(inputcode[j]);
-		}
-		Code code = new Code(pegs);
-		
+
+		Code code = this.stringArrayToCode(inputcode);
+
 		this.gameController.setSecretCode(code);
 	}
 
@@ -269,8 +318,7 @@ public class ConsoleUi implements Observer {
 		if (codeBreaker == 0) {
 			this.theGame.setCodeMaker(new ComputerCodemaker(gameController));
 		}
-		
-		
+
 		// Generate the mode based on the pick
 		if (modeSelection == 0) {
 			mode = new NoviceMode();
@@ -283,16 +331,30 @@ public class ConsoleUi implements Observer {
 				codeMakerIsComputer, mode, computer, COMPUTER_INTERVAL);
 	}
 
+	private Code stringArrayToCode(String[] code) {
+		ColorPeg[] pegs;
+		pegs = new ColorPeg[Code.NUM_OF_PEGS];
+		for (int j = 0; j < Code.NUM_OF_PEGS; j++) {
+			pegs[j] = ColorPeg.valueFromConsole(code[j]);
+		}
+		return new Code(pegs);
+	}
+
 	@Override
 	public void register() {
-		// TODO Auto-generated method stub
 		this.theGame.register(this);
 	}
 
 	@Override
 	public void notifyChange() {
-		// TODO Auto-generated method stub
-		
+		if (waitingState) {
+			Guess lastGuess = data.getLatestMove();
+			if (lastGuess.getFeedback() != null) {
+				System.out.println("Feedback: " + lastGuess.getShortFeedback());
+				waitingState = false;
+			}
+		}
+
 	}
 
 }

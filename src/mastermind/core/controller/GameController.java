@@ -138,6 +138,8 @@ public class GameController implements IGameController, Observer {
 		//Once first guess has happened, move the game to GameInProgress
 		if(this.dataBackend.getNumGuesses() == 1)
 			this.state = new GameInProgress();
+		
+		
 	}
 	
 	public void setSecretCode(Code c){
