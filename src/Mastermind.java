@@ -108,6 +108,7 @@ public class Mastermind implements INotifiable, Observer {
 			mainWindow.remove(mainView.getView());
 		
 		//Setup the settings view
+		playListModel = new PlayList(10);
 		mainController = new GameController(theGame, playListModel);
 		settings = new SettingsView(this, mainController);
 		
@@ -123,7 +124,6 @@ public class Mastermind implements INotifiable, Observer {
 	private void showCodeMaker() {
 
 		// Build the view
-		playListModel = new PlayList(10);
 		codemakerView = new CodeMakerPanel(mainController);
 
 		// Change the panel
@@ -143,7 +143,6 @@ public class Mastermind implements INotifiable, Observer {
 		//secret = codemakerView.getSecret();
 
 		// Build the controller and the view
-		
 		mainView = new MastermindMain(mainController, playListModel, theGame,
 				this);
 
