@@ -34,8 +34,7 @@ public class CodeMakerPanel extends JPanel implements Observer {
 	public CodeMakerPanel(INotifiable mainGame) {
 		secret = new Code();
 		code = new ColorPeg[Code.NUM_OF_PEGS];
-		availableColors = new ColorPeg[] {ColorPeg.BLUE,
-				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.YELLOW, ColorPeg.PURPLE };
+		availableColors = ColorPeg.values();
 		build();
 	}
 	
@@ -103,7 +102,6 @@ public class CodeMakerPanel extends JPanel implements Observer {
 		c.insets = new Insets(0, 100, 0, 0);
 
 		this.add(Submit, c);
-
 	}
 
 	private JButton generateButton(int id) {

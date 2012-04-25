@@ -28,13 +28,13 @@ public class ConsoleUi implements Observer
 	
 	public ConsoleUi() {
 		this.availableColors = new ArrayList<String>();
-		this.availableColors.add("bl");
-		this.availableColors.add("bk");
-		this.availableColors.add("rd");
-		this.availableColors.add("ye");
-		this.availableColors.add("pu");
-		this.availableColors.add("wh");
-		this.availableColors.add("gr");
+		
+		//Get all the available colors for code in the system
+		for(ColorPeg i : ColorPeg.values()){
+			System.out.println("Available Color: " + i.getShortName());
+			availableColors.add(i.getShortName());
+		}
+		
 		// Initialize the main game model, this model is persistent
 		// through all the games
 		theGame = new GameModel();
