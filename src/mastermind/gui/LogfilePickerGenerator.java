@@ -13,6 +13,12 @@ import mastermind.core.commands.IFileCommand;
 
 import org.apache.commons.io.FileExistsException;
 
+/**
+ * Helper class to generate and show a JFilePicker Object
+ * 
+ * @author Andres J Ruiz(ajr2546@rit.edu)
+ * 
+ */
 public class LogfilePickerGenerator {
 
 	/**
@@ -65,6 +71,7 @@ public class LogfilePickerGenerator {
 			// Yes Overriwrite?
 			if (response == JOptionPane.YES_OPTION) {
 				logger = new ConfigureLogForFileCommand(fileName, true);
+
 				try {
 					logger.execute();
 				} catch (FileExistsException e2) {
@@ -72,8 +79,8 @@ public class LogfilePickerGenerator {
 							+ " why wont you let me IO");
 
 					e2.printStackTrace();
-
 					return false;
+
 				} catch (IOException e2) {
 					// Let the user know that we have no idea what's going on
 					// with the system. Maybe a random IO error or maybe
@@ -81,7 +88,9 @@ public class LogfilePickerGenerator {
 					// application.
 					JOptionPane.showMessageDialog(mainWindow,
 							"Unknown IO Exception, please try again");
+
 					e2.printStackTrace();
+
 					return false;
 				}
 			} else {
@@ -92,6 +101,7 @@ public class LogfilePickerGenerator {
 			// IO Exception, let the user try again
 			JOptionPane.showMessageDialog(mainWindow,
 					"Unknown IO Exception, please try again");
+
 			e1.printStackTrace(); // Print error message for
 									// debugging purposes from the
 									// user
@@ -101,9 +111,15 @@ public class LogfilePickerGenerator {
 		return true;
 	}
 
+	/**
+	 * Build the actual file chooser
+	 * 
+	 * @return A built file chooser with a .txt filter
+	 */
 	private static JFileChooser buildTextFilePicker() {
 		JFileChooser file = new JFileChooser();
 
+		// Set the .txt file filter
 		file.setFileFilter(new FileFilter() {
 
 			@Override

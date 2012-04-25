@@ -19,6 +19,16 @@ import mastermind.core.controller.IGameController;
 import mastermind.interfaces.INotifiable;
 import mastermind.interfaces.Observer;
 
+/**
+ * Code Maker Panel
+ * 
+ * The JPanel that builds and shows the code maker view for when
+ * the code maker is a human, this view is skipped when the 
+ * code maker is a human.
+ * 
+ * @author Andres J Ruiz(ajr2546@rit.edu)
+ *
+ */
 public class CodeMakerPanel extends JPanel implements Observer {
 
 	/**
