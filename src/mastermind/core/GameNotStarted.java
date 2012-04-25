@@ -46,8 +46,7 @@ public class GameNotStarted implements IGameState {
 
 	@Override
 	public void submitGuess(ColorPeg[] code) {
-		// TODO Auto-generated method stub
-		
+		throw new IllegalStateException();
 	}
 
 }
