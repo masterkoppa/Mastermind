@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import mastermind.interfaces.INotifiable;
 import mastermind.core.controller.*;
@@ -259,6 +261,14 @@ public class SettingsView extends JPanel {
 		guessIntervalSlider = new JSlider();
 		c.gridx = 2;
 		c.gridy = 4;
+		guessIntervalSlider.addChangeListener(new ChangeListener(){
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				guessIntervalSlider.setToolTipText(Integer.toString(guessIntervalSlider.getValue()));
+			}
+			
+		});
 		settingsWindow.add(guessIntervalSlider, c);
 		
 		settingsWindow.validate();
