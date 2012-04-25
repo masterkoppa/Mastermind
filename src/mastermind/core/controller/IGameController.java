@@ -3,7 +3,7 @@ package mastermind.core.controller;
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
 import mastermind.core.PlayList;
-import mastermind.core.codebreaker.ComputerCodebreaker;
+import mastermind.core.codebreaker.ComputerGuessBehavior;
 import mastermind.core.commands.ICommand;
 import mastermind.core.modes.IGameMode;
 import mastermind.interfaces.Observer;
