@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import mastermind.interfaces.Observer;
 import mastermind.core.controller.*;
 import mastermind.core.modes.*;
 import mastermind.core.codebreaker.*;
