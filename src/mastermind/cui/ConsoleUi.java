@@ -14,7 +14,7 @@ import mastermind.interfaces.Observer;
 import mastermind.core.Code;
 
 /**
- * Implements a console interface to the Pizza Delivery System.
+ * Implements a console interface to Mastermind
  * 
  */
 public class ConsoleUi implements Observer {
@@ -50,7 +50,7 @@ public class ConsoleUi implements Observer {
 	private void run() {
 		printBoxedTitle("Welcome to Mastermind!");
 		setSettings();
-		data = new PlayList(10); // CHANGE TO GET INPUT
+		data = new PlayList(MAX_NUMBER_OF_GUESSES);
 		data.register(this);
 		playGame();
 	}
@@ -71,7 +71,12 @@ public class ConsoleUi implements Observer {
 		
 		// Get secret code
 		do{
-			
+			try{
+				setSecretCode();
+				secretCodeSubmitted = true; //SUCESS!
+			} catch (IllegalArgumentException ex){
+				System.out.println("ERROR: Please try again!");
+			}
 		}while(!secretCodeSubmitted);
 		
 
@@ -182,12 +187,9 @@ public class ConsoleUi implements Observer {
 		ColorPeg[] pegs;
 		pegs = new ColorPeg[Code.NUM_OF_PEGS];
 		for (int j = 0; j < Code.NUM_OF_PEGS; j++) {
-			System.out.println(inputcode[j]);
 			pegs[j] = ColorPeg.valueFromConsole(inputcode[j]);
-			System.out.println(pegs[j]);
 		}
 		Code code = new Code(pegs);
-		System.out.println(code);
 		
 		this.gameController.setSecretCode(code);
 	}
@@ -267,7 +269,8 @@ public class ConsoleUi implements Observer {
 		if (codeBreaker == 0) {
 			this.theGame.setCodeMaker(new ComputerCodemaker(gameController));
 		}
-
+		
+		
 		// Generate the mode based on the pick
 		if (modeSelection == 0) {
 			mode = new NoviceMode();
