@@ -27,7 +27,7 @@ public class SettingsSelected implements IGameState {
 
 	@Override
 	public void setSettings(int gameGuesses, ICodemaker codeMaker,
-			IGameMode mode, boolean codeBreakerIsComputer, int guessInterval) {
+			IGameMode mode, ComputerCodebreaker guessStrategy, int guessInterval) {
 		throw new IllegalStateException();
 	}
 
