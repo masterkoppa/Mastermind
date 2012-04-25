@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -30,6 +31,7 @@ public class MastermindMain  extends JPanel implements Observer{
 	private boolean newGameSelected;
 	//Make this static to make sure no one tries to make more than one popup
 	private boolean gameIsOver;
+	private static AtomicInteger popupCount;
 
 	// GUI VARIABLES
 	private MastermindBoard board;
@@ -54,6 +56,8 @@ public class MastermindMain  extends JPanel implements Observer{
 
 		this.add(boardContainer, BorderLayout.CENTER);
 		this.add(this.generateOptions(), BorderLayout.EAST);
+		
+		this.popupCount = new AtomicInteger(0);
 
 		// Register after initializing everything
 		this.register();
@@ -81,6 +85,8 @@ public class MastermindMain  extends JPanel implements Observer{
 
 		// Register after initializing everything
 		this.register();
+		
+		this.popupCount = new AtomicInteger(0);
 		
 		if(null != this.currentGame.getGuessStrategy())
 			this.controller.startAI();
@@ -116,7 +122,7 @@ public class MastermindMain  extends JPanel implements Observer{
 	 */
 	private synchronized void showWinningMessage(String winningMessage) {
 		System.out.println("Called");
-		if (!gameIsOver){
+		if (!gameIsOver && this.popupCount.getAndAdd(1) == 0){
 			JOptionPane.showMessageDialog(this, winningMessage);
 			gameIsOver = true;
 		}
