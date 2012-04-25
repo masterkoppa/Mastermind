@@ -20,6 +20,8 @@ public class GameModel extends Observable {
 	private IGameMode mode;
 	private ICodemaker codemaker;
 	private Code secretCode;
+	private int guessesAllowed;
+	private int guessInterval;
 	
 	private boolean codeMakerDone;
 
@@ -32,6 +34,8 @@ public class GameModel extends Observable {
 		this.codeMakerDone = false;
 		
 		mode = new NoviceMode();
+		this.guessesAllowed = 10;
+		this.guessInterval = 5;
 	}
 
 	/**
@@ -153,12 +157,26 @@ public class GameModel extends Observable {
 		this.secretCode = c;
 	}
 	
+	public void setGuessInterval(int guessInterval) {
+		if(guessInterval < 1)
+			throw new IllegalArgumentException();
+		
+		this.guessInterval = guessInterval;
+	}
+	
 	/**
 	 * Sets the number of guesses allowed in the game
 	 * @param numGuesses
 	 */
-	public void setGuessInterval(int numGuesses){
-		//if(numGuesses)
+	public void setGuessesAllowed(int numGuesses){
+		if(numGuesses < 10)
+			throw new IllegalArgumentException();
+		
+		this.guessesAllowed = numGuesses;
+	}
+	
+	public int getGuessesAllowed(){
+		return this.guessesAllowed;
 	}
 
 	@Override

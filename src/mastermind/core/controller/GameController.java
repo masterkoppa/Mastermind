@@ -134,6 +134,9 @@ public class GameController implements IGameController, Observer {
 		}
 
 		this.executeCommand(play);
+		
+		if(this.dataBackend.getNumGuesses() == 1)
+			this.state = new GameInProgress();
 	}
 	
 	public void setSecretCode(Code c){
@@ -144,6 +147,7 @@ public class GameController implements IGameController, Observer {
 			throw new IllegalArgumentException();
 		
 		this.state.setSecretCode(c);
+		this.state = new SecretCodeSet(this.game);
 	}
 
 	@Override

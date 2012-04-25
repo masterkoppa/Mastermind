@@ -1,6 +1,5 @@
 package mastermind.core;
 
-import mastermind.core.codebreaker.ComputerCodebreaker;
 import mastermind.core.codemaker.ICodemaker;
 import mastermind.core.modes.IGameMode;
 

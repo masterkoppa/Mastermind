@@ -29,6 +29,7 @@ public class GameNotStarted implements IGameState {
 		
 		this.theModel.setCodeBreakerAsAI(codeBreakerIsComputer);
 		this.theModel.setGuessInterval(guessInterval);
+		this.theModel.setGuessesAllowed(gameGuesses);
 		this.theModel.setCodeMaker(codeMaker);
 	}
 

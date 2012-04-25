@@ -170,6 +170,14 @@ public class PlayList extends Observable {
 		// Notify all observers
 		super.dataChanged();
 	}
+	
+	/**
+	 * Method to get how many guesses have been made
+	 * @return
+	 */
+	public int getNumGuesses(){
+		return this.guessList.length;
+	}
 
 	@Override
 	public void register(Observer object) {
