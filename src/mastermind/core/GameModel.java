@@ -259,5 +259,6 @@ public class GameModel extends Observable {
 	
 	public void triggerNewGame(){
 		this.forceGameOver = true;
+		super.dataChanged();
 	}
 }
