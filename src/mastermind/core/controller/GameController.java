@@ -152,8 +152,8 @@ public class GameController implements IGameController, Observer {
 
 	@Override
 	public void startAI(int delaySeconds) {
-		computerCodebreaker = new ComputerCodebreaker(delaySeconds * 1000,
-				new RandomGuess(this));
+		computerCodebreaker = new ComputerCodebreaker(this.game.getGuessInterval() * 1000,
+				this.game.getGuessStrategy());
 		computerCodebreaker.start();
 		this.game.setCodeBreakerAsAI(true);
 	}
@@ -208,12 +208,12 @@ public class GameController implements IGameController, Observer {
 	public void setSettings(int gameGuesses, 
 			boolean codeMakerIsComputer,
 			IGameMode mode,
-			ComputerCodebreaker codeBreaker, 
+			ComputerGuessBehavior guessStrategy, 
 			int guessInterval){
 		
 		ICodemaker codeMaker = codeMakerIsComputer ? new ComputerCodemaker(this) : null;
 		
-		this.state.setSettings(gameGuesses, codeMaker, mode, codeBreaker, guessInterval);
+		this.state.setSettings(gameGuesses, codeMaker, mode, guessStrategy, guessInterval);
 		this.state = new SettingsSelected(this.game);
 	}
 }

@@ -82,6 +82,6 @@ public interface IGameController {
 	public void setSettings(int gameGuesses, 
 							boolean codeMakerIsComputer,
 							IGameMode mode,
-							ComputerCodebreaker guessStrategy, 
+							ComputerGuessBehavior guessStrategy, 
 							int guessInterval);
 }

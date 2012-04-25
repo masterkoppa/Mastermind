@@ -1,6 +1,6 @@
 package mastermind.core;
 
-import mastermind.core.codebreaker.ComputerCodebreaker;
+import mastermind.core.codebreaker.ComputerGuessBehavior;
 import mastermind.core.codemaker.ICodemaker;
 import mastermind.core.modes.IGameMode;
 
@@ -13,7 +13,7 @@ public class GameInProgress implements IGameState {
 
 	@Override
 	public void setSettings(int gameGuesses, ICodemaker codeMaker,
-			IGameMode mode, ComputerCodebreaker guessStrategy, int guessInterval) {
+			IGameMode mode, ComputerGuessBehavior guessStrategy, int guessInterval) {
 		throw new IllegalStateException();
 	}
 
