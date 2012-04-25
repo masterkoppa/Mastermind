@@ -1,5 +1,6 @@
 package mastermind.core;
 
+import mastermind.core.codebreaker.ComputerCodebreaker;
 import mastermind.core.codemaker.ICodemaker;
 import mastermind.core.modes.IGameMode;
 
@@ -24,11 +25,16 @@ public class GameNotStarted implements IGameState {
 	public void setSettings(int gameGuesses, 
 							ICodemaker codeMaker,
 							IGameMode mode,
-							boolean codeBreakerIsComputer, 
+							ComputerCodebreaker guessStrategy, 
 							int guessInterval) {
 		
-		this.theModel.setCodeBreakerAsAI(codeBreakerIsComputer);
+		if(null != guessStrategy)
+		{
+			this.theModel.setGuessStrategy(guessStrategy);
+			this.theModel.setCodeBreakerAsAI(true);
+		}
 		this.theModel.setGuessInterval(guessInterval);
+		this.theModel.setGuessesAllowed(gameGuesses);
 		this.theModel.setCodeMaker(codeMaker);
 	}
 
