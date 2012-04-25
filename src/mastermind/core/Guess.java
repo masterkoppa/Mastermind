@@ -91,5 +91,13 @@ public class Guess {
 
 		return ret;
 	}
+	
+	public String getShortCode(){
+		return codeGuess.getShortCode();
+	}
+	
+	public String getShortFeedback(){
+		return feedback.getShortCode();
+	}
 
 }

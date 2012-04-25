@@ -141,4 +141,12 @@ public class Code {
 			return ColorPeg.BLUE;
 		}
 	}
+
+	public String getShortCode() {
+		String ret = "";
+		for(ColorPeg i : Pegs){
+			ret += i.getShortName() + " ";
+		}
+		return ret;
+	}
 }

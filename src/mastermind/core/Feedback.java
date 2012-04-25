@@ -152,4 +152,19 @@ public class Feedback {
 		return ret;
 	}
 
+	public String getShortCode() {
+		String ret = "";
+		
+		for(FeedbackPeg i : feedback){
+			if(i != null){
+				ret += i.getShortCode() + " ";
+			}else{
+				ret += "-- ";
+			}
+		}
+		
+		return ret;
+		
+	}
+
 }
