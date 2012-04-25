@@ -27,8 +27,8 @@ public class MastermindMain  extends JPanel implements Observer{
 	private PlayList dataBackend;
 	private GameModel currentGame;
 	private IGameController controller;
-	private INotifiable mainGame;
 	private boolean newGameSelected;
+	//Make this static to make sure no one tries to make more than one popup
 	private boolean gameIsOver;
 
 	// GUI VARIABLES
@@ -36,6 +36,7 @@ public class MastermindMain  extends JPanel implements Observer{
 	private JButton submit;
 	private JButton undo;
 	private JButton newGame;
+	
 
 	@Deprecated
 	public MastermindMain(IGameController controller, PlayList model,
@@ -44,7 +45,6 @@ public class MastermindMain  extends JPanel implements Observer{
 		this.currentGame = theGame;
 		this.controller = controller;
 		this.newGameSelected = false;
-		this.mainGame = mainGame;
 
 		this.setLayout(new BorderLayout());
 
@@ -62,12 +62,13 @@ public class MastermindMain  extends JPanel implements Observer{
 			this.controller.startAI();
 	}
 	
-	public MastermindMain(IGameController controller, INotifiable theFrame) {
+	public MastermindMain(IGameController controller) {
 		this.dataBackend = controller.getPlaylist();
 		this.currentGame = controller.getGameModel();
 		this.controller = controller;
 		this.newGameSelected = false;
-		this.mainGame = theFrame;
+		this.gameIsOver = false;
+		
 
 		this.setLayout(new BorderLayout());
 
@@ -83,6 +84,8 @@ public class MastermindMain  extends JPanel implements Observer{
 		
 		if(null != this.currentGame.getGuessStrategy())
 			this.controller.startAI();
+		
+		System.out.println("MainView Created()");
 	}
 
 	@Override
@@ -111,10 +114,12 @@ public class MastermindMain  extends JPanel implements Observer{
 	 * 
 	 * @param winningMessage
 	 */
-	private void showWinningMessage(String winningMessage) {
-		if (gameIsOver != true)
+	private synchronized void showWinningMessage(String winningMessage) {
+		System.out.println("Called");
+		if (!gameIsOver){
 			JOptionPane.showMessageDialog(this, winningMessage);
-		gameIsOver = true;
+			gameIsOver = true;
+		}
 	}
 
 	/**

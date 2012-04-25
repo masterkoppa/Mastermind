@@ -38,12 +38,12 @@ public class ViewFactory {
 			return new SettingsView(this.theFrame, this.theController);
 		} else if(theState instanceof SettingsSelected) {
 			if (theController.isCodemakerComputer()) {
-				return new MastermindMain(this.theController, this.theFrame).getView();
+				return new MastermindMain(this.theController).getView();
 			} else {
 				return new CodeMakerPanel(this.theController);
 			}
 		} else if(theState instanceof SecretCodeSet) {
-			return new MastermindMain(this.theController, this.theFrame).getView();
+			return new MastermindMain(this.theController).getView();
 		}
 		
 		throw new IllegalStateException();
