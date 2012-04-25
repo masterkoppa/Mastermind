@@ -40,6 +40,8 @@ public class GameNotStarted implements IGameState {
 		{
 			this.theModel.setCodeMaker(codeMaker);
 		}
+		
+		this.theModel.setGameMode(mode);
 	}
 
 	@Override
