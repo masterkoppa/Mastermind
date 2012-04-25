@@ -35,7 +35,7 @@ public class ViewFactory {
 		IGameState theState = theController.getGameState();
 			
 		if(theState instanceof GameNotStarted)
-			return new SettingsView(this.theFrame);
+			return new SettingsView(this.theFrame, this.theController);
 		else if(theState instanceof SettingsSelected)
 			return new CodeMakerPanel(this.theController);
 		else if(theState instanceof SecretCodeSet)
