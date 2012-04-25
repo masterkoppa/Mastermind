@@ -8,6 +8,12 @@ import mastermind.core.SecretCodeSet;
 import mastermind.core.IGameState;
 import mastermind.core.controller.IGameController;
 
+/**
+ * This class provides access to factory methods for generating Gui JPanels for the system.
+ * 
+ * @author Andrew Church
+ *
+ */
 public class ViewFactory {
 	
 	private IGameController theController;

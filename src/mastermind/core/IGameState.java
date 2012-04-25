@@ -8,7 +8,7 @@ import mastermind.core.modes.IGameMode;
  * 
  * @author Andrew Church
  * 
- * This is the State interface
+ * This is the State interface, it provides definition for methods that affect the state of the game
  *
  */
 public interface IGameState {
@@ -20,7 +20,7 @@ public interface IGameState {
 	void setSecretCode(Code c);
 	
 	/**
-	 * 
+	 * Method to submit a guess
 	 * @param code guess to be submitted
 	 */
 	void submitGuess(ColorPeg[] code);
