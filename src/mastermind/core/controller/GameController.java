@@ -27,7 +27,6 @@ public class GameController implements IGameController, Observer {
 	private GameModel game;
 	private IGameState state;
 	private PlayList dataBackend;
-	private Code secretCode;
 
 	/**
 	 * 
@@ -53,8 +52,7 @@ public class GameController implements IGameController, Observer {
 		this.game = theGame;
 		this.game.register(this);
 		this.dataBackend = data;
-		this.secretCode = secret;
-
+		this.game.setSecretCode(secret);
 	}
 	
 	/**

@@ -6,10 +6,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import mastermind.core.Code;
 import mastermind.core.GameModel;
 import mastermind.core.IGameState;
-import mastermind.core.PlayList;
 import mastermind.core.controller.*;
 import mastermind.gui.*;
 import mastermind.interfaces.INotifiable;
@@ -32,26 +30,14 @@ public class Mastermind implements INotifiable, Observer {
 	// GUI Components
 	private JFrame mainWindow;
 	private JPanel currentView;
-	private SettingsView settings;
-	private CodeMakerPanel codemakerView;
-	private MastermindMain mainView;
 
 	// Data Models
-	private PlayList playListModel;
 	private GameModel theGame;
 	private IGameState currentState;
 	private ViewFactory factory;
 
 	// Controllers
 	private IGameController mainController;
-
-	/**
-	 * The state of the game
-	 * 
-	 * 0 for the settings page 1 for the codemakers page 2 for the codebreakers
-	 * page
-	 */
-	private int state;
 
 	/**
 	 * Sets up the gui and controller. First view opened will populate the
@@ -115,70 +101,10 @@ public class Mastermind implements INotifiable, Observer {
 		// Start by showing the settings window
 		showViewForState();
 	}
-
-	/**
-	 * Show the settings page.
-	 * 
-	 * This method will remove the window in the previous step, if there was 
-	 * a previous step and show the settings window. To grab the information from
-	 * it use settings
-	 */
-	@Deprecated
-	private void showSettings() {
-		// If a previous game was played nuke it
-		if (mainView != null)
-			mainWindow.remove(mainView.getView());
-		
-		//Setup the settings view
-		playListModel = new PlayList(10);
-		mainController = new GameController(theGame, playListModel);
-		settings = new SettingsView(this, mainController);
-		
-		//Change the panel
-		mainWindow.add(settings);
-		mainWindow.validate();
-	}
-
-	/**
-	 * Get secret and set up gui with look and feel specific to operating system
-	 * being used.
-	 */
-	@Deprecated
-	private void showCodeMaker() {
-
-		// Build the view
-		codemakerView = new CodeMakerPanel(mainController);
-
-		// Change the panel
-		mainWindow.remove(settings);
-		mainWindow.add(codemakerView);
-
-		// Validate the new window contents
-		mainWindow.validate();
-
-	}
-
-	/**
-	 * Shows the CodeBreaker window and board
-	 */
-	@Deprecated
-	private void showCodeBreaker() {
-		// Get the secret code
-		//secret = codemakerView.getSecret();
-
-		// Build the controller and the view
-		mainView = new MastermindMain(mainController, playListModel, theGame,
-				this);
-
-		// Change the panel
-		mainWindow.remove(codemakerView);
-		mainWindow.add(mainView.getView());
-
-		// Validate the new window contents
-		mainWindow.validate();
-	}
 	
 	private void showViewForState() {
+		System.out.println("Showing view for state");
+		
 		// Build the view
 		JPanel nextView = factory.getViewForState();
 
@@ -265,20 +191,17 @@ public class Mastermind implements INotifiable, Observer {
 	}
 
 	@Override
-	public void notifyChange() {
-		/*if(theGame.isCodeMakerDone() && !trigger){
-			System.out.println("Got the change, code maker is done");
-			trigger = true;
-			showCodeBreaker();
-		}*/
-		
+	public void notifyChange() {	
 		if(null != this.theGame && this.theGame.isGameOver())
 		{
 			this.buildNewGame();
 			this.showViewForState();
 		}
 		else if(!this.currentState.equals(this.mainController.getGameState()))
+		{
+			System.out.println("State Changed!");
 			this.showViewForState();
+		}
 	}
 
 }

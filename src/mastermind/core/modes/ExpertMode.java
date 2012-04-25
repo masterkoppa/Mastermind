@@ -1,7 +1,6 @@
 package mastermind.core.modes;
 
 import mastermind.core.validation.DuplicatePegsAllowedValidator;
-import mastermind.core.validation.DuplicatePegsNotAllowedValidator;
 import mastermind.core.validation.ICodeValidator;
 
 /**
