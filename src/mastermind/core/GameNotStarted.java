@@ -14,29 +14,25 @@ import mastermind.core.modes.IGameMode;
 public class GameNotStarted implements IGameState {
 
 	private GameModel theModel;
-	
-	public GameNotStarted(GameModel model)
-	{
-		if(null == model)
+
+	public GameNotStarted(GameModel model) {
+		if (null == model)
 			throw new IllegalArgumentException();
-		
+
 		this.theModel = model;
 	}
-	
+
 	@Override
 	public void setSecretCode(Code c) {
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public void setSettings(int gameGuesses, 
-							ICodemaker codeMaker,
-							IGameMode mode,
-							ComputerGuessBehavior guessStrategy, 
-							int guessInterval) {
-		
-		if(null != guessStrategy)
-		{
+	public void setSettings(int gameGuesses, ICodemaker codeMaker,
+			IGameMode mode, ComputerGuessBehavior guessStrategy,
+			int guessInterval) {
+
+		if (null != guessStrategy) {
 			this.theModel.setGuessStrategy(guessStrategy);
 			this.theModel.setCodeBreakerAsAI(true);
 		}

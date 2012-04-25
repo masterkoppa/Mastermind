@@ -15,37 +15,37 @@ import mastermind.core.controller.IGameController;
  *
  */
 public class ViewFactory {
-	
+
 	private IGameController theController;
-	
-	public ViewFactory(IGameController controller)
-	{
-		if(null == controller)
+
+	public ViewFactory(IGameController controller) {
+		if (null == controller)
 			throw new IllegalArgumentException();
-		
+
 		this.theController = controller;
 	}
-	
+
 	/**
-	 * This method is a factory method to return the correct JPanel for the given state of the game
+	 * This method is a factory method to return the correct JPanel for the
+	 * given state of the game
+	 * 
 	 * @return
 	 */
-	public JPanel getViewForState()
-	{
+	public JPanel getViewForState() {
 		IGameState theState = theController.getGameState();
-			
-		if(theState instanceof GameNotStarted) {
+
+		if (theState instanceof GameNotStarted) {
 			return new SettingsView(this.theController);
-		} else if(theState instanceof SettingsSelected) {
+		} else if (theState instanceof SettingsSelected) {
 			if (theController.isCodemakerComputer()) {
 				return new MastermindMain(this.theController).getView();
 			} else {
 				return new CodeMakerPanel(this.theController);
 			}
-		} else if(theState instanceof SecretCodeSet) {
+		} else if (theState instanceof SecretCodeSet) {
 			return new MastermindMain(this.theController).getView();
 		}
-		
+
 		throw new IllegalStateException();
 	}
 }

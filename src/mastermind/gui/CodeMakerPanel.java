@@ -21,12 +21,11 @@ import mastermind.interfaces.Observer;
 /**
  * Code Maker Panel
  * 
- * The JPanel that builds and shows the code maker view for when
- * the code maker is a human, this view is skipped when the 
- * code maker is a human.
+ * The JPanel that builds and shows the code maker view for when the code maker
+ * is a human, this view is skipped when the code maker is a human.
  * 
  * @author Andres J Ruiz(ajr2546@rit.edu)
- *
+ * 
  */
 public class CodeMakerPanel extends JPanel implements Observer {
 
@@ -43,18 +42,20 @@ public class CodeMakerPanel extends JPanel implements Observer {
 		this.gameController = gameController;
 		secret = new Code();
 		code = new ColorPeg[Code.NUM_OF_PEGS];
-		availableColors = new ColorPeg[] { ColorPeg.BLUE, ColorPeg.GREEN,
-				ColorPeg.RED, ColorPeg.YELLOW, ColorPeg.PURPLE };
+		availableColors = ColorPeg.values();
 		build();
 	}
 
+	/**
+	 * Builds the panel information
+	 */
 	private void build() {
 		this.setLayout(new GridBagLayout());
 
 		JLabel instructions = new JLabel("Create your secret code bellow,\n"
 				+ " to select the desired colors click each button"
 				+ " multiple times until the desired color is there");
-		
+
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
@@ -138,6 +139,11 @@ public class CodeMakerPanel extends JPanel implements Observer {
 		return gridButton;
 	}
 
+	/**
+	 * Builds the secret code
+	 * 
+	 * @return A code object containing the secret code
+	 */
 	private Code getSecret() {
 		secret = new Code(code);
 		return secret;

@@ -7,7 +7,7 @@ import mastermind.core.validation.ICodeValidator;
  * An expert game mode.
  * 
  * @author Matt Addy <mxa5942@rit.edu>
- *
+ * 
  */
 public class ExpertMode implements IGameMode {
 
@@ -19,5 +19,5 @@ public class ExpertMode implements IGameMode {
 	public ICodeValidator secretCodeValidator() {
 		return new DuplicatePegsAllowedValidator();
 	}
-	
+
 }

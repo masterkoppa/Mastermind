@@ -54,13 +54,14 @@ public class GameController implements IGameController, Observer {
 		this.dataBackend = data;
 		this.game.setSecretCode(secret);
 	}
-	
+
 	/**
 	 * USE THIS ONE
+	 * 
 	 * @param theGame
 	 * @param data
 	 */
-	public GameController(GameModel theGame, PlayList data){
+	public GameController(GameModel theGame, PlayList data) {
 		this.game = theGame;
 		this.dataBackend = data;
 		this.game.register(this);
@@ -124,35 +125,35 @@ public class GameController implements IGameController, Observer {
 			return;// Cancel this action if there is an error
 		}
 		try {
-			play.add(new ProvideFeedbackCommand(this.game, dataBackend,
-					game.getSecretCode().getPegs()));
+			play.add(new ProvideFeedbackCommand(this.game, dataBackend, game
+					.getSecretCode().getPegs()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		this.executeCommand(play);
-		
-		//Once first guess has happened, move the game to GameInProgress
-		if(this.dataBackend.getNumGuesses() == 1)
+
+		// Once first guess has happened, move the game to GameInProgress
+		if (this.dataBackend.getNumGuesses() == 1)
 			this.state = new GameInProgress();
-		
-		
+
 	}
-	
-	public void setSecretCode(Code c){
-		if(null == c)
+
+	public void setSecretCode(Code c) {
+		if (null == c)
 			throw new IllegalArgumentException();
-		
-		if(!this.game.validateSecretCode(c))
+
+		if (!this.game.validateSecretCode(c))
 			throw new IllegalArgumentException();
-		
+
 		this.state.setSecretCode(c);
 		this.state = new SecretCodeSet();
 	}
-	
+
 	public void startAI() {
-		computerCodebreaker = new ComputerCodebreaker(this.game.getGuessInterval() * 1000,
+		computerCodebreaker = new ComputerCodebreaker(
+				this.game.getGuessInterval() * 1000,
 				this.game.getGuessStrategy());
 		computerCodebreaker.start();
 		this.game.setCodeBreakerAsAI(true);
@@ -160,9 +161,9 @@ public class GameController implements IGameController, Observer {
 
 	@Override
 	public void stopAI() {
-		if(computerCodebreaker != null)
+		if (computerCodebreaker != null)
 			computerCodebreaker.stop();
-		
+
 		this.game.setCodeBreakerAsAI(false);
 	}
 
@@ -183,43 +184,43 @@ public class GameController implements IGameController, Observer {
 		// TODO Auto-generated method stub
 
 	}
-	
-	public void stageDone(Observer e){
-		if(e instanceof CodeMakerPanel){
-			try{
+
+	public void stageDone(Observer e) {
+		if (e instanceof CodeMakerPanel) {
+			try {
 				this.game.setCodeMakerDone();
-			}catch(ConcurrentModificationException ex){
-				//This is to be expected... sadly
+			} catch (ConcurrentModificationException ex) {
+				// This is to be expected... sadly
 			}
 			System.out.println("Stage Done!");
 		}
 	}
-	
+
 	public GameModel getGameModel() {
 		return this.game;
 	}
-	
+
 	public IGameState getGameState() {
 		return this.state;
 	}
-	
+
 	public PlayList getPlaylist() {
 		return this.dataBackend;
 	}
-	
-	public void setSettings(int gameGuesses, 
-			boolean codeMakerIsComputer,
-			IGameMode mode,
-			ComputerGuessBehavior guessStrategy, 
-			int guessInterval){
-		
-		ICodemaker codeMaker = codeMakerIsComputer ? new ComputerCodemaker(this) : null;
-		
-		this.state.setSettings(gameGuesses, codeMaker, mode, guessStrategy, guessInterval);
+
+	public void setSettings(int gameGuesses, boolean codeMakerIsComputer,
+			IGameMode mode, ComputerGuessBehavior guessStrategy,
+			int guessInterval) {
+
+		ICodemaker codeMaker = codeMakerIsComputer ? new ComputerCodemaker(this)
+				: null;
+
+		this.state.setSettings(gameGuesses, codeMaker, mode, guessStrategy,
+				guessInterval);
 		this.state = new SettingsSelected(this.game);
 		this.dataBackend = new PlayList(gameGuesses);
 	}
-	
+
 	public Boolean isCodemakerComputer() {
 		return game.getCodeMaker() != null;
 	}
@@ -228,7 +229,5 @@ public class GameController implements IGameController, Observer {
 	public void triggerNewGame() {
 		game.triggerNewGame();
 	}
-	
-	
-	
+
 }

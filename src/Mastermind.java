@@ -20,7 +20,7 @@ import mastermind.interfaces.Observer;
  * Main class that takes care of initializing and setting up the program
  * 
  * @author Andres J Ruiz(ajr2546@rit.edu)
- *
+ * 
  */
 public class Mastermind implements Observer {
 
@@ -46,34 +46,34 @@ public class Mastermind implements Observer {
 	 * player and logger options.
 	 */
 	public Mastermind() {
-		//state = 0; // Set the state as 0 to start
+		// state = 0; // Set the state as 0 to start
 
 		// Set up any constants through this run
 		windowTitle = "Mastermind";
 		this.buildNewGame();
 	}
-	
+
 	/**
 	 * Initializes all game data
 	 */
 	private void buildNewGame() {
 		boolean logging = false;
-		
-		if(null != this.theGame)
+
+		if (null != this.theGame)
 			logging = this.theGame.isLoggingEnabled();
-			
+
 		// Initialize the main game model, this model is persistent
 		// through all the games
 		this.theGame = new GameModel();
-		
-		if(logging)
+
+		if (logging)
 			this.theGame.enableLogging();
-	
-		if(this.theGame.getCodeMaker() == null) {
+
+		if (this.theGame.getCodeMaker() == null) {
 			ColorPeg[] pegs = Code.Random().getPegs();
 			this.theGame.setSecretCode(new Code(pegs));
 		}
-		
+
 		this.mainController = new GameController(this.theGame, null);
 		this.theGame.register(this);
 		this.currentState = mainController.getGameState();
@@ -107,28 +107,28 @@ public class Mastermind implements Observer {
 		// Start by showing the settings window
 		showViewForState();
 	}
-	
+
 	/**
 	 * Spawns and switches views based on the state of the game
 	 */
 	private void showViewForState() {
 		System.out.println("Showing view for state");
-		
+
 		// Build the view
 		JPanel nextView = factory.getViewForState();
 
 		// Change the panel
-		if(this.currentView != null)
+		if (this.currentView != null)
 			mainWindow.remove(this.currentView);
-		
+
 		mainWindow.add(nextView);
-		
+
 		this.currentView = nextView;
 
 		// Validate the new window contents
 		mainWindow.validate();
-		
-		//Set current state to the newest game state
+
+		// Set current state to the newest game state
 		this.currentState = this.mainController.getGameState();
 	}
 
@@ -142,7 +142,7 @@ public class Mastermind implements Observer {
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				// AWESOMENESS GOING ON HERE!!
-				
+
 				// FOR TESTING Use this as an example to change the color scheme
 				// see:
 				// http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/_nimbusDefaults.html#primary
@@ -177,7 +177,7 @@ public class Mastermind implements Observer {
 			}
 		}
 	}
-	
+
 	/**
 	 * Kicks the program off by creating the Main container for the gui and
 	 * system.
@@ -190,18 +190,16 @@ public class Mastermind implements Observer {
 
 	@Override
 	public void register() {
-		
+
 	}
 
 	@Override
-	public void notifyChange() {	
-		if(null != this.theGame && this.theGame.isGameOver())
-		{
+	public void notifyChange() {
+		if (null != this.theGame && this.theGame.isGameOver()) {
 			this.buildNewGame();
 			this.showViewForState();
-		}
-		else if(!this.currentState.equals(this.mainController.getGameState()))
-		{
+		} else if (!this.currentState
+				.equals(this.mainController.getGameState())) {
 			this.showViewForState();
 		}
 	}

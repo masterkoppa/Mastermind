@@ -47,7 +47,7 @@ public class MastermindBoard extends JPanel implements Observer {
 	public void notifyChange() {
 		this.removeAll(); // Clear the JPanel
 		isBeingEdited = false;
-		
+
 		rows = new ArrayList<Row>();
 
 		for (int i = 0; i < PlayList.getNUM_OF_ROWS(); i++) {
@@ -59,11 +59,11 @@ public class MastermindBoard extends JPanel implements Observer {
 			ColorPeg[] code = g.getCodePegs();
 			rows.add(new Row(feedback, code));
 		}
-		
+
 		int index = data.getLastPlayIndex();
-		if(data.getMove(index) != null)
+		if (data.getMove(index) != null)
 			rows.get(index).setBackground(Color.GREEN);
-		
+
 		this.setLayout(new GridLayout(0, 1));
 
 		for (Row r : rows) {
@@ -111,7 +111,7 @@ public class MastermindBoard extends JPanel implements Observer {
 				this.code = new ColorPeg[Code.NUM_OF_PEGS];
 
 			build();
-			
+
 			this.setPreferredSize(new Dimension(0, 80));
 			this.setBorder(BorderFactory.createEtchedBorder());
 		}
@@ -141,7 +141,7 @@ public class MastermindBoard extends JPanel implements Observer {
 
 				feedbackPanel.add(peg);
 			}
-			
+
 			this.add(feedbackPanel, BorderLayout.WEST);
 			feedbackPanel.setPreferredSize(new Dimension(80, 0));
 
