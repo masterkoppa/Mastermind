@@ -123,8 +123,8 @@ public class ConsoleUi implements Observer {
 			}
 
 			if (result < 0 || result > items.length) {
-				System.out
-						.println("\r\nInvalid option. Please enter a valid number.");
+				System.out.println("\r\nInvalid option."
+						+ " Please enter a valid number.");
 				result = -1;
 			}
 		}
@@ -212,7 +212,7 @@ public class ConsoleUi implements Observer {
 
 		boolean codeMakerIsComputer;
 		IGameMode mode;
-		//If null it means its a computer codebreaker
+		// If null it means its a computer codebreaker
 		ComputerGuessBehavior computer = null;
 
 		// Get the mode of play from the user
@@ -248,7 +248,7 @@ public class ConsoleUi implements Observer {
 				computer = new RandomGuess(gameController);
 			}
 
-		} 
+		}
 
 		if (codeBreaker == 0) {
 			this.theGame.setCodeMaker(new ComputerCodemaker(gameController));
