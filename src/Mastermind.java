@@ -12,7 +12,6 @@ import mastermind.core.GameModel;
 import mastermind.core.IGameState;
 import mastermind.core.controller.*;
 import mastermind.gui.*;
-import mastermind.interfaces.INotifiable;
 import mastermind.interfaces.Observer;
 
 /**
@@ -23,7 +22,7 @@ import mastermind.interfaces.Observer;
  * @author Andres J Ruiz(ajr2546@rit.edu)
  *
  */
-public class Mastermind implements INotifiable, Observer {
+public class Mastermind implements Observer {
 
 	// Constants
 	// for easy access
@@ -78,7 +77,7 @@ public class Mastermind implements INotifiable, Observer {
 		this.mainController = new GameController(this.theGame, null);
 		this.theGame.register(this);
 		this.currentState = mainController.getGameState();
-		this.factory = new ViewFactory(this.mainController, this);
+		this.factory = new ViewFactory(this.mainController);
 	}
 
 	/**
@@ -177,11 +176,6 @@ public class Mastermind implements INotifiable, Observer {
 				// Ignore again... wow what's installed in here o_0?
 			}
 		}
-	}
-
-	@Override
-	public void Notify() {
-		
 	}
 	
 	/**

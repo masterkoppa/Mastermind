@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 import mastermind.core.Code;
 import mastermind.core.ColorPeg;
 import mastermind.core.controller.IGameController;
-import mastermind.interfaces.INotifiable;
 import mastermind.interfaces.Observer;
 
 /**
@@ -39,14 +38,6 @@ public class CodeMakerPanel extends JPanel implements Observer {
 	private ColorPeg[] code;
 	private ColorPeg[] availableColors;
 	private IGameController gameController;
-
-	@Deprecated
-	public CodeMakerPanel(INotifiable mainGame) {
-		secret = new Code();
-		code = new ColorPeg[Code.NUM_OF_PEGS];
-		availableColors = ColorPeg.values();
-		build();
-	}
 
 	public CodeMakerPanel(IGameController gameController) {
 		this.gameController = gameController;
