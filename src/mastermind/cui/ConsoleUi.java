@@ -27,8 +27,6 @@ public class ConsoleUi implements Observer {
 	private IGameController gameController;
 	private PlayList data;
 
-	private boolean codeBreakerHuman;
-
 	public ConsoleUi() {
 		this.availableColors = new ArrayList<String>();
 
@@ -213,9 +211,9 @@ public class ConsoleUi implements Observer {
 	private void setSettings() {
 
 		boolean codeMakerIsComputer;
-		boolean codeBreakerIsComputer;
 		IGameMode mode;
-		ComputerGuessBehavior computer;
+		//If null it means its a computer codebreaker
+		ComputerGuessBehavior computer = null;
 
 		// Get the mode of play from the user
 		int modeSelection = showMenu("Select mode of play", new Object[] {
@@ -243,7 +241,6 @@ public class ConsoleUi implements Observer {
 		// If the code breaker is a computer, let the user pick the only
 		// possible algorithm
 		if (codeBreaker == 0) {
-			codeBreakerIsComputer = true;
 			algorithm = showMenu(
 					"The codebreaker is a computer, select an algorithm",
 					new Object[] { "random" });
@@ -251,9 +248,7 @@ public class ConsoleUi implements Observer {
 				computer = new RandomGuess(gameController);
 			}
 
-		} else {
-			codeBreakerIsComputer = false;
-		}
+		} 
 
 		if (codeBreaker == 0) {
 			this.theGame.setCodeMaker(new ComputerCodemaker(gameController));
@@ -268,7 +263,7 @@ public class ConsoleUi implements Observer {
 
 		// Set the settings
 		this.gameController.setSettings(MAX_NUMBER_OF_GUESSES,
-				codeMakerIsComputer, mode, null, COMPUTER_INTERVAL);
+				codeMakerIsComputer, mode, computer, COMPUTER_INTERVAL);
 	}
 
 	@Override
