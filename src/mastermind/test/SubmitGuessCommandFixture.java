@@ -14,7 +14,7 @@ public class SubmitGuessCommandFixture {
 	public void createCommandTest() {
 		ColorPeg[] colors = new ColorPeg[4];
 
-		colors[0] = ColorPeg.BLACK;
+		colors[0] = ColorPeg.GREEN;
 		colors[1] = ColorPeg.GREEN;
 		colors[2] = ColorPeg.RED;
 		colors[3] = ColorPeg.YELLOW;
