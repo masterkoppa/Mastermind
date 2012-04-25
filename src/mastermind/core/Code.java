@@ -136,11 +136,9 @@ public class Code {
 		case 3:
 			return ColorPeg.YELLOW;
 		case 4:
-			return ColorPeg.BLACK;
-		case 5:
 			return ColorPeg.PURPLE;
-		default://If on the off chance the number is 6, then we default
-			return ColorPeg.BLACK;
+		default://If on the off chance the number is 5, then we default
+			return ColorPeg.BLUE;
 		}
 	}
 }

@@ -40,9 +40,9 @@ public class PlayListTest {
 	public void setUp() throws Exception {
 		play = new PlayList();
 
-		testCode1 = new Code(new ColorPeg[] { ColorPeg.BLACK, ColorPeg.BLUE,
+		testCode1 = new Code(new ColorPeg[] { ColorPeg.RED, ColorPeg.BLUE,
 				ColorPeg.GREEN, ColorPeg.RED });
-		testCode2 = new Code(new ColorPeg[] { ColorPeg.BLACK, ColorPeg.YELLOW,
+		testCode2 = new Code(new ColorPeg[] { ColorPeg.RED, ColorPeg.YELLOW,
 				ColorPeg.RED, ColorPeg.PURPLE });
 		testCode3 = new Code(new ColorPeg[] { ColorPeg.PURPLE, ColorPeg.YELLOW,
 				ColorPeg.BLUE, ColorPeg.PURPLE });

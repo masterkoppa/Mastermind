@@ -15,7 +15,7 @@ public class ColorPegTest {
 
 	@Test
 	public void testGetColor() {
-		assert (ColorPeg.BLACK.getColor().equals(Color.BLACK));
+		assert (ColorPeg.BLUE.getColor().equals(Color.BLUE));
 	}
 
 }

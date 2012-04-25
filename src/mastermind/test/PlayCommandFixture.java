@@ -34,14 +34,14 @@ public class PlayCommandFixture {
 	@Before
 	public void setUp() throws Exception {
 		secret = new Code();
-		secret.setPegs(0, ColorPeg.BLACK);
+		secret.setPegs(0, ColorPeg.YELLOW);
 		secret.setPegs(1, ColorPeg.BLUE);
 		secret.setPegs(2, ColorPeg.PURPLE);
 		secret.setPegs(3, ColorPeg.YELLOW);
 
 		guessCode = new Code();
 		guessCode.setPegs(0, ColorPeg.BLUE);
-		guessCode.setPegs(1, ColorPeg.BLACK);
+		guessCode.setPegs(1, ColorPeg.YELLOW);
 		guessCode.setPegs(2, ColorPeg.PURPLE);
 		guessCode.setPegs(3, ColorPeg.YELLOW);
 

@@ -16,7 +16,7 @@ public class FeedbackTest {
 	public void setUp() throws Exception {
 		// Setup the basic secret code
 		secret = new Code();
-		secret.setPegs(0, ColorPeg.BLACK);
+		secret.setPegs(0, ColorPeg.GREEN);
 		secret.setPegs(1, ColorPeg.BLUE);
 		secret.setPegs(2, ColorPeg.PURPLE);
 		secret.setPegs(3, ColorPeg.YELLOW);
@@ -33,7 +33,7 @@ public class FeedbackTest {
 	@Test
 	public void testAllWhitePegs() {
 		guess = new Code();
-		guess.setPegs(2, ColorPeg.BLACK);
+		guess.setPegs(2, ColorPeg.GREEN);
 		guess.setPegs(3, ColorPeg.BLUE);
 		guess.setPegs(1, ColorPeg.PURPLE);
 		guess.setPegs(0, ColorPeg.YELLOW);
@@ -49,7 +49,7 @@ public class FeedbackTest {
 	public void testHalfAndHalf() {
 		// Half black pegs, half white pegs
 		guess = new Code();
-		guess.setPegs(0, ColorPeg.BLACK);
+		guess.setPegs(0, ColorPeg.GREEN);
 		guess.setPegs(2, ColorPeg.BLUE);
 		guess.setPegs(1, ColorPeg.PURPLE);
 		guess.setPegs(3, ColorPeg.YELLOW);
@@ -65,10 +65,10 @@ public class FeedbackTest {
 	public void duplicateInGuess() {
 		// Have duplicate colors in the guess
 		guess = new Code();
-		guess.setPegs(0, ColorPeg.BLACK);
+		guess.setPegs(0, ColorPeg.GREEN);
 		guess.setPegs(2, ColorPeg.BLUE);
 		guess.setPegs(1, ColorPeg.PURPLE);
-		guess.setPegs(3, ColorPeg.BLACK);
+		guess.setPegs(3, ColorPeg.GREEN);
 
 		Feedback f = Feedback.analyze(secret, guess);
 
