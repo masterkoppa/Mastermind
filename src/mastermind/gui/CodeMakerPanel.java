@@ -43,11 +43,13 @@ public class CodeMakerPanel extends JPanel implements Observer {
 		this.gameController = gameController;
 		secret = new Code();
 		code = new ColorPeg[Code.NUM_OF_PEGS];
-		availableColors = new ColorPeg[] { ColorPeg.BLUE, ColorPeg.GREEN,
-				ColorPeg.RED, ColorPeg.YELLOW, ColorPeg.PURPLE };
+		availableColors = ColorPeg.values();
 		build();
 	}
 
+	/**
+	 * Builds the panel information
+	 */
 	private void build() {
 		this.setLayout(new GridBagLayout());
 
@@ -138,6 +140,10 @@ public class CodeMakerPanel extends JPanel implements Observer {
 		return gridButton;
 	}
 
+	/**
+	 * Builds the secret code
+	 * @return A code object containing the secret code
+	 */
 	private Code getSecret() {
 		secret = new Code(code);
 		return secret;
