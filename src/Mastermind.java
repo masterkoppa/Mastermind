@@ -6,6 +6,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import mastermind.core.Code;
+import mastermind.core.ColorPeg;
 import mastermind.core.GameModel;
 import mastermind.core.IGameState;
 import mastermind.core.controller.*;
@@ -67,6 +69,11 @@ public class Mastermind implements INotifiable, Observer {
 		
 		if(logging)
 			this.theGame.enableLogging();
+	
+		if(this.theGame.getCodeMaker() == null) {
+			ColorPeg[] pegs = Code.Random().getPegs();
+			this.theGame.setSecretCode(new Code(pegs));
+		}
 		
 		this.mainController = new GameController(this.theGame, null);
 		this.theGame.register(this);
