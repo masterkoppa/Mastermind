@@ -2,6 +2,8 @@ package mastermind.core.controller;
 
 import mastermind.core.*;
 import mastermind.core.codebreaker.*;
+import mastermind.core.codemaker.ComputerCodemaker;
+import mastermind.core.codemaker.ICodemaker;
 import mastermind.core.commands.*;
 import mastermind.core.modes.IGameMode;
 import mastermind.gui.CodeMakerPanel;
@@ -205,7 +207,9 @@ public class GameController implements IGameController, Observer {
 			boolean codeBreakerIsComputer, 
 			int guessInterval){
 		
-		this.state.setSettings(gameGuesses, null, mode, codeBreakerIsComputer, guessInterval);
+		ICodemaker codeMaker = codeMakerIsComputer ? new ComputerCodemaker(this) : null;
+		
+		this.state.setSettings(gameGuesses, codeMaker, mode, codeBreakerIsComputer, guessInterval);
 		this.state = new SettingsSelected(this.game);
 	}
 }
