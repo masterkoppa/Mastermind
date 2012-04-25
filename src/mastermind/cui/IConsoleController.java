@@ -7,37 +7,37 @@ package mastermind.cui;
  */
 public interface IConsoleController {
 
-		/**
-		 * .
-		 * 
-		 * @param None
-		 * @return 
-		 * @return None
-		 */
-		public void setModeOfPlay(int mode);
+	/**
+	 * .
+	 * 
+	 * @param None
+	 * @return
+	 * @return None
+	 */
+	public void setModeOfPlay(int mode);
 
-		public void setCodeMaker(int type);
-		
-		public void setCodeBreaker(int type);
-		
-		public String[] getCodeBreakerAlgorithms();
-		
-		public void setSecretCode(String[] code);
-		
-		public void makeGuess(String[] code);
-		
-		public String[] getLastGuess();
-		
-		public String[] getLastFeedback();
+	public void setCodeMaker(int type);
 
-		public void newGame();
-		
-		public void restartGame();
-		
-		public void exitGame();
+	public void setCodeBreaker(int type);
 
-		public void setAlgorithm(int algorithm);
+	public String[] getCodeBreakerAlgorithms();
 
-		public void startGame();		
-		
+	public void setSecretCode(String[] code);
+
+	public void makeGuess(String[] code);
+
+	public String[] getLastGuess();
+
+	public String[] getLastFeedback();
+
+	public void newGame();
+
+	public void restartGame();
+
+	public void exitGame();
+
+	public void setAlgorithm(int algorithm);
+
+	public void startGame();
+
 }

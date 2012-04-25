@@ -17,7 +17,6 @@ public class Code {
 	 * here in case this needs to be changed in the future.
 	 */
 	public static final int NUM_OF_PEGS = 4;
-	
 
 	/**
 	 * Array that holds all the pegs that make this code
@@ -68,7 +67,7 @@ public class Code {
 	 */
 	public void setPegs(int id, ColorPeg color) {
 
-		//Check whether the id is between 0 and the max number of pegs
+		// Check whether the id is between 0 and the max number of pegs
 		if (id >= NUM_OF_PEGS || id < 0)
 			throw new IllegalArgumentException(
 					"The index for this peg exeeds the max number of pegs");
@@ -123,7 +122,7 @@ public class Code {
 	 */
 	private static ColorPeg pickRandomPeg() {
 		Random r = new Random();
-		
+
 		int randomNum = r.nextInt(ColorPeg.NUMBER_OF_COLORS);
 
 		switch (randomNum) {
@@ -137,14 +136,14 @@ public class Code {
 			return ColorPeg.YELLOW;
 		case 4:
 			return ColorPeg.PURPLE;
-		default://If on the off chance the number is 5, then we default
+		default:// If on the off chance the number is 5, then we default
 			return ColorPeg.BLUE;
 		}
 	}
 
 	public String getShortCode() {
 		String ret = "";
-		for(ColorPeg i : Pegs){
+		for (ColorPeg i : Pegs) {
 			ret += i.getShortName() + " ";
 		}
 		return ret;

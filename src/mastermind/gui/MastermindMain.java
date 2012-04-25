@@ -21,14 +21,14 @@ import mastermind.core.PlayList;
 import mastermind.core.controller.IGameController;
 import mastermind.interfaces.Observer;
 
-public class MastermindMain  extends JPanel implements Observer{
-	
+public class MastermindMain extends JPanel implements Observer {
+
 	// MODELS AND CONTROLLERS
 	private PlayList dataBackend;
 	private GameModel currentGame;
 	private IGameController controller;
 	private boolean newGameSelected;
-	//Make this static to make sure no one tries to make more than one popup
+	// Make this static to make sure no one tries to make more than one popup
 	private boolean gameIsOver;
 	private static AtomicInteger popupCount;
 
@@ -37,32 +37,30 @@ public class MastermindMain  extends JPanel implements Observer{
 	private JButton submit;
 	private JButton undo;
 	private JButton newGame;
-	
+
 	public MastermindMain(IGameController controller) {
 		this.dataBackend = controller.getPlaylist();
 		this.currentGame = controller.getGameModel();
 		this.controller = controller;
 		this.newGameSelected = false;
 		this.gameIsOver = false;
-		
 
 		this.setLayout(new BorderLayout());
 
 		board = new MastermindBoard(this.dataBackend);
 		JScrollPane boardContainer = new JScrollPane(board);
-		
 
 		this.add(boardContainer, BorderLayout.CENTER);
 		this.add(this.generateOptions(), BorderLayout.EAST);
 
 		// Register after initializing everything
 		this.register();
-		
+
 		this.popupCount = new AtomicInteger(0);
-		
-		if(null != this.currentGame.getGuessStrategy())
+
+		if (null != this.currentGame.getGuessStrategy())
 			this.controller.startAI();
-		
+
 		System.out.println("MainView Created()");
 	}
 
@@ -94,7 +92,7 @@ public class MastermindMain  extends JPanel implements Observer{
 	 */
 	private synchronized void showWinningMessage(String winningMessage) {
 		System.out.println("Called");
-		if (!gameIsOver && this.popupCount.getAndAdd(1) == 0){
+		if (!gameIsOver && this.popupCount.getAndAdd(1) == 0) {
 			JOptionPane.showMessageDialog(this, winningMessage);
 			gameIsOver = true;
 		}
@@ -169,8 +167,6 @@ public class MastermindMain  extends JPanel implements Observer{
 			}
 		});
 
-		
-
 		// Setup the gridbag layout options
 		GridBagConstraints c = new GridBagConstraints();
 
@@ -184,9 +180,8 @@ public class MastermindMain  extends JPanel implements Observer{
 		// Button Panel Settings
 		c.gridx = 0;
 		c.gridy = 1;
-		c.insets = new Insets(0,0,0,0);
-		
-		
+		c.insets = new Insets(0, 0, 0, 0);
+
 		buttonPanel.add(submit);
 		buttonPanel.add(undo);
 		options.add(buttonPanel, c);

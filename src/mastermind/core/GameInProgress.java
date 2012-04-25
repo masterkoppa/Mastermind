@@ -13,7 +13,8 @@ public class GameInProgress implements IGameState {
 
 	@Override
 	public void setSettings(int gameGuesses, ICodemaker codeMaker,
-			IGameMode mode, ComputerGuessBehavior guessStrategy, int guessInterval) {
+			IGameMode mode, ComputerGuessBehavior guessStrategy,
+			int guessInterval) {
 		throw new IllegalStateException();
 	}
 

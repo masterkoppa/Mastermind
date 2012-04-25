@@ -5,7 +5,7 @@ import mastermind.core.modes.IGameMode;
 import mastermind.core.codebreaker.ComputerGuessBehavior;
 
 public class SecretCodeSet implements IGameState {
-	
+
 	@Override
 	public void setSecretCode(Code c) {
 		throw new IllegalStateException();
@@ -13,7 +13,8 @@ public class SecretCodeSet implements IGameState {
 
 	@Override
 	public void setSettings(int gameGuesses, ICodemaker codeMaker,
-			IGameMode mode, ComputerGuessBehavior guessStrategy, int guessInterval) {
+			IGameMode mode, ComputerGuessBehavior guessStrategy,
+			int guessInterval) {
 		throw new IllegalStateException();
 	}
 

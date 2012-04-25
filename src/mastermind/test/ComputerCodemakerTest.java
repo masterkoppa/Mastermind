@@ -1,6 +1,5 @@
 package mastermind.test;
 
-
 import mastermind.core.GameModel;
 import mastermind.core.PlayList;
 import mastermind.core.codemaker.ComputerCodemaker;
@@ -12,7 +11,7 @@ import org.junit.Before;
 public class ComputerCodemakerTest {
 
 	IGameController controller;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		GameModel m = new GameModel();

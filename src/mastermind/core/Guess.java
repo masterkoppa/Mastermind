@@ -91,12 +91,12 @@ public class Guess {
 
 		return ret;
 	}
-	
-	public String getShortCode(){
+
+	public String getShortCode() {
 		return codeGuess.getShortCode();
 	}
-	
-	public String getShortFeedback(){
+
+	public String getShortFeedback() {
 		return feedback.getShortCode();
 	}
 

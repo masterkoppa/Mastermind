@@ -19,25 +19,25 @@ public class PlayList extends Observable {
 		guessList = new Guess[NUM_OF_ROWS];
 		lastMoveID = 0;
 	}
-	
+
 	/**
-	 * Constructor used to build a guess play list based on
-	 * the parameter.
+	 * Constructor used to build a guess play list based on the parameter.
 	 * 
-	 * @param numberOfPlays The number of guesses for this game board
+	 * @param numberOfPlays
+	 *            The number of guesses for this game board
 	 */
-	public PlayList(int numberOfPlays){
-		if(numberOfPlays < 0 || numberOfPlays > 50){
+	public PlayList(int numberOfPlays) {
+		if (numberOfPlays < 0 || numberOfPlays > 50) {
 			throw new IllegalArgumentException("Number of guesses is invalid");
 		}
-		
+
 		NUM_OF_ROWS = numberOfPlays;
-		
+
 		guessList = new Guess[NUM_OF_ROWS];
 		lastMoveID = 0;
 	}
-	
-	public static int getNUM_OF_ROWS(){
+
+	public static int getNUM_OF_ROWS() {
 		return NUM_OF_ROWS;
 	}
 
@@ -170,12 +170,13 @@ public class PlayList extends Observable {
 		// Notify all observers
 		super.dataChanged();
 	}
-	
+
 	/**
 	 * Method to get how many guesses have been made
+	 * 
 	 * @return
 	 */
-	public int getNumGuesses(){
+	public int getNumGuesses() {
 		return this.guessList.length;
 	}
 
