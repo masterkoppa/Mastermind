@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
@@ -86,30 +87,34 @@ public class SettingsView extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String gameModeString = modeSelect.getSelectedItem().toString();
-				IGameMode gameMode;
-				
-				if (gameModeString == "Novice") {
-					gameMode = new NoviceMode();
-				} else {
-					gameMode = new ExpertMode();
+				try {
+					String gameModeString = modeSelect.getSelectedItem().toString();
+					IGameMode gameMode;
+					
+					if (gameModeString == "Novice") {
+						gameMode = new NoviceMode();
+					} else {
+						gameMode = new ExpertMode();
+					}
+					
+					Boolean codemakerIsComputer = compCodemaker.isSelected();
+					Boolean codebreakerIsComputer = compCodebreaker.isSelected();
+					
+					String difficultyString = compCodebreakerSelect.getSelectedItem().toString();
+					ComputerGuessBehavior behavior = new RandomGuess(controller);;
+					
+					if (difficultyString == "Random") {
+						behavior = new RandomGuess(controller);
+					}
+					
+					int interval = guessIntervalSlider.getValue();
+					int numGuesses = Integer.parseInt(numGuessesField.getText());
+					
+					controller.setSettings(numGuesses, codemakerIsComputer, gameMode, behavior, interval);
+				} catch(Exception ex) {
+					JOptionPane.showMessageDialog(SettingsView.this,
+							"Please make sure all settings have been set before continuing.");
 				}
-				
-				Boolean codemakerIsComputer = compCodemaker.isSelected();
-				Boolean codebreakerIsComputer = compCodebreaker.isSelected();
-				
-				String difficultyString = compCodebreakerSelect.getSelectedItem().toString();
-				ComputerGuessBehavior behavior = new RandomGuess(controller);;
-				
-				if (difficultyString == "Random") {
-					behavior = new RandomGuess(controller);
-				}
-				
-				int interval = guessIntervalSlider.getValue();
-				int numGuesses = Integer.parseInt(numGuessesField.getText());
-				
-				controller.setSettings(numGuesses, codemakerIsComputer, gameMode, behavior, interval);
-				
 				mainFrame.Notify();
 			}
 		});
