@@ -197,13 +197,15 @@ public class GameController implements IGameController, Observer {
 		}
 	}
 	
-	public IGameState getGameState()
-	{
+	public GameModel getGameModel() {
+		return this.game;
+	}
+	
+	public IGameState getGameState() {
 		return this.state;
 	}
 	
-	public PlayList getPlaylist()
-	{
+	public PlayList getPlaylist() {
 		return this.dataBackend;
 	}
 	

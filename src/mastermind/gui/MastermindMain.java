@@ -38,6 +38,7 @@ public class MastermindMain implements Observer {
 	private JButton undo;
 	private JButton newGame;
 
+	@Deprecated
 	public MastermindMain(IGameController controller, PlayList model,
 			GameModel theGame, INotifiable mainGame) {
 		this.dataBackend = model;
@@ -51,6 +52,31 @@ public class MastermindMain implements Observer {
 		mainWindow.setLayout(new BorderLayout());
 
 		board = new MastermindBoard(model);
+		JScrollPane boardContainer = new JScrollPane(board);
+		
+
+		mainWindow.add(boardContainer, BorderLayout.CENTER);
+		mainWindow.add(this.generateOptions(), BorderLayout.EAST);
+
+		// Register after initializing everything
+		this.register();
+		
+		if(null != this.currentGame.getGuessStrategy())
+			this.controller.startAI();
+	}
+	
+	public MastermindMain(IGameController controller, INotifiable theFrame) {
+		this.dataBackend = controller.getPlaylist();
+		this.currentGame = controller.getGameModel();
+		this.controller = controller;
+		this.newGameSelected = false;
+		this.mainGame = theFrame;
+
+		mainWindow = new JPanel();// Set the JFrame with the window title
+
+		mainWindow.setLayout(new BorderLayout());
+
+		board = new MastermindBoard(this.dataBackend);
 		JScrollPane boardContainer = new JScrollPane(board);
 		
 

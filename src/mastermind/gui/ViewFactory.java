@@ -39,7 +39,7 @@ public class ViewFactory {
 		else if(theState instanceof SettingsSelected)
 			return new CodeMakerPanel(this.theController);
 		else if(theState instanceof SecretCodeSet)
-			return new MastermindBoard(this.theController.getPlaylist());
+			return new MastermindMain(this.theController, this.theFrame).getView();
 		
 		throw new IllegalStateException();
 	}

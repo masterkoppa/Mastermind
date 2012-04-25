@@ -123,6 +123,7 @@ public class Mastermind implements INotifiable, Observer {
 	 * a previous step and show the settings window. To grab the information from
 	 * it use settings
 	 */
+	@Deprecated
 	private void showSettings() {
 		// If a previous game was played nuke it
 		if (mainView != null)
@@ -142,6 +143,7 @@ public class Mastermind implements INotifiable, Observer {
 	 * Get secret and set up gui with look and feel specific to operating system
 	 * being used.
 	 */
+	@Deprecated
 	private void showCodeMaker() {
 
 		// Build the view
@@ -159,6 +161,7 @@ public class Mastermind implements INotifiable, Observer {
 	/**
 	 * Shows the CodeBreaker window and board
 	 */
+	@Deprecated
 	private void showCodeBreaker() {
 		// Get the secret code
 		//secret = codemakerView.getSecret();
@@ -184,6 +187,8 @@ public class Mastermind implements INotifiable, Observer {
 			mainWindow.remove(this.currentView);
 		
 		mainWindow.add(nextView);
+		
+		this.currentView = nextView;
 
 		// Validate the new window contents
 		mainWindow.validate();
