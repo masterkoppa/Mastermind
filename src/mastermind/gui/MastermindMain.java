@@ -21,7 +21,7 @@ import mastermind.core.controller.IGameController;
 import mastermind.interfaces.INotifiable;
 import mastermind.interfaces.Observer;
 
-public class MastermindMain implements Observer {
+public class MastermindMain  extends JPanel implements Observer{
 
 	// MODELS AND CONTROLLERS
 	private PlayList dataBackend;
@@ -32,7 +32,6 @@ public class MastermindMain implements Observer {
 	private boolean gameIsOver;
 
 	// GUI VARIABLES
-	private JPanel mainWindow;
 	private MastermindBoard board;
 	private JButton submit;
 	private JButton undo;
@@ -47,16 +46,14 @@ public class MastermindMain implements Observer {
 		this.newGameSelected = false;
 		this.mainGame = mainGame;
 
-		mainWindow = new JPanel();// Set the JFrame with the window title
-
-		mainWindow.setLayout(new BorderLayout());
+		this.setLayout(new BorderLayout());
 
 		board = new MastermindBoard(model);
 		JScrollPane boardContainer = new JScrollPane(board);
 		
 
-		mainWindow.add(boardContainer, BorderLayout.CENTER);
-		mainWindow.add(this.generateOptions(), BorderLayout.EAST);
+		this.add(boardContainer, BorderLayout.CENTER);
+		this.add(this.generateOptions(), BorderLayout.EAST);
 
 		// Register after initializing everything
 		this.register();
@@ -72,16 +69,14 @@ public class MastermindMain implements Observer {
 		this.newGameSelected = false;
 		this.mainGame = theFrame;
 
-		mainWindow = new JPanel();// Set the JFrame with the window title
-
-		mainWindow.setLayout(new BorderLayout());
+		this.setLayout(new BorderLayout());
 
 		board = new MastermindBoard(this.dataBackend);
 		JScrollPane boardContainer = new JScrollPane(board);
 		
 
-		mainWindow.add(boardContainer, BorderLayout.CENTER);
-		mainWindow.add(this.generateOptions(), BorderLayout.EAST);
+		this.add(boardContainer, BorderLayout.CENTER);
+		this.add(this.generateOptions(), BorderLayout.EAST);
 
 		// Register after initializing everything
 		this.register();
@@ -118,7 +113,7 @@ public class MastermindMain implements Observer {
 	 */
 	private void showWinningMessage(String winningMessage) {
 		if (gameIsOver != true)
-			JOptionPane.showMessageDialog(mainWindow, winningMessage);
+			JOptionPane.showMessageDialog(this, winningMessage);
 		gameIsOver = true;
 	}
 
@@ -145,7 +140,7 @@ public class MastermindMain implements Observer {
 					controller.submitGuess(code);
 				} catch (IllegalArgumentException ex) {
 					JOptionPane
-							.showMessageDialog(mainWindow,
+							.showMessageDialog(MastermindMain.this,
 									"The Code you tried to submit is not valid, please try again");
 				}
 			}
@@ -184,7 +179,7 @@ public class MastermindMain implements Observer {
 
 				JCheckBox l = (JCheckBox) e.getSource();
 				boolean returnValue = LogfilePickerGenerator
-						.generateAndShow(mainWindow);
+						.generateAndShow(MastermindMain.this);
 
 				l.setSelected(returnValue);
 
@@ -221,12 +216,12 @@ public class MastermindMain implements Observer {
 	}
 
 	/**
-	 * Returns the mainWindow view
+	 * Returns the this view
 	 * 
 	 * @return Main View
 	 */
 	public JPanel getView() {
-		return mainWindow;
+		return this;
 	}
 
 	/**
@@ -242,7 +237,7 @@ public class MastermindMain implements Observer {
 	 * Dispose of the window, to avoid any problems with leaking memory
 	 */
 	public void dispose() {
-		mainWindow.invalidate();
+		this.invalidate();
 		gameIsOver = true;
 	}
 
