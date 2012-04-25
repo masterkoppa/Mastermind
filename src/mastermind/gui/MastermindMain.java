@@ -19,7 +19,6 @@ import mastermind.core.ColorPeg;
 import mastermind.core.GameModel;
 import mastermind.core.PlayList;
 import mastermind.core.controller.IGameController;
-import mastermind.interfaces.INotifiable;
 import mastermind.interfaces.Observer;
 
 public class MastermindMain  extends JPanel implements Observer{
@@ -38,33 +37,6 @@ public class MastermindMain  extends JPanel implements Observer{
 	private JButton submit;
 	private JButton undo;
 	private JButton newGame;
-	
-
-	@Deprecated
-	public MastermindMain(IGameController controller, PlayList model,
-			GameModel theGame, INotifiable mainGame) {
-		this.dataBackend = model;
-		this.currentGame = theGame;
-		this.controller = controller;
-		this.newGameSelected = false;
-
-		this.setLayout(new BorderLayout());
-
-		board = new MastermindBoard(model);
-		JScrollPane boardContainer = new JScrollPane(board);
-		
-
-		this.add(boardContainer, BorderLayout.CENTER);
-		this.add(this.generateOptions(), BorderLayout.EAST);
-		
-		this.popupCount = new AtomicInteger(0);
-
-		// Register after initializing everything
-		this.register();
-		
-		if(null != this.currentGame.getGuessStrategy())
-			this.controller.startAI();
-	}
 	
 	public MastermindMain(IGameController controller) {
 		this.dataBackend = controller.getPlaylist();

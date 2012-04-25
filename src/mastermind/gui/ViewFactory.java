@@ -7,24 +7,17 @@ import mastermind.core.SettingsSelected;
 import mastermind.core.SecretCodeSet;
 import mastermind.core.IGameState;
 import mastermind.core.controller.IGameController;
-import mastermind.interfaces.INotifiable;
-import mastermind.interfaces.Observer;
 
 public class ViewFactory {
 	
 	private IGameController theController;
-	private Observer theFrame;
 	
-	public ViewFactory(IGameController controller, Observer frame)
+	public ViewFactory(IGameController controller)
 	{
 		if(null == controller)
 			throw new IllegalArgumentException();
 		
-		if(null == frame)
-			throw new IllegalArgumentException();
-		
 		this.theController = controller;
-		this.theFrame = frame;
 	}
 	
 	/**
