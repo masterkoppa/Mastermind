@@ -37,21 +37,23 @@ public class CodeMakerPanel extends JPanel implements Observer {
 		availableColors = ColorPeg.values();
 		build();
 	}
-	
-	public CodeMakerPanel(IGameController gameController){
+
+	public CodeMakerPanel(IGameController gameController) {
 		this.gameController = gameController;
 		secret = new Code();
 		code = new ColorPeg[Code.NUM_OF_PEGS];
-		availableColors = new ColorPeg[] {ColorPeg.BLUE,
-				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.YELLOW, ColorPeg.PURPLE };
+		availableColors = new ColorPeg[] { ColorPeg.BLUE, ColorPeg.GREEN,
+				ColorPeg.RED, ColorPeg.YELLOW, ColorPeg.PURPLE };
 		build();
 	}
 
 	private void build() {
 		this.setLayout(new GridBagLayout());
 
-		JLabel instructions = new JLabel(
-				"Select your secret code by clicking through the colors bellow: ");
+		JLabel instructions = new JLabel("Create your secret code bellow,\n"
+				+ " to select the desired colors click each button"
+				+ " multiple times until the desired color is there");
+		
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
@@ -80,15 +82,15 @@ public class CodeMakerPanel extends JPanel implements Observer {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try{
+				try {
 					getSecret();
 					gameController.setSecretCode(secret);
 					System.out.println("Code is valid");
 					gameController.stageDone(CodeMakerPanel.this);
-				}catch(IllegalArgumentException ex){
+				} catch (IllegalArgumentException ex) {
 					JOptionPane
-					.showMessageDialog(CodeMakerPanel.this,
-							"The Code you tried to submit is not valid, please try again");
+							.showMessageDialog(CodeMakerPanel.this,
+									"The Code you tried to submit is not valid, please try again");
 				}
 			}
 
@@ -134,7 +136,6 @@ public class CodeMakerPanel extends JPanel implements Observer {
 
 		return gridButton;
 	}
-	
 
 	private Code getSecret() {
 		secret = new Code(code);
@@ -143,12 +144,12 @@ public class CodeMakerPanel extends JPanel implements Observer {
 
 	@Override
 	public void register() {
-		//UNUSED
+		// UNUSED
 	}
 
 	@Override
 	public void notifyChange() {
-		//UNUSED
+		// UNUSED
 	}
 
 }
