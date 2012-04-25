@@ -35,7 +35,11 @@ public class GameNotStarted implements IGameState {
 		}
 		this.theModel.setGuessInterval(guessInterval);
 		this.theModel.setGuessesAllowed(gameGuesses);
-		this.theModel.setCodeMaker(codeMaker);
+		
+		if(null != codeMaker)
+		{
+			this.theModel.setCodeMaker(codeMaker);
+		}
 	}
 
 	@Override
