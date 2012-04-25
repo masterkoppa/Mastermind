@@ -85,5 +85,8 @@ public interface IGameController {
 							ComputerGuessBehavior guessStrategy, 
 							int guessInterval);
 	
+	/**
+	 * Sends a signal to the Game Model to let it know that the game is over.
+	 */
 	public void triggerNewGame();
 }
