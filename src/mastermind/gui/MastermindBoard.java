@@ -34,8 +34,7 @@ public class MastermindBoard extends JPanel implements Observer {
 	public MastermindBoard(PlayList model) {
 		data = model;
 		rows = new ArrayList<Row>();
-		availableColors = new ColorPeg[] {ColorPeg.BLUE,
-				ColorPeg.GREEN, ColorPeg.RED, ColorPeg.YELLOW, ColorPeg.PURPLE };
+		availableColors = ColorPeg.values();
 		this.register();
 		
 	}
