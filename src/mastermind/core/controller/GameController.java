@@ -160,7 +160,10 @@ public class GameController implements IGameController, Observer {
 	}
 	
 	public void startAI() {
-		
+		computerCodebreaker = new ComputerCodebreaker(this.game.getGuessInterval() * 1000,
+				this.game.getGuessStrategy());
+		computerCodebreaker.start();
+		this.game.setCodeBreakerAsAI(true);
 	}
 
 	@Override
