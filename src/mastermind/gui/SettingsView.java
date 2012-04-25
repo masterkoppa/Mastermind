@@ -101,10 +101,12 @@ public class SettingsView extends JPanel {
 					Boolean codebreakerIsComputer = compCodebreaker.isSelected();
 					
 					String difficultyString = compCodebreakerSelect.getSelectedItem().toString();
-					ComputerGuessBehavior behavior = new RandomGuess(controller);;
+					ComputerGuessBehavior behavior = null;
 					
-					if (difficultyString == "Random") {
-						behavior = new RandomGuess(controller);
+					if (codebreakerIsComputer) {
+						if (difficultyString == "Random") {
+							behavior = new RandomGuess(controller);
+						}
 					}
 					
 					int interval = guessIntervalSlider.getValue();
