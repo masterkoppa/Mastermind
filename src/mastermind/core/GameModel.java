@@ -117,6 +117,7 @@ public class GameModel extends Observable {
 			throw new IllegalArgumentException();
 		
 		this.codemaker = c;
+		super.dataChanged();
 	}
 	
 	/**
@@ -137,6 +138,7 @@ public class GameModel extends Observable {
 			throw new IllegalArgumentException();
 		
 		this.mode = mode;
+		super.dataChanged();
 	}
 	
 	/**
@@ -158,6 +160,7 @@ public class GameModel extends Observable {
 			throw new IllegalArgumentException();
 		
 		this.secretCode = c;
+		super.dataChanged();
 	}
 	
 	public Code getSecretCode() {
@@ -169,6 +172,7 @@ public class GameModel extends Observable {
 			throw new IllegalArgumentException();
 		
 		this.guessInterval = guessInterval;
+		super.dataChanged();
 	}
 	
 	public int getGuessInterval() {
@@ -184,6 +188,7 @@ public class GameModel extends Observable {
 			throw new IllegalArgumentException();
 		
 		this.guessesAllowed = numGuesses;
+		super.dataChanged();
 	}
 	
 	public int getGuessesAllowed(){
@@ -239,6 +244,7 @@ public class GameModel extends Observable {
 			throw new IllegalArgumentException();
 		
 		this.guessStrategy = strategy;
+		super.dataChanged();
 	}
 	
 	/**

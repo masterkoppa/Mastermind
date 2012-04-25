@@ -135,6 +135,7 @@ public class GameController implements IGameController, Observer {
 
 		this.executeCommand(play);
 		
+		//Once first guess has happened, move the game to GameInProgress
 		if(this.dataBackend.getNumGuesses() == 1)
 			this.state = new GameInProgress();
 	}
@@ -214,5 +215,6 @@ public class GameController implements IGameController, Observer {
 		
 		this.state.setSettings(gameGuesses, codeMaker, mode, guessStrategy, guessInterval);
 		this.state = new SettingsSelected(this.game);
+		this.dataBackend = new PlayList(gameGuesses);
 	}
 }

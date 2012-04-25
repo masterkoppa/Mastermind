@@ -1,12 +1,14 @@
 import java.awt.Color;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import mastermind.core.Code;
 import mastermind.core.GameModel;
+import mastermind.core.IGameState;
 import mastermind.core.PlayList;
 import mastermind.core.controller.*;
 import mastermind.gui.*;
@@ -29,6 +31,7 @@ public class Mastermind implements INotifiable, Observer {
 
 	// GUI Components
 	private JFrame mainWindow;
+	private JPanel currentView;
 	private SettingsView settings;
 	private CodeMakerPanel codemakerView;
 	private MastermindMain mainView;
@@ -36,8 +39,8 @@ public class Mastermind implements INotifiable, Observer {
 	// Data Models
 	private PlayList playListModel;
 	private GameModel theGame;
-	
-	private boolean trigger = false;
+	private IGameState currentState;
+	private ViewFactory factory;
 
 	// Controllers
 	private IGameController mainController;
@@ -56,15 +59,33 @@ public class Mastermind implements INotifiable, Observer {
 	 * player and logger options.
 	 */
 	public Mastermind() {
-		state = 0; // Set the state as 0 to start
+		//state = 0; // Set the state as 0 to start
 
 		// Set up any constants through this run
 		windowTitle = "Mastermind";
-
+		this.buildNewGame();
+	}
+	
+	/**
+	 * Initializes all game data
+	 */
+	private void buildNewGame() {
+		boolean logging = false;
+		
+		if(null != this.theGame)
+			logging = this.theGame.isLoggingEnabled();
+			
 		// Initialize the main game model, this model is persistent
 		// through all the games
-		theGame = new GameModel();
-		theGame.register(this);
+		this.theGame = new GameModel();
+		
+		if(logging)
+			this.theGame.enableLogging();
+		
+		this.mainController = new GameController(this.theGame, null);
+		this.theGame.register(this);
+		this.currentState = mainController.getGameState();
+		this.factory = new ViewFactory(this.mainController, this);
 	}
 
 	/**
@@ -92,7 +113,7 @@ public class Mastermind implements INotifiable, Observer {
 		});
 
 		// Start by showing the settings window
-		showSettings();
+		showViewForState();
 	}
 
 	/**
@@ -153,6 +174,23 @@ public class Mastermind implements INotifiable, Observer {
 		// Validate the new window contents
 		mainWindow.validate();
 	}
+	
+	private void showViewForState() {
+		// Build the view
+		JPanel nextView = factory.getViewForState();
+
+		// Change the panel
+		if(this.currentView != null)
+			mainWindow.remove(this.currentView);
+		
+		mainWindow.add(nextView);
+
+		// Validate the new window contents
+		mainWindow.validate();
+		
+		//Set current state to the newest game state
+		this.currentState = this.mainController.getGameState();
+	}
 
 	/**
 	 * Code to automatically detect the look and feel from the system. If the
@@ -202,23 +240,7 @@ public class Mastermind implements INotifiable, Observer {
 
 	@Override
 	public void Notify() {
-
-		state = (state + 1) % 3;
-
-		switch (state) {
-		case 0:
-			System.out.println("Settings Page");
-			showSettings();
-			break;
-		case 1:
-			System.out.println("Codemakers Page");
-			showCodeMaker();
-			break;
-		case 2:
-			System.out.println("Codebreakers Page");
-			showCodeBreaker();
-			break;
-		}
+		
 	}
 	
 	/**
@@ -239,12 +261,19 @@ public class Mastermind implements INotifiable, Observer {
 
 	@Override
 	public void notifyChange() {
-		if(theGame.isCodeMakerDone() && !trigger){
+		/*if(theGame.isCodeMakerDone() && !trigger){
 			System.out.println("Got the change, code maker is done");
 			trigger = true;
 			showCodeBreaker();
-		}
+		}*/
 		
+		if(null != this.theGame && this.theGame.isGameOver())
+		{
+			this.buildNewGame();
+			this.showViewForState();
+		}
+		else if(!this.currentState.equals(this.mainController.getGameState()))
+			this.showViewForState();
 	}
 
 }
