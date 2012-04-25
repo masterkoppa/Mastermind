@@ -345,17 +345,18 @@ public class ConsoleUi implements Observer {
 	 * 
 	 * @param title
 	 */
-	private void printBoxedTitle(String title) {
+	private void printBoxedTitle(String title)
+	{
 		StringBuffer buffer = new StringBuffer(title.length() * 3 + 12);
-		buffer.append("â”Œ");
+		buffer.append('*');
 		for (int i = 0; i < title.length(); i++)
-			buffer.append("â”€");
-		buffer.append("â”�\r\nâ”‚");
+			buffer.append('*');
+		buffer.append("*\r\n*");
 		buffer.append(title);
-		buffer.append("â”‚\r\nâ””");
+		buffer.append("*\r\n*");
 		for (int i = 0; i < title.length(); i++)
-			buffer.append("â”€");
-		buffer.append("â”˜\r\n");
+			buffer.append('*');
+		buffer.append("*\r\n");
 
 		System.out.print(buffer.toString());
 	}
