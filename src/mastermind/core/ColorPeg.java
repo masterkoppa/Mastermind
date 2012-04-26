@@ -42,17 +42,18 @@ public enum ColorPeg {
 	public Color getColor() {
 		return ColorForGUI;
 	}
-	
+
 	/**
-	 * Returns a color peg based on the short code sent in, useful for
-	 * the command line interface.
+	 * Returns a color peg based on the short code sent in, useful for the
+	 * command line interface.
 	 * 
-	 * @param color The color 
-	 * @return 
+	 * @param color
+	 *            The color
+	 * @return
 	 */
 	public static ColorPeg valueFromConsole(String color) {
-		for(ColorPeg i :ColorPeg.values()){
-			if(i.getShortName().equalsIgnoreCase(color)){
+		for (ColorPeg i : ColorPeg.values()) {
+			if (i.getShortName().equalsIgnoreCase(color)) {
 				return i;
 			}
 		}

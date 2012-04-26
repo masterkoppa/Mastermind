@@ -6,15 +6,14 @@ import mastermind.core.controller.IGameController;
 public class ComputerCodemaker implements ICodemaker {
 
 	IGameController theController;
-	
-	public ComputerCodemaker(IGameController controller)
-	{
-		if(null == controller)
+
+	public ComputerCodemaker(IGameController controller) {
+		if (null == controller)
 			throw new IllegalArgumentException();
-		
+
 		theController = controller;
 	}
-	
+
 	@Override
 	public void setSecretCode() {
 		
@@ -26,15 +25,13 @@ public class ComputerCodemaker implements ICodemaker {
 			try
 			{	
 				Code c = Code.Random();
+
 				theController.setSecretCode(c);
 				validCode = true;
-			}
-			catch(IllegalArgumentException iae)
-			{
+			} catch (IllegalArgumentException iae) {
 				validCode = false;
 			}
-		}
-		while(!validCode);
+		} while (!validCode);
 	}
-	
+
 }

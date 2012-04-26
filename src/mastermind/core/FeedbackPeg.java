@@ -26,8 +26,8 @@ public enum FeedbackPeg {
 	public String getName() {
 		return this.name;
 	}
-	
-	public String getShortCode(){
+
+	public String getShortCode() {
 		return this.shortName;
 	}
 }

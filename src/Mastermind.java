@@ -7,12 +7,11 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import mastermind.core.Code;
+import mastermind.core.ColorPeg;
 import mastermind.core.GameModel;
 import mastermind.core.IGameState;
-import mastermind.core.PlayList;
 import mastermind.core.controller.*;
 import mastermind.gui.*;
-import mastermind.interfaces.INotifiable;
 import mastermind.interfaces.Observer;
 
 /**
@@ -21,9 +20,9 @@ import mastermind.interfaces.Observer;
  * Main class that takes care of initializing and setting up the program
  * 
  * @author Andres J Ruiz(ajr2546@rit.edu)
- *
+ * 
  */
-public class Mastermind implements INotifiable, Observer {
+public class Mastermind implements Observer {
 
 	// Constants
 	// for easy access
@@ -32,12 +31,8 @@ public class Mastermind implements INotifiable, Observer {
 	// GUI Components
 	private JFrame mainWindow;
 	private JPanel currentView;
-	private SettingsView settings;
-	private CodeMakerPanel codemakerView;
-	private MastermindMain mainView;
 
 	// Data Models
-	private PlayList playListModel;
 	private GameModel theGame;
 	private IGameState currentState;
 	private ViewFactory factory;
@@ -46,46 +41,43 @@ public class Mastermind implements INotifiable, Observer {
 	private IGameController mainController;
 
 	/**
-	 * The state of the game
-	 * 
-	 * 0 for the settings page 1 for the codemakers page 2 for the codebreakers
-	 * page
-	 */
-	private int state;
-
-	/**
 	 * Sets up the gui and controller. First view opened will populate the
 	 * secret code for the game. Second view will contain the board and computer
 	 * player and logger options.
 	 */
 	public Mastermind() {
-		//state = 0; // Set the state as 0 to start
+		// state = 0; // Set the state as 0 to start
 
 		// Set up any constants through this run
 		windowTitle = "Mastermind";
 		this.buildNewGame();
 	}
-	
+
 	/**
 	 * Initializes all game data
 	 */
 	private void buildNewGame() {
 		boolean logging = false;
-		
-		if(null != this.theGame)
+
+		if (null != this.theGame)
 			logging = this.theGame.isLoggingEnabled();
-			
+
 		// Initialize the main game model, this model is persistent
 		// through all the games
 		this.theGame = new GameModel();
-		
-		if(logging)
+
+		if (logging)
 			this.theGame.enableLogging();
-		
+
+		if (this.theGame.getCodeMaker() == null) {
+			ColorPeg[] pegs = Code.Random().getPegs();
+			this.theGame.setSecretCode(new Code(pegs));
+		}
+
 		this.mainController = new GameController(this.theGame, null);
 		this.theGame.register(this);
 		this.currentState = mainController.getGameState();
-		this.factory = new ViewFactory(this.mainController, this);
+		this.factory = new ViewFactory(this.mainController);
 	}
 
 	/**
@@ -117,83 +109,26 @@ public class Mastermind implements INotifiable, Observer {
 	}
 
 	/**
-	 * Show the settings page.
-	 * 
-	 * This method will remove the window in the previous step, if there was 
-	 * a previous step and show the settings window. To grab the information from
-	 * it use settings
+	 * Spawns and switches views based on the state of the game
 	 */
-	@Deprecated
-	private void showSettings() {
-		// If a previous game was played nuke it
-		if (mainView != null)
-			mainWindow.remove(mainView.getView());
-		
-		//Setup the settings view
-		playListModel = new PlayList(10);
-		mainController = new GameController(theGame, playListModel);
-		settings = new SettingsView(this, mainController);
-		
-		//Change the panel
-		mainWindow.add(settings);
-		mainWindow.validate();
-	}
-
-	/**
-	 * Get secret and set up gui with look and feel specific to operating system
-	 * being used.
-	 */
-	@Deprecated
-	private void showCodeMaker() {
-
-		// Build the view
-		codemakerView = new CodeMakerPanel(mainController);
-
-		// Change the panel
-		mainWindow.remove(settings);
-		mainWindow.add(codemakerView);
-
-		// Validate the new window contents
-		mainWindow.validate();
-
-	}
-
-	/**
-	 * Shows the CodeBreaker window and board
-	 */
-	@Deprecated
-	private void showCodeBreaker() {
-		// Get the secret code
-		//secret = codemakerView.getSecret();
-
-		// Build the controller and the view
-		mainView = new MastermindMain(mainController, playListModel, theGame,
-				this);
-
-		// Change the panel
-		mainWindow.remove(codemakerView);
-		mainWindow.add(mainView.getView());
-
-		// Validate the new window contents
-		mainWindow.validate();
-	}
-	
 	private void showViewForState() {
+		System.out.println("Showing view for state");
+
 		// Build the view
 		JPanel nextView = factory.getViewForState();
 
 		// Change the panel
-		if(this.currentView != null)
+		if (this.currentView != null)
 			mainWindow.remove(this.currentView);
-		
+
 		mainWindow.add(nextView);
-		
+
 		this.currentView = nextView;
 
 		// Validate the new window contents
 		mainWindow.validate();
-		
-		//Set current state to the newest game state
+
+		// Set current state to the newest game state
 		this.currentState = this.mainController.getGameState();
 	}
 
@@ -207,7 +142,7 @@ public class Mastermind implements INotifiable, Observer {
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				// AWESOMENESS GOING ON HERE!!
-				
+
 				// FOR TESTING Use this as an example to change the color scheme
 				// see:
 				// http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/_nimbusDefaults.html#primary
@@ -243,11 +178,6 @@ public class Mastermind implements INotifiable, Observer {
 		}
 	}
 
-	@Override
-	public void Notify() {
-		
-	}
-	
 	/**
 	 * Kicks the program off by creating the Main container for the gui and
 	 * system.
@@ -260,25 +190,18 @@ public class Mastermind implements INotifiable, Observer {
 
 	@Override
 	public void register() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void notifyChange() {
-		/*if(theGame.isCodeMakerDone() && !trigger){
-			System.out.println("Got the change, code maker is done");
-			trigger = true;
-			showCodeBreaker();
-		}*/
-		
-		if(null != this.theGame && this.theGame.isGameOver())
-		{
+		if (null != this.theGame && this.theGame.isGameOver()) {
 			this.buildNewGame();
 			this.showViewForState();
-		}
-		else if(!this.currentState.equals(this.mainController.getGameState()))
+		} else if (!this.currentState
+				.equals(this.mainController.getGameState())) {
 			this.showViewForState();
+		}
 	}
 
 }

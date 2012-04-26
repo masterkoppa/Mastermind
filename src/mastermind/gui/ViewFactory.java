@@ -7,39 +7,48 @@ import mastermind.core.SettingsSelected;
 import mastermind.core.SecretCodeSet;
 import mastermind.core.IGameState;
 import mastermind.core.controller.IGameController;
-import mastermind.interfaces.INotifiable;
 
+/**
+ * This class provides access to factory methods for generating GUI JPanels for
+ * the system.
+ * 
+ * @author Andrew Church
+ * 
+ */
 public class ViewFactory {
-	
+
 	private IGameController theController;
-	private INotifiable theFrame;
-	
-	public ViewFactory(IGameController controller, INotifiable frame)
-	{
-		if(null == controller)
+
+	public ViewFactory(IGameController controller) {
+		if (null == controller)
 			throw new IllegalArgumentException();
-		
-		if(null == frame)
-			throw new IllegalArgumentException();
-		
+
 		this.theController = controller;
-		this.theFrame = frame;
 	}
-	
+
 	/**
-	 * This method is a factory method to return the correct JPanel for the given state of the game
-	 * @return
+	 * This method is a factory method to return the correct JPanel for the
+	 * given state of the game
+	 * 
+	 * @return The JPanel representing the view that needs to be shown according
+	 *         to the current state of the game
 	 */
-	public JPanel getViewForState()
-	{
+	public JPanel getViewForState() {
 		IGameState theState = theController.getGameState();
+
+		if (theState instanceof GameNotStarted) {
+			return new SettingsView(this.theController);
+		} else if (theState instanceof SettingsSelected) {
 			
-		if(theState instanceof GameNotStarted)
-			return new SettingsView(this.theFrame, this.theController);
-		else if(theState instanceof SettingsSelected)
-			return new CodeMakerPanel(this.theController);
-		else if(theState instanceof SecretCodeSet)
-			return new MastermindMain(this.theController, this.theFrame).getView();
+			if (theController.isCodemakerComputer()) {
+				return new MastermindMain(this.theController).getView();
+			} else {
+				return new CodeMakerPanel(this.theController);
+			}
+			
+		} else if (theState instanceof SecretCodeSet) {
+			return new MastermindMain(this.theController).getView();
+		}
 		
 		throw new IllegalStateException();
 	}

@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -18,71 +19,66 @@ import mastermind.core.ColorPeg;
 import mastermind.core.GameModel;
 import mastermind.core.PlayList;
 import mastermind.core.controller.IGameController;
-import mastermind.interfaces.INotifiable;
 import mastermind.interfaces.Observer;
 
-public class MastermindMain  extends JPanel implements Observer{
+public class MastermindMain extends JPanel implements Observer {
 
+	/**
+	 * Generated serial version uid
+	 */
+	private static final long serialVersionUID = 5305973473048673792L;
 	// MODELS AND CONTROLLERS
 	private PlayList dataBackend;
 	private GameModel currentGame;
 	private IGameController controller;
-	private INotifiable mainGame;
 	private boolean newGameSelected;
+	
+	// Make this static to make sure no one tries to make more than one popup
+	private static AtomicInteger popupCount;
 	private boolean gameIsOver;
-
+	
 	// GUI VARIABLES
 	private MastermindBoard board;
 	private JButton submit;
 	private JButton undo;
 	private JButton newGame;
+	private JCheckBox logging;
 
-	@Deprecated
-	public MastermindMain(IGameController controller, PlayList model,
-			GameModel theGame, INotifiable mainGame) {
-		this.dataBackend = model;
-		this.currentGame = theGame;
-		this.controller = controller;
-		this.newGameSelected = false;
-		this.mainGame = mainGame;
-
-		this.setLayout(new BorderLayout());
-
-		board = new MastermindBoard(model);
-		JScrollPane boardContainer = new JScrollPane(board);
-		
-
-		this.add(boardContainer, BorderLayout.CENTER);
-		this.add(this.generateOptions(), BorderLayout.EAST);
-
-		// Register after initializing everything
-		this.register();
-		
-		if(null != this.currentGame.getGuessStrategy())
-			this.controller.startAI();
-	}
-	
-	public MastermindMain(IGameController controller, INotifiable theFrame) {
+	public MastermindMain(IGameController controller) {
 		this.dataBackend = controller.getPlaylist();
 		this.currentGame = controller.getGameModel();
 		this.controller = controller;
 		this.newGameSelected = false;
-		this.mainGame = theFrame;
+		this.gameIsOver = false;
 
 		this.setLayout(new BorderLayout());
 
 		board = new MastermindBoard(this.dataBackend);
 		JScrollPane boardContainer = new JScrollPane(board);
-		
 
 		this.add(boardContainer, BorderLayout.CENTER);
 		this.add(this.generateOptions(), BorderLayout.EAST);
 
 		// Register after initializing everything
 		this.register();
-		
-		if(null != this.currentGame.getGuessStrategy())
+
+		MastermindMain.popupCount = new AtomicInteger(0);
+
+		if (null != this.currentGame.getGuessStrategy())
 			this.controller.startAI();
+		
+		//If the codebreaker is ai disable the submit button
+		if(this.currentGame.isCodeBreakerAI()){
+			submit.setEnabled(false);
+		}
+		
+		//If the logging was selected before, mark it as enabled
+		
+		if(this.currentGame.isLoggingEnabled()){
+			logging.setSelected(true);
+		}
+		
+		//System.out.println("MainView Created()");
 	}
 
 	@Override
@@ -111,10 +107,12 @@ public class MastermindMain  extends JPanel implements Observer{
 	 * 
 	 * @param winningMessage
 	 */
-	private void showWinningMessage(String winningMessage) {
-		if (gameIsOver != true)
+	private synchronized void showWinningMessage(String winningMessage) {
+		System.out.println("Called");
+		if (!gameIsOver && MastermindMain.popupCount.getAndAdd(1) == 0) {
 			JOptionPane.showMessageDialog(this, winningMessage);
-		gameIsOver = true;
+			gameIsOver = true;
+		}
 	}
 
 	/**
@@ -170,7 +168,7 @@ public class MastermindMain  extends JPanel implements Observer{
 
 		});
 
-		JCheckBox logging = new JCheckBox("Logging Enabled");
+		logging = new JCheckBox("Logging Enabled");
 
 		logging.addActionListener(new ActionListener() {
 
@@ -186,8 +184,6 @@ public class MastermindMain  extends JPanel implements Observer{
 			}
 		});
 
-		
-
 		// Setup the gridbag layout options
 		GridBagConstraints c = new GridBagConstraints();
 
@@ -201,9 +197,8 @@ public class MastermindMain  extends JPanel implements Observer{
 		// Button Panel Settings
 		c.gridx = 0;
 		c.gridy = 1;
-		c.insets = new Insets(0,0,0,0);
-		
-		
+		c.insets = new Insets(0, 0, 0, 0);
+
 		buttonPanel.add(submit);
 		buttonPanel.add(undo);
 		options.add(buttonPanel, c);

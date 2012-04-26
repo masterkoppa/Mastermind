@@ -1,5 +1,11 @@
 package mastermind.interfaces;
 
+/**
+ * Interface for the Observable Pattern
+ * 
+ * @author Andres J Ruiz(ajr2546@rit.edu)
+ *
+ */
 public interface Observer {
 
 	/**

@@ -57,7 +57,7 @@ public class ProvideFeedbackCommand implements ICommand {
 
 		if (f.isGameOver())
 			this.theGame.declareWinner(GameWinner.CODEBREAKER);
-		else if (this.guesses.getLastPlayIndex() == 9)
+		else if (this.guesses.getLastPlayIndex() == theGame.getGuessesAllowed() - 1)
 			this.theGame.declareWinner(GameWinner.CODEMAKER);
 	}
 

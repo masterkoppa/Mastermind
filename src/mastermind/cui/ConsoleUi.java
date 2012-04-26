@@ -70,6 +70,7 @@ public class ConsoleUi implements Observer {
 		playGame();
 	}
 
+	@SuppressWarnings("deprecation")
 	private void playGame() {
 		boolean secretCodeSubmitted = false;
 
@@ -84,9 +85,32 @@ public class ConsoleUi implements Observer {
 		} while (!secretCodeSubmitted);
 
 		// Start asking the user for input
-
 		for (int i = 0; i < MAX_NUMBER_OF_GUESSES; i++) {
+			// Prepare the timeout timer
+			Thread timer = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					synchronized (this) {
+						try {
+							this.wait(30000);
+						} catch (InterruptedException e) {
+						}
+						theGame.triggerNewGame();
+					}
+				}
+			});
+
+			timer.start();
+
 			String[] code = getCode("Guess #" + (i + 1), Code.NUM_OF_PEGS);
+
+			// This means that the timer ran out
+			if (code == null) {
+				break;
+			}
+
+			timer.stop();
 
 			Code guess = this.stringArrayToCode(code);
 
@@ -131,7 +155,25 @@ public class ConsoleUi implements Observer {
 				}
 			}
 
+			if (theGame.isGameOver()) {
+				break;
+			}
+
 		}
+
+		System.out.println();
+		System.out.println();
+		System.out.println("The game is over, what would you like to do know?");
+		System.out.print("(New, Restart, Exit)");
+
+		try {
+			String input = (new BufferedReader(new InputStreamReader(System.in)))
+					.readLine();
+		} catch (IOException e) {
+		}
+
+		// Temp, while we get everything working fine
+		System.out.println("Goodbye!");
 
 		// If computer player -- Start timer and listen.
 		// If human -- prompt for guess
@@ -194,6 +236,9 @@ public class ConsoleUi implements Observer {
 	private String[] getCode(String titleText, int numOfPegs) {
 		String[] code;
 		for (;;) {
+			if (theGame.isGameOver()) {
+				return null;
+			}
 			System.out.println();
 			System.out.println(titleText);
 			System.out.println();
@@ -229,13 +274,84 @@ public class ConsoleUi implements Observer {
 		return code;
 	}
 
+	/**
+	 * Get the secret code in a way that no one can see it, eclipse doesn't like
+	 * this so make sure to disable that when in development mode.
+	 * 
+	 * @param titleText
+	 *            The text to show before asking the uses for the code
+	 * @param numOfPegs
+	 *            The number of pegs to accept
+	 * @return A string array containing the user input, the receiving method
+	 *         must take care of validating this and what not.
+	 */
+	private String[] getHiddenCode(String titleText, int numOfPegs) {
+		String[] code;
+		for (;;) {
+			System.out.println();
+			System.out.println(titleText);
+			System.out.println();
+
+			System.out.println();
+			System.out.print("Enter a " + numOfPegs
+					+ " peg code(Ex:rd rd gr gr): ");
+
+			try {
+				Console c;
+				char[] secret;
+				String input = "";
+
+				if ((c = System.console()) != null
+						&& (secret = c.readPassword()) != null) {
+					input = String.valueOf(secret);
+				}
+
+				if (input == null || input.isEmpty()) {
+					continue;
+				}
+
+				code = input.split(" ");
+
+			} catch (Exception ex) {
+				continue;
+			}
+
+			boolean valid = true;
+			if (code.length > numOfPegs) {
+				valid = false;
+			}
+
+			for (String a : code) {
+				if (!this.availableColors.contains(a))
+					valid = false;
+			}
+
+			if (!valid) {
+				System.out
+						.println("\r\nInvalid option. Please enter a valid number.");
+				continue;
+			}
+
+			break;
+		}
+
+		return code;
+	}
+
+	/**
+	 * Set the secret code and get it from the used through getHiddenCode()
+	 */
 	private void setSecretCode() {
 		ICodemaker codeMaker = this.theGame.getCodeMaker();
 		String[] inputcode = null;
 		if (codeMaker != null) {
 			codeMaker.setSecretCode();
 		} else {
+			// Use this line for the testing version
 			inputcode = getCode("Set Secret Code!", Code.NUM_OF_PEGS);
+			// Use this line for the final version
+			// inputcode = getHiddenCode("Set the secret code!",
+			// Code.NUM_OF_PEGS);
 		}
 
 		Code code = this.stringArrayToCode(inputcode);
@@ -250,15 +366,15 @@ public class ConsoleUi implements Observer {
 	 */
 	private void printBoxedTitle(String title) {
 		StringBuffer buffer = new StringBuffer(title.length() * 3 + 12);
-		buffer.append("â”Œ");
+		buffer.append('*');
 		for (int i = 0; i < title.length(); i++)
-			buffer.append("â”€");
-		buffer.append("â”�\r\nâ”‚");
+			buffer.append('*');
+		buffer.append("*\r\n*");
 		buffer.append(title);
-		buffer.append("â”‚\r\nâ””");
+		buffer.append("*\r\n*");
 		for (int i = 0; i < title.length(); i++)
-			buffer.append("â”€");
-		buffer.append("â”˜\r\n");
+			buffer.append('*');
+		buffer.append("*\r\n");
 
 		System.out.print(buffer.toString());
 	}
@@ -355,6 +471,20 @@ public class ConsoleUi implements Observer {
 			}
 		}
 
+		if (theGame.isGameOver()) {
+			// If the game was triggered as new(timeout) then the game will exit
+			if (theGame.getWinner() == null) {
+				// Make some space to account for weird cmd
+				// formatting
+				System.out.println();
+				System.out.println();
+				System.out.println("The user has timed out...");
+				System.out.println("The system will now exit, goodbye!");
+				System.exit(1);
+			} else {
+				System.out.println(theGame.getWinningMessage());
+			}
+		}
 	}
 
 }

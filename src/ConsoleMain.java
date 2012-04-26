@@ -1,6 +1,5 @@
 import mastermind.cui.ConsoleUi;
 
-
 public class ConsoleMain {
 
 	/**

@@ -28,10 +28,13 @@ public interface IGameController {
 	 * commands. After creation, this will execute the commands.
 	 */
 	public void submitGuess(ColorPeg[] code);
-	
+
 	/**
 	 * Sets the secret code to that of the arguments
-	 * @param code The secret code to set, if the code is invalid this will throw a illegal argument exception, catch it and try again.
+	 * 
+	 * @param code
+	 *            The secret code to set, if the code is invalid this will throw
+	 *            a illegal argument exception, catch it and try again.
 	 */
 	public void setSecretCode(Code code);
 
@@ -53,46 +56,56 @@ public interface IGameController {
 	 * the game back one move.
 	 */
 	public void undoCommand();
-	
+
 	/**
-	 * Notifies the controller that this view is done, and that the game should proceed.
+	 * Notifies the controller that this view is done, and that the game should
+	 * proceed.
+	 * 
 	 * @param e
 	 */
 	public void stageDone(Observer e);
-	
+
 	/**
 	 * Method to expose the GameModel class
 	 */
 	public GameModel getGameModel();
-	
+
 	/**
 	 * Gets the current state of the game
+	 * 
 	 * @return
 	 */
 	public IGameState getGameState();
-	
+
 	/**
 	 * Method to get the playlist model
+	 * 
 	 * @return
 	 */
 	public PlayList getPlaylist();
-	
+
 	/**
 	 * Method to accept data from views for setting the initial game settings
+	 * 
 	 * @param gameGuesses
 	 * @param codeMakerIsComputer
 	 * @param mode
 	 * @param codeBreakerIsComputer
 	 * @param guessInterval
 	 */
-	public void setSettings(int gameGuesses, 
-							boolean codeMakerIsComputer,
-							IGameMode mode,
-							ComputerGuessBehavior guessStrategy, 
-							int guessInterval);
-	
+	public void setSettings(int gameGuesses, boolean codeMakerIsComputer,
+			IGameMode mode, ComputerGuessBehavior guessStrategy,
+			int guessInterval);
+
 	/**
 	 * Sends a signal to the Game Model to let it know that the game is over.
 	 */
 	public void triggerNewGame();
+
+	/**
+	 * Check if the Codemaker is a computer player.
+	 * 
+	 * @return Boolean true if the codemaker is a human, false otherwise.
+	 */
+	public Boolean isCodemakerComputer();
 }
