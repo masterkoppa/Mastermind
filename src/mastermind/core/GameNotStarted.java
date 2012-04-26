@@ -4,6 +4,13 @@ import mastermind.core.codebreaker.ComputerGuessBehavior;
 import mastermind.core.codemaker.ICodemaker;
 import mastermind.core.modes.IGameMode;
 
+/**
+ * The GameNotStarted concrete state class represents the state in which the game has not been started.
+ * In this state, settings may be set
+ * 
+ * @author Andrew Church
+ *
+ */
 public class GameNotStarted implements IGameState {
 
 	private GameModel theModel;
