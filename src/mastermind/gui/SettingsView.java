@@ -16,7 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerListModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -45,7 +47,7 @@ public class SettingsView extends JPanel {
 	private JComboBox modeSelect;
 	private JComboBox compCodebreakerSelect;
 	private JSlider guessIntervalSlider;
-	private JTextField numGuessesField;
+	private JSpinner numGuessesField;
 
 	private GridBagConstraints c;
 
@@ -81,7 +83,7 @@ public class SettingsView extends JPanel {
 		next = new JButton("NEXT");
 		this.add(next, BorderLayout.SOUTH);
 		this.add(settingsWindow, BorderLayout.CENTER);
-
+		
 		next.addActionListener(new ActionListener() {
 
 			@Override
@@ -96,10 +98,20 @@ public class SettingsView extends JPanel {
 					} else {
 						gameMode = new ExpertMode();
 					}
-
+					
 					boolean codemakerIsComputer = compCodemaker.isSelected();
 					boolean codebreakerIsComputer = compCodebreaker
 							.isSelected();
+					
+					//Check that the codemaker is actually selected
+					if(!codemakerIsComputer && !humanCodemaker.isSelected()){
+						throw new IllegalStateException("You need to select a code maker");
+					}
+					
+					//Check that the codebreaker is actually selected
+					if(!codebreakerIsComputer && !humanCodebreaker.isSelected()){
+						throw new IllegalStateException("You need to select a code breaker");
+					}
 
 					String difficultyString = compCodebreakerSelect
 							.getSelectedItem().toString();
@@ -112,7 +124,7 @@ public class SettingsView extends JPanel {
 					}
 
 					int interval = guessIntervalSlider.getValue();
-					int numGuesses = Integer.parseInt(numGuessesField.getText());
+					int numGuesses = Integer.parseInt(numGuessesField.getValue().toString());
 
 					System.out.println("Game mode: " + gameModeString);
 					System.out.println("Codemaker computer? "
@@ -133,6 +145,10 @@ public class SettingsView extends JPanel {
 				}
 			}
 		});
+		
+		//Disable the computer options by default
+		compCodebreakerSelect.setEnabled(false);
+		guessIntervalSlider.setEnabled(false);
 	}
 
 	private void buildGameModeRow() {
@@ -216,7 +232,9 @@ public class SettingsView extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (humanCodebreaker.isSelected()) {
-					System.out.println("System is hiding");
+					//System.out.println("System is hiding");
+					compCodebreakerSelect.setEnabled(false);
+					guessIntervalSlider.setEnabled(false);
 				}
 
 			}
@@ -228,8 +246,9 @@ public class SettingsView extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (compCodebreaker.isSelected()) {
-
-					System.out.println("System is showing");
+					compCodebreakerSelect.setEnabled(true);
+					guessIntervalSlider.setEnabled(true);
+					//System.out.println("System is showing");
 				}
 			}
 
@@ -289,7 +308,13 @@ public class SettingsView extends JPanel {
 		settingsWindow.add(numGuessesLabel, c);
 
 		// add the text field for the number of guesses
-		numGuessesField = new JTextField();
+		String[] posibilities = new String[41];
+		for(int i = 0; i < 41; i++){
+			posibilities[i] = Integer.toString(i+10);
+		}
+		SpinnerListModel optionsModel = new SpinnerListModel(posibilities);
+		
+		numGuessesField = new JSpinner(optionsModel);
 		c.gridx = 2;
 		c.gridy = 5;
 		settingsWindow.add(numGuessesField, c);
