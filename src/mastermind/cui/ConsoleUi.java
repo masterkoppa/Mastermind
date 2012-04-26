@@ -346,6 +346,7 @@ public class ConsoleUi implements Observer {
 		String[] inputcode = null;
 		if (codeMaker != null) {
 			codeMaker.setSecretCode();
+			return;
 		} else {
 			// Use this line for the testing version
 			inputcode = getCode("Set Secret Code!", Code.NUM_OF_PEGS);
