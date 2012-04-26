@@ -17,14 +17,15 @@ public class ComputerCodemaker implements ICodemaker {
 	
 	@Override
 	public void setSecretCode() {
-		Code c = Code.Random();
+		
 		
 		Boolean validCode = false;
 		
 		do
 		{
 			try
-			{
+			{	
+				Code c = Code.Random();
 				theController.setSecretCode(c);
 				validCode = true;
 			}
