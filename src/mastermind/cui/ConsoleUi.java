@@ -32,6 +32,8 @@ public class ConsoleUi implements Observer {
 	private PlayList data;
 
 	private boolean waitingState;
+	private boolean codeMakerIsComputer;
+	private boolean codeBreakerIsComputer;
 
 	public ConsoleUi() {
 		this.availableColors = new ArrayList<String>();
@@ -84,101 +86,105 @@ public class ConsoleUi implements Observer {
 			}
 		} while (!secretCodeSubmitted);
 
-		// Start asking the user for input
-		for (int i = 0; i < MAX_NUMBER_OF_GUESSES; i++) {
-			// Prepare the timeout timer
-			Thread timer = new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					synchronized (this) {
-						try {
-							this.wait(30000);
-						} catch (InterruptedException e) {
+		if(this.codeBreakerIsComputer){
+			this.gameController.startAI();
+		}else{
+			// Start asking the user for input
+			for (int i = 0; i < MAX_NUMBER_OF_GUESSES; i++) {
+				// Prepare the timeout timer
+				Thread timer = new Thread(new Runnable() {
+	
+					@Override
+					public void run() {
+						synchronized (this) {
+							try {
+								this.wait(30000);
+							} catch (InterruptedException e) {
+							}
+							theGame.triggerNewGame();
 						}
-						theGame.triggerNewGame();
+					}
+				});
+	
+				timer.start();
+	
+				String[] code = getCode("Guess #" + (i + 1), Code.NUM_OF_PEGS);
+	
+				// This means that the timer ran out
+				if (code == null) {
+					break;
+				}
+	
+				timer.stop();
+	
+				Code guess = this.stringArrayToCode(code);
+	
+				// Since undo isn't required were sending everything through to
+				// the controller.
+				waitingState = true;
+				try {
+					SubmitGuessCommand command = new SubmitGuessCommand(data,
+							guess.getPegs());
+					command.execute();
+				} catch (IOException e) {
+					System.err.println("There was a problem please try some"
+							+ " other time, the program will now exit.");
+					System.exit(2);
+				}
+	
+				try {
+					ProvideFeedbackCommand command = new ProvideFeedbackCommand(
+							theGame, data, theGame.getSecretCode().getPegs());
+					command.execute();
+				} catch (IOException e) {
+					System.err.println("There was a problem please try some"
+							+ " other time, the program will now exit.");
+					System.exit(2);
+				}
+	
+				// Since the Observables dispatch events on a separate thread, to
+				// avoid multiple streams messing with each other, we wait for 1
+				// second
+				synchronized (this) {
+					/*
+					 * We'll try to make sure this is executed in a synchronized
+					 * manner with the rest of the program.
+					 * 
+					 * IDEALLY, while this waits the model should be updated and
+					 * when this wakes up things are back to normal
+					 */
+					try {
+						this.wait(1000);
+					} catch (InterruptedException e) {
+						// GOOD we stop here
 					}
 				}
-			});
-
-			timer.start();
-
-			String[] code = getCode("Guess #" + (i + 1), Code.NUM_OF_PEGS);
-
-			// This means that the timer ran out
-			if (code == null) {
-				break;
-			}
-
-			timer.stop();
-
-			Code guess = this.stringArrayToCode(code);
-
-			// Since undo isn't required were sending everything through to
-			// the controller.
-			waitingState = true;
-			try {
-				SubmitGuessCommand command = new SubmitGuessCommand(data,
-						guess.getPegs());
-				command.execute();
-			} catch (IOException e) {
-				System.err.println("There was a problem please try some"
-						+ " other time, the program will now exit.");
-				System.exit(2);
-			}
-
-			try {
-				ProvideFeedbackCommand command = new ProvideFeedbackCommand(
-						theGame, data, theGame.getSecretCode().getPegs());
-				command.execute();
-			} catch (IOException e) {
-				System.err.println("There was a problem please try some"
-						+ " other time, the program will now exit.");
-				System.exit(2);
-			}
-
-			// Since the Observables dispatch events on a separate thread, to
-			// avoid multiple streams messing with each other, we wait for 1
-			// second
-			synchronized (this) {
-				/*
-				 * We'll try to make sure this is executed in a synchronized
-				 * manner with the rest of the program.
-				 * 
-				 * IDEALLY, while this waits the model should be updated and
-				 * when this wakes up things are back to normal
-				 */
-				try {
-					this.wait(1000);
-				} catch (InterruptedException e) {
-					// GOOD we stop here
+	
+				if (theGame.isGameOver()) {
+					break;
 				}
+	
 			}
-
-			if (theGame.isGameOver()) {
-				break;
+	
+			System.out.println();
+			System.out.println();
+			System.out.println("The game is over, what would you like to do know?");
+			System.out.print("(New, Restart, Exit)");
+	
+			try {
+				String input = (new BufferedReader(new InputStreamReader(System.in)))
+						.readLine();
+			} catch (IOException e) {
 			}
-
+	
+			// Temp, while we get everything working fine
+			System.out.println("Goodbye!");
+	
+			// If computer player -- Start timer and listen.
+			// If human -- prompt for guess
+			// Notified of guess feedback
+			// Prompt for another guess.
 		}
-
-		System.out.println();
-		System.out.println();
-		System.out.println("The game is over, what would you like to do know?");
-		System.out.print("(New, Restart, Exit)");
-
-		try {
-			String input = (new BufferedReader(new InputStreamReader(System.in)))
-					.readLine();
-		} catch (IOException e) {
-		}
-
-		// Temp, while we get everything working fine
-		System.out.println("Goodbye!");
-
-		// If computer player -- Start timer and listen.
-		// If human -- prompt for guess
-		// Notified of guess feedback
-		// Prompt for another guess.
 	}
 
 	/**
@@ -392,7 +398,7 @@ public class ConsoleUi implements Observer {
 	 */
 	private void setSettings() {
 
-		boolean codeMakerIsComputer;
+		
 		IGameMode mode;
 		// If null it means its a computer codebreaker
 		ComputerGuessBehavior computer = null;
@@ -423,6 +429,7 @@ public class ConsoleUi implements Observer {
 		// If the code breaker is a computer, let the user pick the only
 		// possible algorithm
 		if (codeBreaker == 0) {
+			codeBreakerIsComputer = true;
 			algorithm = showMenu(
 					"The codebreaker is a computer, select an algorithm",
 					new Object[] { "random" });
@@ -430,10 +437,8 @@ public class ConsoleUi implements Observer {
 				computer = new RandomGuess(gameController);
 			}
 
-		}
-
-		if (codeBreaker == 0) {
-			this.theGame.setCodeMaker(new ComputerCodemaker(gameController));
+		}else{
+			codeBreakerIsComputer = false;
 		}
 
 		// Generate the mode based on the pick
