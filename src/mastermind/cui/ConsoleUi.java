@@ -33,6 +33,9 @@ public class ConsoleUi implements Observer {
 	private boolean waitingState;
 	
 	private AtomicInteger numberOfWins;
+	
+	private boolean codeMakerIsComputer;
+	private boolean codeBreakerIsComputer;
 
 	public ConsoleUi() {
 		this.availableColors = new ArrayList<String>();
@@ -88,22 +91,26 @@ public class ConsoleUi implements Observer {
 			}
 		} while (!secretCodeSubmitted);
 
-		// Start asking the user for input
-		for (int i = 0; i < MAX_NUMBER_OF_GUESSES; i++) {
-			// Prepare the timeout timer
-			Thread timer = new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					synchronized (this) {
-						try {
-							this.wait(30000);
-						} catch (InterruptedException e) {
+		if(this.codeBreakerIsComputer){
+			this.gameController.startAI();
+		}else{
+			// Start asking the user for input
+			for (int i = 0; i < MAX_NUMBER_OF_GUESSES; i++) {
+				// Prepare the timeout timer
+				Thread timer = new Thread(new Runnable() {
+	
+					@Override
+					public void run() {
+						synchronized (this) {
+							try {
+								this.wait(30000);
+							} catch (InterruptedException e) {
+							}
+							theGame.triggerNewGame();
 						}
-						theGame.triggerNewGame();
 					}
-				}
-			});
+				});
+
 
 			timer.start();
 
@@ -146,24 +153,44 @@ public class ConsoleUi implements Observer {
 			// avoid multiple streams messing with each other, we wait for 1
 			// second
 			synchronized (this) {
-				/*
-				 * We'll try to make sure this is executed in a synchronized
-				 * manner with the rest of the program.
-				 * 
-				 * IDEALLY, while this waits the model should be updated and
-				 * when this wakes up things are back to normal
-				 */
-				try {
-					this.wait(1000);
-				} catch (InterruptedException e) {
-					// GOOD we stop here
+					/*
+					 * We'll try to make sure this is executed in a synchronized
+					 * manner with the rest of the program.
+					 * 
+					 * IDEALLY, while this waits the model should be updated and
+					 * when this wakes up things are back to normal
+					 */
+					try {
+						this.wait(1000);
+					} catch (InterruptedException e) {
+						// GOOD we stop here
+					}
 				}
+	
+				if (theGame.isGameOver()) {
+					break;
+				}
+	
 			}
-
-			if (theGame.isGameOver()) {
-				break;
+	
+			System.out.println();
+			System.out.println();
+			System.out.println("The game is over, what would you like to do know?");
+			System.out.print("(New, Restart, Exit)");
+	
+			try {
+				String input = (new BufferedReader(new InputStreamReader(System.in)))
+						.readLine();
+			} catch (IOException e) {
 			}
-
+	
+			// Temp, while we get everything working fine
+			System.out.println("Goodbye!");
+	
+			// If computer player -- Start timer and listen.
+			// If human -- prompt for guess
+			// Notified of guess feedback
+			// Prompt for another guess.
 		}
 
 		System.out.println();
@@ -186,6 +213,7 @@ public class ConsoleUi implements Observer {
 		// If human -- prompt for guess
 		// Notified of guess feedback
 		// Prompt for another guess.
+
 	}
 
 	/**
@@ -358,6 +386,7 @@ public class ConsoleUi implements Observer {
 		String[] inputcode = null;
 		if (codeMaker != null) {
 			codeMaker.setSecretCode();
+			return;
 		} else {
 			// Use this line for the testing version
 			inputcode = getCode("Set Secret Code!", Code.NUM_OF_PEGS);
@@ -403,7 +432,7 @@ public class ConsoleUi implements Observer {
 	 */
 	private void setSettings() {
 
-		boolean codeMakerIsComputer;
+		
 		IGameMode mode;
 		// If null it means its a computer codebreaker
 		ComputerGuessBehavior computer = null;
@@ -434,6 +463,7 @@ public class ConsoleUi implements Observer {
 		// If the code breaker is a computer, let the user pick the only
 		// possible algorithm
 		if (codeBreaker == 0) {
+			codeBreakerIsComputer = true;
 			algorithm = showMenu(
 					"The codebreaker is a computer, select an algorithm",
 					new Object[] { "random" });
@@ -441,10 +471,8 @@ public class ConsoleUi implements Observer {
 				computer = new RandomGuess(gameController);
 			}
 
-		}
-
-		if (codeBreaker == 0) {
-			this.theGame.setCodeMaker(new ComputerCodemaker(gameController));
+		}else{
+			codeBreakerIsComputer = false;
 		}
 
 		// Generate the mode based on the pick
