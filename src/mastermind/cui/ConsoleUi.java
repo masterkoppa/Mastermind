@@ -2,8 +2,7 @@ package mastermind.cui;
 
 import java.io.*;
 import java.util.ArrayList;
-
-import javax.swing.SwingUtilities;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import mastermind.core.*;
 import mastermind.core.codebreaker.ComputerGuessBehavior;
@@ -32,6 +31,8 @@ public class ConsoleUi implements Observer {
 	private PlayList data;
 
 	private boolean waitingState;
+	
+	private AtomicInteger numberOfWins;
 
 	public ConsoleUi() {
 		this.availableColors = new ArrayList<String>();
@@ -42,18 +43,21 @@ public class ConsoleUi implements Observer {
 		for (ColorPeg i : ColorPeg.values()) {
 			availableColors.add(i.getShortName());
 		}
-		// Initialize the main game model, this model is persistent
-		// through all the games
 		theGame = new GameModel();
-		data = new PlayList(MAX_NUMBER_OF_GUESSES);
-		data.register(this);
-		gameController = new GameController(theGame, data);
-		this.register();
+		numberOfWins = new AtomicInteger(0);
 		run();
 
 	}
 
 	private void run() {
+		// Initialize the main game model, this model is persistent
+		// through all the games
+		theGame.newGame();
+		numberOfWins.set(0);
+		data = new PlayList(MAX_NUMBER_OF_GUESSES);
+		data.register(this);
+		gameController = new GameController(theGame, data);
+		this.register();
 		printBoxedTitle("Welcome to Mastermind!");
 		setSettings();
 		playGame();
@@ -105,11 +109,12 @@ public class ConsoleUi implements Observer {
 
 			String[] code = getCode("Guess #" + (i + 1), Code.NUM_OF_PEGS);
 
-			// This means that the timer ran out
+			// This means that the timer ran out or that a command was issued in the code selection
 			if (code == null) {
 				break;
 			}
-
+			
+			//Too close to the deadline to make anything more elegant, it shouldn't be too bad
 			timer.stop();
 
 			Code guess = this.stringArrayToCode(code);
@@ -169,7 +174,9 @@ public class ConsoleUi implements Observer {
 		try {
 			String input = (new BufferedReader(new InputStreamReader(System.in)))
 					.readLine();
+			this.processCommand(input);
 		} catch (IOException e) {
+			System.out.println("Encountered error....");
 		}
 
 		// Temp, while we get everything working fine
@@ -260,6 +267,11 @@ public class ConsoleUi implements Observer {
 			boolean valid = true;
 			if (code.length > numOfPegs)
 				valid = false;
+			else if(code.length == 1){
+				//A command was possible issued
+				this.processCommand(code[0]);
+				return null;
+			}
 			for (String a : code) {
 				if (!this.availableColors.contains(a))
 					valid = false;
@@ -460,6 +472,27 @@ public class ConsoleUi implements Observer {
 	public void register() {
 		this.theGame.register(this);
 	}
+	
+	public void processCommand(String command){
+		while(true){
+			if(command.equalsIgnoreCase("Exit")){
+				System.exit(0);
+			} else if(command.equalsIgnoreCase("Restart")){
+				System.out.println();
+				System.out.println("Restarting the system");
+				System.out.println();
+				System.out.println();
+				restartGame();
+			} else if(command.equalsIgnoreCase("New")){
+				run();
+			} else{
+				System.out.println("Error, incorrect command.");
+				System.out.println("The System will now exit, goodbye!");
+				
+				System.exit(3);
+			}
+		}
+	}
 
 	@Override
 	public void notifyChange() {
@@ -481,8 +514,10 @@ public class ConsoleUi implements Observer {
 				System.out.println("The user has timed out...");
 				System.out.println("The system will now exit, goodbye!");
 				System.exit(1);
-			} else {
+			} else if(numberOfWins.getAndAdd(1) == 0){
 				System.out.println(theGame.getWinningMessage());
+			} else{
+				//This is repeating ignore the call
 			}
 		}
 	}
