@@ -218,7 +218,7 @@ public class GameController implements IGameController, Observer {
 		this.state.setSettings(gameGuesses, codeMaker, mode, guessStrategy,
 				guessInterval);
 		this.state = new SettingsSelected(this.game);
-		this.dataBackend = new PlayList(gameGuesses);
+		//this.dataBackend = new PlayList(gameGuesses);
 	}
 
 	public Boolean isCodemakerComputer() {

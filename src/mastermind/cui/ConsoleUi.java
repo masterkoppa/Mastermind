@@ -40,7 +40,7 @@ public class ConsoleUi implements Observer {
 	public ConsoleUi() {
 		this.availableColors = new ArrayList<String>();
 
-		waitingState = false;
+		waitingState = true;
 
 		// Get all the available colors for code in the system
 		for (ColorPeg i : ColorPeg.values()) {
@@ -80,7 +80,7 @@ public class ConsoleUi implements Observer {
 	@SuppressWarnings("deprecation")
 	private void playGame() {
 		boolean secretCodeSubmitted = false;
-
+		
 		// Get secret code
 		do {
 			try {
@@ -526,9 +526,16 @@ public class ConsoleUi implements Observer {
 	public void notifyChange() {
 		if (waitingState) {
 			Guess lastGuess = data.getLatestMove();
-			if (lastGuess.getFeedback() != null) {
-				System.out.println("Feedback: " + lastGuess.getShortFeedback());
-				waitingState = false;
+			if(lastGuess == null){
+				return;
+			}else{
+				System.out.println(lastGuess);
+				if (lastGuess.getFeedback() == null) {
+					return;
+				}else{
+					System.out.println("Feedback: " + lastGuess.getShortFeedback());
+					waitingState = false;
+				}
 			}
 		}
 

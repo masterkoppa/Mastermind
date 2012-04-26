@@ -77,6 +77,7 @@ public class PlayList extends Observable {
 				return;
 			}
 		}
+		
 		// If it gets here then we are full
 		throw new IllegalArgumentException(
 				"No more spaces to add new moves, all posible moves exhausted");
