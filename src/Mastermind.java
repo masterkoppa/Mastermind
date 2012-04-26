@@ -11,6 +11,7 @@ import mastermind.core.ColorPeg;
 import mastermind.core.GameModel;
 import mastermind.core.IGameState;
 import mastermind.core.controller.*;
+import mastermind.cui.ConsoleUi;
 import mastermind.gui.*;
 import mastermind.interfaces.Observer;
 
@@ -185,7 +186,17 @@ public class Mastermind implements Observer {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new Mastermind().createAndShowWindow();
+		if(args.length > 0){
+			if(args[0].equalsIgnoreCase("Console")){
+				new ConsoleUi();
+			} else{
+				System.out.println("Usage:");
+				System.out.println("\tConsole - To enable the Comand Line Interface");
+				System.out.println("\tEMPTY   - To Use the Graphical User Interface");
+			}
+		}else{
+			new Mastermind().createAndShowWindow();
+		}
 	}
 
 	@Override
