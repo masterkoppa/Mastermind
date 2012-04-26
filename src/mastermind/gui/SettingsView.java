@@ -48,11 +48,11 @@ public class SettingsView extends JPanel {
 
 	private GridBagConstraints c;
 
-	private IGameController controller;
+	private IGameController gameController;
 
-	public SettingsView(final IGameController controller) {
+	public SettingsView(IGameController controller) {
 		super();
-		this.controller = controller;
+		this.gameController = controller;
 
 		settingsWindow = new JPanel();
 
@@ -106,7 +106,7 @@ public class SettingsView extends JPanel {
 
 					if (codebreakerIsComputer) {
 						if (difficultyString == "Random") {
-							behavior = new RandomGuess(controller);
+							behavior = new RandomGuess(gameController);
 						}
 					}
 
@@ -122,7 +122,7 @@ public class SettingsView extends JPanel {
 					System.out.println("Interval: " + interval);
 					System.out.println("Num guesses: " + numGuesses);
 
-					controller.setSettings(numGuesses, codemakerIsComputer,
+					gameController.setSettings(numGuesses, codemakerIsComputer,
 							gameMode, behavior, interval);
 				} catch (Exception ex) {
 					ex.printStackTrace();
