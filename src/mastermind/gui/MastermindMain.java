@@ -23,15 +23,20 @@ import mastermind.interfaces.Observer;
 
 public class MastermindMain extends JPanel implements Observer {
 
+	/**
+	 * Generated serial version uid
+	 */
+	private static final long serialVersionUID = 5305973473048673792L;
 	// MODELS AND CONTROLLERS
 	private PlayList dataBackend;
 	private GameModel currentGame;
 	private IGameController controller;
 	private boolean newGameSelected;
+	
 	// Make this static to make sure no one tries to make more than one popup
-	private boolean gameIsOver;
 	private static AtomicInteger popupCount;
-
+	private boolean gameIsOver;
+	
 	// GUI VARIABLES
 	private MastermindBoard board;
 	private JButton submit;
@@ -56,7 +61,7 @@ public class MastermindMain extends JPanel implements Observer {
 		// Register after initializing everything
 		this.register();
 
-		this.popupCount = new AtomicInteger(0);
+		MastermindMain.popupCount = new AtomicInteger(0);
 
 		if (null != this.currentGame.getGuessStrategy())
 			this.controller.startAI();
@@ -92,7 +97,7 @@ public class MastermindMain extends JPanel implements Observer {
 	 */
 	private synchronized void showWinningMessage(String winningMessage) {
 		System.out.println("Called");
-		if (!gameIsOver && this.popupCount.getAndAdd(1) == 0) {
+		if (!gameIsOver && MastermindMain.popupCount.getAndAdd(1) == 0) {
 			JOptionPane.showMessageDialog(this, winningMessage);
 			gameIsOver = true;
 		}
