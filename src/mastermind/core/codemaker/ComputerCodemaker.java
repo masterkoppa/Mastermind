@@ -16,9 +16,7 @@ public class ComputerCodemaker implements ICodemaker {
 
 	@Override
 	public void setSecretCode() {
-		
-		
-		Boolean validCode = false;
+		boolean validCode = false;
 		
 		do
 		{
