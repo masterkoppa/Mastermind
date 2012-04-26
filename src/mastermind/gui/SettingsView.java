@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -96,8 +97,8 @@ public class SettingsView extends JPanel {
 						gameMode = new ExpertMode();
 					}
 
-					Boolean codemakerIsComputer = compCodemaker.isSelected();
-					Boolean codebreakerIsComputer = compCodebreaker
+					boolean codemakerIsComputer = compCodemaker.isSelected();
+					boolean codebreakerIsComputer = compCodebreaker
 							.isSelected();
 
 					String difficultyString = compCodebreakerSelect
@@ -124,8 +125,8 @@ public class SettingsView extends JPanel {
 
 					gameController.setSettings(numGuesses, codemakerIsComputer,
 							gameMode, behavior, interval);
-				} catch (Exception ex) {
-					ex.printStackTrace();
+				} catch (RuntimeException ex) {
+					//ex.printStackTrace();
 					JOptionPane
 							.showMessageDialog(SettingsView.this,
 									"Please make sure all settings have been set before continuing.");
@@ -252,13 +253,13 @@ public class SettingsView extends JPanel {
 		settingsWindow.add(compCodebreakerSelect, c);
 
 		// add the label for the guess interval slider
-		guessIntervalLabel = new JLabel("Guess Interval");
+		guessIntervalLabel = new JLabel("Guess Interval: 15 s");
 		c.gridx = 1;
 		c.gridy = 4;
 		settingsWindow.add(guessIntervalLabel, c);
 
 		// add the slider for guess interval
-		guessIntervalSlider = new JSlider();
+		guessIntervalSlider = new JSlider(1, 30);
 		c.gridx = 2;
 		c.gridy = 4;
 		guessIntervalSlider.addChangeListener(new ChangeListener() {
@@ -266,7 +267,11 @@ public class SettingsView extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				guessIntervalSlider.setToolTipText(Integer
-						.toString(guessIntervalSlider.getValue()));
+						.toString(guessIntervalSlider.getValue()) + " s");
+				NumberFormat number = NumberFormat.getInstance();
+				number.setMinimumIntegerDigits(2);
+
+				guessIntervalLabel.setText("Guess Interval: " + number.format((double)guessIntervalSlider.getValue()) + " s");
 			}
 
 		});
