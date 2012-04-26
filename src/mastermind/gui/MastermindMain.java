@@ -42,6 +42,7 @@ public class MastermindMain extends JPanel implements Observer {
 	private JButton submit;
 	private JButton undo;
 	private JButton newGame;
+	private JCheckBox logging;
 
 	public MastermindMain(IGameController controller) {
 		this.dataBackend = controller.getPlaylist();
@@ -65,8 +66,19 @@ public class MastermindMain extends JPanel implements Observer {
 
 		if (null != this.currentGame.getGuessStrategy())
 			this.controller.startAI();
-
-		System.out.println("MainView Created()");
+		
+		//If the codebreaker is ai disable the submit button
+		if(this.currentGame.isCodeBreakerAI()){
+			submit.setEnabled(false);
+		}
+		
+		//If the logging was selected before, mark it as enabled
+		
+		if(this.currentGame.isLoggingEnabled()){
+			logging.setSelected(true);
+		}
+		
+		//System.out.println("MainView Created()");
 	}
 
 	@Override
@@ -156,7 +168,7 @@ public class MastermindMain extends JPanel implements Observer {
 
 		});
 
-		JCheckBox logging = new JCheckBox("Logging Enabled");
+		logging = new JCheckBox("Logging Enabled");
 
 		logging.addActionListener(new ActionListener() {
 

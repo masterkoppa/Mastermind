@@ -306,13 +306,16 @@ public class SettingsView extends JPanel {
 		c.gridwidth = 2;
 		settingsWindow.add(numGuessesLabel, c);
 
-		// add the text field for the number of guesses
+		// Generate all the posibilities for the spinner
 		String[] posibilities = new String[41];
 		for(int i = 0; i < 41; i++){
 			posibilities[i] = Integer.toString(i+10);
 		}
+		
+		//Create the model for the JSpinner
 		SpinnerListModel optionsModel = new SpinnerListModel(posibilities);
 		
+		//Create the JSpinner based on the options model
 		numGuessesField = new JSpinner(optionsModel);
 		c.gridx = 2;
 		c.gridy = 5;
