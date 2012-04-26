@@ -9,10 +9,11 @@ import mastermind.core.IGameState;
 import mastermind.core.controller.IGameController;
 
 /**
- * This class provides access to factory methods for generating Gui JPanels for the system.
+ * This class provides access to factory methods for generating GUI JPanels for
+ * the system.
  * 
  * @author Andrew Church
- *
+ * 
  */
 public class ViewFactory {
 
@@ -29,7 +30,8 @@ public class ViewFactory {
 	 * This method is a factory method to return the correct JPanel for the
 	 * given state of the game
 	 * 
-	 * @return
+	 * @return The JPanel representing the view that needs to be shown according
+	 *         to the current state of the game
 	 */
 	public JPanel getViewForState() {
 		IGameState theState = theController.getGameState();
@@ -37,15 +39,17 @@ public class ViewFactory {
 		if (theState instanceof GameNotStarted) {
 			return new SettingsView(this.theController);
 		} else if (theState instanceof SettingsSelected) {
+			
 			if (theController.isCodemakerComputer()) {
 				return new MastermindMain(this.theController).getView();
 			} else {
 				return new CodeMakerPanel(this.theController);
 			}
+			
 		} else if (theState instanceof SecretCodeSet) {
 			return new MastermindMain(this.theController).getView();
 		}
-
+		
 		throw new IllegalStateException();
 	}
 }
