@@ -191,29 +191,29 @@ public class ConsoleUi implements Observer {
 			// If human -- prompt for guess
 			// Notified of guess feedback
 			// Prompt for another guess.
+		
+
+			System.out.println();
+			System.out.println();
+			System.out.println("The game is over, what would you like to do know?");
+			System.out.print("(New, Restart, Exit)");
+	
+			try {
+				String input = (new BufferedReader(new InputStreamReader(System.in)))
+						.readLine();
+				this.processCommand(input);
+			} catch (IOException e) {
+				System.out.println("Encountered error....");
+			}
+	
+			// Temp, while we get everything working fine
+			System.out.println("Goodbye!");
+	
+			// If computer player -- Start timer and listen.
+			// If human -- prompt for guess
+			// Notified of guess feedback
+			// Prompt for another guess.
 		}
-
-		System.out.println();
-		System.out.println();
-		System.out.println("The game is over, what would you like to do know?");
-		System.out.print("(New, Restart, Exit)");
-
-		try {
-			String input = (new BufferedReader(new InputStreamReader(System.in)))
-					.readLine();
-			this.processCommand(input);
-		} catch (IOException e) {
-			System.out.println("Encountered error....");
-		}
-
-		// Temp, while we get everything working fine
-		System.out.println("Goodbye!");
-
-		// If computer player -- Start timer and listen.
-		// If human -- prompt for guess
-		// Notified of guess feedback
-		// Prompt for another guess.
-
 	}
 
 	/**
